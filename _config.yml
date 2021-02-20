@@ -12,7 +12,7 @@ github_repo: "https://github.com/Kaslanarian/Kaslanarian.github.io.git" # you co
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
 sidebar-about-description: "以陨天苍岩星，昭命理昏暝者"
-sidebar-avatar: /img/hler.png # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/bough_keeper.png # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # SNS settings
 RSS: false
