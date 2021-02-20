@@ -7,7 +7,7 @@ author:     Wang Pei
 header-img: img/post-bg-swift2.jpg
 catalog: true
 tags:
-    - Tylor
+    - Test
 ---
 
 
