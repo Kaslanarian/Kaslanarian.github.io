@@ -1,9 +1,9 @@
 # Site settings
 title: My Blog
-SEOTitle: 我的博客 | My Blog
+SEOTitle: 我的博客 | Welt Xing's Blog
 header-img: img/post-bg-desk.jpg
-email: 暂无
-description: "写一句你想写的话"
+email: 191300064@smail.nju.edu.cn
+description: "尘世闲游，听凭风引"
 keyword: "我的博客"
 url: "http://Kaslanarian.github.io" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
@@ -17,11 +17,10 @@ sidebar-avatar: /img/bough_keeper.png # use absolute URL, seeing it's used in bo
 # SNS settings
 RSS: false
 # weibo_username:     暂无
-zhihu_username: 暂无
-github_username: 暂无
+zhihu_username: "https://www.zhihu.com/people/kaslana-52"
+github_username: "https://github.com/Kaslanarian"
 facebook_username: 暂无
 jianshu_username: 暂无
-#twitter_username:   暂无
 
 # Build settings
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
@@ -50,7 +49,7 @@ gitalk:
     enable: true #是否开启Gitalk评论
     clientID: #生成的clientID
     clientSecret: #生成的clientSecret
-    repo: name.github.io #仓库名称
+    repo: Kaslanarian.github.io #仓库名称
     owner: #github用户名
     admin:
     distractionFreeMode: true #是否启用类似FB的阴影遮罩
@@ -74,9 +73,4 @@ service-worker: true
 
 # Friends
 friends:
-    [
-        { title: "WP", href: "https://wangpei.ink" },
-        { title: "简书·BY", href: "http://www.jianshu.com/u/e71990ada2fd" },
-        { title: "Apple", href: "https://apple.com" },
-        { title: "Apple Developer", href: "https://developer.apple.com/" },
-    ]
+
