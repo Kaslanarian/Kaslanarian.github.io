@@ -17,8 +17,8 @@ sidebar-avatar: /img/bough_keeper.png # use absolute URL, seeing it's used in bo
 # SNS settings
 RSS: false
 # weibo_username:     暂无
-zhihu_username: "https://www.zhihu.com/people/kaslana-52"
-github_username: "https://github.com/Kaslanarian"
+zhihu_username: "kaslana-52"
+github_username: "Kaslanarian"
 facebook_username: 暂无
 jianshu_username: 暂无
 
