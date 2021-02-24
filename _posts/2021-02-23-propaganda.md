@@ -8,7 +8,7 @@ header-img: img/star_whale.jpg
 catalog:    true
 categories: daily
 tags:
-    - 杂谈
+    - 日常
 ---
 
 # 2021南星计划相关
