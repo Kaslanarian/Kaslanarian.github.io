@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     page
 title:      2021宣讲
 subtitle:   南京大学 & 安庆二中
 date:       2021-02-22
