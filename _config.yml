@@ -75,3 +75,12 @@ service-worker: true
 
 # Friends
 friends:
+
+navbar-links:
+  主页: "https://zoharandroid.github.io"
+  分类: "https://zoharandroid.github.io/categories/"
+  标签: "https://zoharandroid.github.io/tags/"
+  项目:
+    - Learn markdown: "http://www.markdowntutorial.com/"
+  关于我: "aboutme"
+  搜索: "search"
