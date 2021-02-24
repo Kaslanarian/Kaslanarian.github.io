@@ -1,11 +1,12 @@
 ---
-layout:     page
+layout:     post
 title:      2021宣讲
 subtitle:   南京大学 & 安庆二中
 date:       2021-02-22
 author:     Welt Xing
 header-img: img/star_whale.jpg
 catalog:    true
+categories: daily
 tags:
     - 杂谈
 ---
