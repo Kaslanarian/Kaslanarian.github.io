@@ -35,7 +35,7 @@ $$
 是一族开区间，那么有
 
 $$
-[a,b]\subset\mathop\cup\limits_{\alpha\in\Lambda} I_{\alpha}\to\exist\{\alpha_1,\alpha_2,\cdots,\alpha_k\}\subset\Lambda,使得[a,b]\subset\mathop\cup\limits_{i=1}^kI_{\alpha_i}\tag{2}
+[a,b]\subset\mathop\cup\limits_{\alpha\in\Lambda} I_{\alpha}\to\exists\{\alpha_1,\alpha_2,\cdots,\alpha_k\}\subset\Lambda,使得[a,b]\subset\mathop\cup\limits_{i=1}^kI_{\alpha_i}\tag{2}
 $$
 
 #### 区间套定理
@@ -55,7 +55,7 @@ $$
 那么
 
 $$
-\exist!a\in\R,a\in[a_n,b_n],n=1,2,3,\cdots\tag{3}
+\exists!a\in\mathbb{R},a\in[a_n,b_n],n=1,2,3,\cdots\tag{3}
 $$
 
 即：
@@ -69,19 +69,19 @@ $$
 设$\{f_n(x)\}$是定义在$E$上的函数列，若$x$是使该函数列收敛于$0$的点，则：
 
 $$
-\forall\epsilon>0,\exist N\in\N,s.t.\;\forall n\ge N,|f_n(x)|<\epsilon\tag{1}
+\forall\epsilon>0,\exists N\in\mathbb{N},s.t.\;\forall n\ge N,|f_n(x)|<\epsilon\tag{1}
 $$
 
 转换：
 
 $$
-\{x:\lim_{n\to\infty}f_n(x)=0\}=\mathop\cap\limits_{\epsilon\in\R^+}\mathop\cup\limits_{N=1}^\infty\mathop\cap\limits_{n=N}^\infty\{x:|f_n(x)|<\epsilon\}\tag{2}
+\{x:\lim_{n\to\infty}f_n(x)=0\}=\mathop\cap\limits_{\epsilon\in\mathbb{R}^+}\mathop\cup\limits_{N=1}^\infty\mathop\cap\limits_{n=N}^\infty\{x:|f_n(x)|<\epsilon\}\tag{2}
 $$
 
 运用德摩根公式将上述语句取反：
 
 $$
-\{x:\lim_{n\to\infty}f_n(x)\neq0或不存在\}=\mathop\cup\limits_{\epsilon\in\R^+}\mathop\cap\limits_{N=1}^\infty\mathop\cup\limits_{n=N}^\infty\{x:|f_n(x)|\ge\epsilon\}\tag{3}
+\{x:\lim_{n\to\infty}f_n(x)\neq0或不存在\}=\mathop\cup\limits_{\epsilon\in\mathbb{R}^+}\mathop\cap\limits_{N=1}^\infty\mathop\cup\limits_{n=N}^\infty\{x:|f_n(x)|\ge\epsilon\}\tag{3}
 $$
 
 #### 上极限和下极限
