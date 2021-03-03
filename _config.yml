@@ -1,10 +1,10 @@
 # Site settings
 title: Vago Mundo
-SEOTitle: 我的博客 | Welt Xing's Blog
+SEOTitle: 邢存远的博客 | Welt Xing's Blog
 header-img: img/post-bg-desk.jpg
 email: 191300064@smail.nju.edu.cn
 description: "尘世闲游，听凭风引"
-keyword: "我的博客"
+keyword: "邢存远的博客"
 url: "http://Kaslanarian.github.io" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/Kaslanarian/Kaslanarian.github.io.git" # you code repository
