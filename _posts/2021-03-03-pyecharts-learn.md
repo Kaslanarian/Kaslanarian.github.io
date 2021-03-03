@@ -161,4 +161,23 @@ bar.render()
 
 ### 初始化配置项
 
-我们在[使用主题](###使用主题)
+我们在之前设置主题时用到了下面的语句：
+
+```python
+Bar(init_opts=opts.InitOpts(theme=ThemeType.LIGHT)
+```
+
+这里就是初始化配置项填写的位置，具体参数说明：
+
+|     参数名     |          数据类型          |       默认值        |                             说明                             |
+| :------------: | :------------------------: | :-----------------: | :----------------------------------------------------------: |
+|     width      |            str             |       "900px"       |                  图表画布宽度，css长度单位                   |
+|     height     |            str             |       "500px"       |                  图表画布高度，css长度单位                   |
+|    chart_id    |       Optional[str]        |        None         |          图表 ID，图表唯一标识，用于在多图表时区分           |
+|    renderer    |            str             |      "canvas"       |                渲染风格，可选 "canvas"，"svg"                |
+|   page_title   |            str             | "Awesome-pyecharts" |                           网页标题                           |
+|     theme      |            str             |       "white"       |                           图表主题                           |
+|    bg_color    |       Optional[str]        |        None         |                         图表背景颜色                         |
+|    js_host     |            str             |         ""          | 远程 js host，如不设置默认为 https://assets.pyecharts.org/assets/" |
+| animation_opts | Union[AnimationOpts, dict] |   AnimationOpts()   |   画图动画初始化配置，参考 `global_options.AnimationOpts`    |
+
