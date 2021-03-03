@@ -59,7 +59,7 @@ gitalk:
 
 # Analytics settings
 # Baidu Analytics
-ba_track_id:
+ba_track_id:    8dea5c02aae248a2baf01c29381d72bc
 # Google Analytics
 ga_track_id:    G-MVHVLE31FV
 ga_domain:      welts.xyz
