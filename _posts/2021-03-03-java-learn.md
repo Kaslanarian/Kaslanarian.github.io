@@ -40,7 +40,7 @@ Java程序既是编译型，又是解释型的：
 
 ## Hello World
 
-我们将不再依赖一键编译运行工具，例如`code-runner`，一些IDE等去运行一个`Hello World`，而是通过自己的理解去用命令行写出来：
+这里，我们将不再依赖一键编译运行工具，例如`code-runner`，一些IDE等去运行一个`Hello World`，而是通过自己的理解去用命令行写出来：
 
 ```java
 public class Main {
@@ -67,8 +67,8 @@ public class Main {
 那么我们需要做什么？先编译后运行：
 
 ```bash
->> javac Main.java # Main.class文件
->> java Main
+>> javac Main.java # 会生成Main.class文件
+>> java Main       # 运行的是Main这个类
 Hello world
 ```
 
@@ -78,3 +78,72 @@ Hello world
 
 该部分着重强调的是`Java`语法与`C/C++`，`Python`语法的区别和联系，便于笔者记忆和学习，建议有一定`C/C++`语言基础的读者观看。
 
+#### 基本数据类型
+
+##### 整数类型
+
+- 八进制表示：以0开头，`0123`就是十进制的`83`；
+
+- 多出一个`byte`类型表示`int8`；
+
+##### 浮点类型
+
+- 小数默认被看做`double`，如果想要是`float`就要在后面加上`f`或者`F`
+    
+    ```java
+    float f1 = 13.23f;
+    double d1 = 4562.12d;
+    double d2 = 45678.1564;
+    ```
+
+##### 字符类型
+
+- Java里的`char`占两个字节，是`C/C++`的两倍，使得java的字符几乎可以处理所有国家的语言文字:
+
+    我们若在`C`中运行下面的程序：
+
+    ```c
+    int main() {
+        char c = '你';
+        printf("%c\n", c);
+        return 0;
+    }
+    ```
+
+    程序会报错，因为此时字符‘你’不在ASCII表内，属于`overflow`；
+
+    但在Java中：
+
+    ```java
+    public static void main(String[] args) {
+        char c = '你';
+        System.out.println(c);
+    }
+    ```
+
+    程序会正确输出‘你’，这就是差异。
+
+##### 布尔类型
+
+- 此处的布尔类型为`boolean`，而不是`C++`中的`bool`，但两个字面量`true`和`false`是相同的。
+
+#### 变量和常量
+
+##### 常量的声明
+
+Java中我们用`const`关键字声明一个常量，而且常量是否为成员变量会影响其用法：
+
+```java
+public class Main {
+    static final int member_final = 1;
+    public static void main(String[] args) {
+        final int local_final;
+        local_final = 2;
+        System.out.println(local_final);
+    }
+}
+```
+
+- 如果`member_final`(成员常量)只声明不赋值，那么会报错；
+
+- 如果`local_final`(局部常量)只声明不赋值是可以的，但之后必须被赋值，也只能被赋值一次，否则报错；
