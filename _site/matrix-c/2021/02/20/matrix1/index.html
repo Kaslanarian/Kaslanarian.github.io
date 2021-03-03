@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                inlineMath: [['$','$']]
+                }
+            });
+        </script>
+    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="尘世闲游，听凭风引">
+    <meta name="keywords"  content="邢存远的博客">
+    <meta name="theme-color" content="#000000">
+    
+    <title>C++构建Matrix类(0) - 邢存远的博客 | Welt Xing's Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/matrix-c/2021/02/20/matrix1/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Vago Mundo</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/catagories/">class</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tag</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/matrix1_header.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/matrix1_header.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#matrix-c" title="matrix-c">matrix-c</a>
+                        
+                    </div>
+                    <h1>C++构建Matrix类(0)</h1>
+                    
+                    
+                    <h2 class="subheading">设计概要</h2>
+                    
+                    <span class="meta">Posted by Welt Xing on February 20, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h1 id="c构建matrix类0">C++构建Matrix类(0)</h1>
+
+<h2 id="设计概要">设计概要</h2>
+
+<p>2019年第一次接触C++，当时二维数组和线性代数中的行列式/矩阵变换几乎是同时学习（大概），当时尝试用简单的单源文件实现了一个行变换求逆矩阵的程序；之后琢磨出行列式的递归求法(逐行变换)后，编写伴随矩阵算法成功算出逆矩阵；但由于代码量的增加，<code class="highlighter-rouge">Windows</code>平台+<code class="highlighter-rouge">.h</code>文件+<code class="highlighter-rouge">.cc</code>文件已经不能满足需求，随即搁置。2020秋的《计算机系统基础》，教会我<code class="highlighter-rouge">Linux</code>平台+多源文件编译+<code class="highlighter-rouge">Makefile</code>+<code class="highlighter-rouge">Github</code>的手段管理大型项目，寒假里与<code class="highlighter-rouge">MATLAB</code>的接触也让我萌生重启之前工作的想法。目前<a href="https://github.com/Kaslanarian/matrix-C">Matrix-C</a>已经支持如下功能：</p>
+
+<ol>
+  <li>
+    <p>矩阵输入(<code class="highlighter-rouge">C</code>数组模式和<code class="highlighter-rouge">MATALB</code>模式)和输出；</p>
+  </li>
+  <li>
+    <p>矩阵的加、减、乘和（右）除等四则运算；</p>
+  </li>
+  <li>
+    <p>矩阵的行列式，逆，阶梯化；</p>
+  </li>
+  <li>
+    <p>矩阵的分割，转置和翻转；</p>
+  </li>
+  <li>
+    <p>求实特征值，及其对应的特征向量；</p>
+  </li>
+  <li>
+    <p>几种常用的矩阵分解算法；</p>
+  </li>
+  <li>
+    <p>类<code class="highlighter-rouge">MATLAB</code>和<code class="highlighter-rouge">Python</code>的交互式表达式/变量求值</p>
+  </li>
+  <li>
+    <p>…</p>
+  </li>
+</ol>
+
+<p>效果展示：<img src="/img/matrix1_1.png" alt="实现效果" /></p>
+
+<p>寒假临近结束，这段时间准备将知识做整理，记录第一次建工程的过程以及学习矩阵相关知识所得。</p>
+
+<h2 id="文件结构">文件结构</h2>
+
+<p><code class="highlighter-rouge">Matrix-C</code>的文件结构力求模块间解耦和独立，减少模块间的互相影响：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">.</span>
+├── include              <span class="c"># 头文件文件夹</span>
+│   ├── basic.h          <span class="c"># 基础的数学函数，比如四舍五入(round)</span>
+│   ├── debug.h          <span class="c"># 用于Debug的宏：Assert, Log, ...</span>
+│   ├── expr.h           <span class="c"># 表达式/变量求职</span>
+│   ├── macro.h          <span class="c"># 宏定义，简化代码量</span>
+│   ├── math_helper.h    <span class="c"># 数学相关函数：求行列式，矩阵分解...</span>
+│   ├── matrix.h         <span class="c"># 矩阵类数据结构的定义</span>
+│   ├── operation.h      <span class="c"># 对矩阵可进行的操作：翻转...</span>
+│   ├── shape.h          <span class="c"># Shape元组类</span>
+│   └── test-program.h   <span class="c"># 交互式程序界面，可以进行多项测试</span>
+├── lib
+│   └── libmatrix.a      <span class="c"># 动态链接库，《计算机系统基础》所学，可以在任意程序中使用Matrix</span>
+├── main.cc              <span class="c"># main函数，用于测试</span>
+├── Makefile             <span class="c"># Makefile</span>
+├── README.md            <span class="c"># Guide：可读性不高，具体内容将转移到该网站上</span>
+└── src                  <span class="c"># 与头文件夹中文件对应的实现</span>
+    ├── basic.cc
+    ├── expr.cc
+    ├── math_helper.cc
+    ├── matrix.cc
+    ├── operation.cc
+    ├── shape.cc
+    └── test-program.cc
+</code></pre></div></div>
+
+<h2 id="熟悉项目编译运行">熟悉项目编译运行</h2>
+
+<p>在<code class="highlighter-rouge">Linux</code>命令行或者是<code class="highlighter-rouge">Windows</code>的<code class="highlighter-rouge">GIT BASH</code>中输入：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/Kaslanarian/matrix-C
+</code></pre></div></div>
+
+<p>就可以获取到项目源代码，建议先将<code class="highlighter-rouge">main.cc</code>的<code class="highlighter-rouge">main</code>函数体清空以便测试；先将所有的源文件编译成可重定向文件：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g++ <span class="nt">-c</span> src/basic.cc 
+g++ <span class="nt">-c</span> src/expr.cc 
+g++ <span class="nt">-c</span> src/math_helper.cc 
+g++ <span class="nt">-c</span> src/matrix.cc 
+g++ <span class="nt">-c</span> src/operation.cc 
+g++ <span class="nt">-c</span> shape.cc 
+g++ <span class="nt">-c</span> test-program.cc
+</code></pre></div></div>
+
+<p>将这些目标文件进行链接成一个可执行文件：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># "*.o"是正则表达式语法，指该层文件夹中所有以".o"结尾的文件，将他们链接成一个可执行文件main</span>
+g++ <span class="k">*</span>.o <span class="nt">-o</span> main 
+</code></pre></div></div>
+
+<p>运行<code class="highlighter-rouge">main</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./main
+</code></pre></div></div>
+
+<p>无输出则编译运行成功:</p>
+
+<p><img src="/img/matrix1_2.png" alt="运行结果" /></p>
+
+<h2 id="关于程序中的一些宏">关于程序中的一些宏</h2>
+
+<p>程序中有很多为了保持代码简洁而使用的宏，它们都被放置在<code class="highlighter-rouge">macro.h</code>和<code class="highlighter-rouge">debug.h</code>中，接下来会进行相应的解释</p>
+
+<h3 id="数据类型">数据类型</h3>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define matrix_pair std::pair&lt;Matrix, Matrix&gt;
+</span></code></pre></div></div>
+
+<p>用于存储两个矩阵的数据结构：<code class="highlighter-rouge">matrix_pair.first</code>是第一个矩阵，<code class="highlighter-rouge">matrix_pair.second</code>是第二个矩阵，你可以在<a href="https://www.cplusplus.com/reference/utility/pair/">这里</a>查看<code class="highlighter-rouge">pair&lt;T, T&gt;</code>更详细的说明。</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define matrix_tuple std::tuple&lt;Matrix, Matrix, Matrix&gt;
+</span></code></pre></div></div>
+
+<p>用于存储三个矩阵的数据结构：<code class="highlighter-rouge">std::get&lt;0&gt;(matrix_tuple)</code>能够获取第一个矩阵，<code class="highlighter-rouge">std::get&lt;1&gt;(matrix_tuple)</code>获取第二个矩阵，<code class="highlighter-rouge">std::get&lt;2&gt;(matrix_tuple)</code>获取第三个矩阵，我们在$SVD$分解和特征分解中会使用到它，你可以在<a href="https://www.cplusplus.com/reference/tuple/tuple/">这里</a>查看<code class="highlighter-rouge">tuple</code>这个数据结构更详细的说明。</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define vec2vec2double std::vector&lt;std::vector&lt;double&gt;&gt;
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">matrix-c</code>中Matrix类的核心数据结构，表示一个以动态数组为元素的动态数组，可以理解为二位动态数组，你可以在<a href="https://www.cplusplus.com/reference/vector/vector/">这里</a>了解<code class="highlighter-rouge">vector</code>的使用方法。</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define vec2double std::vector&lt;double&gt;
+</span></code></pre></div></div>
+
+<p>动态数组，参考上一个宏定义。</p>
+
+<h3 id="功能性的宏">功能性的宏</h3>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define CLEAN_BUFFER  \
+    std::cin.clear(); \
+    std::cin.ignore(numeric_limits&lt;std::streamsize&gt;::max(), '\n')
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">C++</code>中用于清除缓冲区，在<a href="https://welts.xyz/matrix-c/2021/02/27/buffer/">这里</a>有关于缓冲区的介绍。</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define Assert(cond, ...)                 \
+    do {                                  \
+        if (!(cond)) {                    \
+            fflush(stdout);               \
+            fprintf(stderr, "\33[1;31m"); \
+            fprintf(stderr, __VA_ARGS__); \
+            fprintf(stderr, "\33[0m\n");  \
+            assert(cond);                 \
+        }                                 \
+    } while (0)
+</span></code></pre></div></div>
+
+<p>借鉴自<a href="https://github.com/NJU-ProjectN/nemu">NEMU</a>，用于在断言被触发时报告自定义信息：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="nf">devide</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Assert</span><span class="p">(</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"除数不能为0！"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果参数$b$为0，就会强行中断程序，然后输出红色的信息。</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define panic(...) Assert(0, __VA_ARGS__)
+</span></code></pre></div></div>
+
+<p>仍然借鉴自<a href="https://github.com/NJU-ProjectN/nemu">NEMU</a>，用于无条件中断，为调试带来方便。</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define Highlight(format, ...) \
+    printf("\33[1;35m" format "\33[0m\n", ##__VA_ARGS__)
+</span></code></pre></div></div>
+
+<p>取自<a href="https://github.com/NJU-ProjectN/nanos-lite">nano-lite</a>，用于高亮输出信息，常用于重要的提示信息。</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define TODO() panic("please implement me")
+</span></code></pre></div></div>
+
+<p>用于填充未实现的函数，防止编译链接时出现<code class="highlighter-rouge">undefined</code>的问题。</p>
+
+<h2 id="下期预告">下期预告</h2>
+
+<p>虽然成功编译运行了程序，但步骤过于繁琐，当修改文件后，又需要重新手动编译链接和运行，接下来我们将介绍<code class="highlighter-rouge">Makefile</code>，以便于我们一键编译运行。</p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/matrix-c/2021/02/20/matrix2/" data-toggle="tooltip" data-placement="top" title="C++构建Matrix类(1)">
+                        Next<br>
+                        <span>C++构建Matrix类(1)</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- 引入Gitalk评论插件  -->
+                <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+                <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+                <div id="gitalk-container"></div>
+                <!-- 引入一个生产md5的js，用于对id值进行处理，防止其过长 -->
+                <!-- Thank DF:https://github.com/NSDingFan/NSDingFan.github.io/issues/3#issuecomment-407496538 -->
+                <script src="/js/md5.min.js"></script>
+                <script type="text/javascript">
+                    var gitalk = new Gitalk({
+                    clientID: '',
+                    clientSecret: '',
+                    repo: 'Kaslanarian.github.io',
+                    owner: '',
+                    admin: [''],
+                    distractionFreeMode: true,
+                    id: md5(location.pathname),
+                    });
+                    gitalk.render('gitalk-container');
+                </script>
+                
+                <!-- Gitalk end -->
+
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#matrix-c" title="matrix-c" rel="12">
+                                    matrix-c
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#线性代数" title="线性代数" rel="9">
+                                    线性代数
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#日常" title="日常" rel="2">
+                                    日常
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/暂无">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/kaslana-52">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/暂无">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Kaslanarian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Vago Mundo 2021
+                    <br>
+                    Theme on <a href="https://github.com/Kaslanarian/Kaslanarian.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=Kaslanarian&repo=Kaslanarian.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'G-MVHVLE31FV';
+    var _gaDomain = 'welts.xyz';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '8dea5c02aae248a2baf01c29381d72bc';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
