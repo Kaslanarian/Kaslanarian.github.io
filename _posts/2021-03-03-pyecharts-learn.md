@@ -4,7 +4,7 @@ title:      关于pyecharts
 subtitle:   学习记录
 date:       2021-03-03
 author:     Welt Xing
-header-img: img/venti.png
+header-img: img/pyecharts_header.jpg
 catalog:    true
 tags:
     - Python
