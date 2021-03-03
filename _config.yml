@@ -50,7 +50,7 @@ gitalk:
     enable:             true #是否开启Gitalk评论
     clientID:           9004d006c6bf961062fc
     clientSecret:       4f3b028982b0c83d4b6113929bbed17da1d3926e
-    repo:               Model-Learning #仓库名称
+    repo:               Kaslanarian.github.io #仓库名称
     owner:              Kaslanarian
     admin:              Kaslanarian
     distractionFreeMode: true #是否启用类似FB的阴影遮罩
