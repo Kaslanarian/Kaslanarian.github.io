@@ -6,7 +6,6 @@ date:       2021-03-03
 author:     Welt Xing
 header-img: img/java_header.jpg
 catalog:    true
-mermaid:    true
 tags:
     - Java
 ---
@@ -196,10 +195,62 @@ public class Main {
     s2 = "welt";
     ```
 
-    ```mermaid
-    graph LR;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+    这里是`s1`和`s2`**指向同一段内存空间**，该内存空间存储的是字符串"welt"。
+
+##### 常用用法
+
+- `String`之间可以相互连接，用'+'即可；此外，还可以连接其他数据类型，过程是调用`toString()`方法，然后再连接；
+
+- 字符串查找：`indexOf(String s)`找子串首次出现的索引位置，没找到就返回-1，`lastIndexOf`类似，但找的是最后一次出现的子串；
+
+- 获取`String`指定索引位置的字符不能像`C++`那样直接用索引，而是`str.charAt(int index)`；
+
+- 
+    1. 用于获取子串的`subString(int begin_index), subString(int begin_index, end_index)`；
+    2. 用于去除空格的`trim()`；
+    3. 用于字符串替换的`replace(char old, char new)`；
+    4. 用于判断字符串开头和结尾的`startWith(String prefix)`和`endWith(String suffix)`；
+    5. 判断字符串相等不能用"=="，和C中原因几乎相同，`equals(Stirng)`方法返回`boolean`，`compareTo(String)`方法返回`int`，相当于`C`中的`strcmp(char*)`;
+    6. 用于分割字符串的`split`，`split(String sign)`，sign为分割字符串的分割符，也可以用正则表达式；`split(String sign, int limit)`则限定了拆分次数，会分割`limit-1`次，也就是`limit`个字符串。
+
+##### 字符串格式化
+
+由于本人很少使用日期时间的原因，故关于日期和时间的格式化在这里跳过。
+
+- 相比于`C\C++`，Java的常规类型格式化多出这些内容：
+
+    1. `"%b, %B"`，格式化为布尔类型；
+
+    2. `"%h, %H"`，格式化为散列码；
+
+    3. `"%a, %A"`，格式化为带有效位和指数的十六进制浮点数。
+
+##### 正则表达式
+
+正则表达式，Java兼容了基本的正则表达式：
+
+    ```java
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        String str;
+        String regex = "\\w+@\\w+(\\.\\w{2,3})*\\.\\w{2,3}";
+        do {
+            str = s.next();
+            if (str.equals("exit")) {
+                break;
+            } else if (str.matches(regex)) {
+                System.out.println(str + "是一个合法的邮箱地址格式");
+            } else {
+                System.out.println(str + "不是一个合法的邮箱地址格式");
+            }
+        } while (true);
+        s.close();
+        return;
+    }
     ```
+
+    该程序是一个邮箱地址格式判断的程序，其中的`regex`就是一个正则表达式。
+
+##### 字符串生成器
+
+简单的说，就是`String`的内容无法改变，导致在进行连接的时候其实是多出一个`copy`，如果操作频繁，回导致效率很低，所以有一个新的类`StringBuilder`，一个可变的字符序列，它的几个常用方法：`append()`可以追加内容，参数可以是多个类型；`insert(int offset, String content)`将在offset处插入content字符串；`delete(int start, int end)`删除start和end之间的字符串。
