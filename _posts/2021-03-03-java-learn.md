@@ -6,6 +6,7 @@ date:       2021-03-03
 author:     Welt Xing
 header-img: img/java_header.jpg
 catalog:    true
+mermaid:    true
 tags:
     - Java
 ---
@@ -147,3 +148,58 @@ public class Main {
 - 如果`member_final`(成员常量)只声明不赋值，那么会报错；
 
 - 如果`local_final`(局部常量)只声明不赋值是可以的，但之后必须被赋值，也只能被赋值一次，否则报错；
+
+#### 运算符
+
+- Java中自增自减运算符存在，用法与`C/C++`相同；
+
+- Java中移位操作多出一个`>>>`，意思是无符号右移。
+
+#### 流程控制
+
+- Java也有switch-case，语法与C相同，但多出对**字符串**类型的支持；
+
+- Java有和C++类似的基于范围for循环：
+
+    ```java
+    int arr[] = {7, 10, 1};
+    for (int x : arr) {
+        System.out.println(x);
+    }
+    ```
+
+#### 字符串
+
+##### 构造方法
+
+常用的字符串构造方法：(字符串使用前必须经过初始化，否则报错)
+
+- 用字符数组初始化
+
+    ```java
+    char a[] = {'w', 'e', 'l', 't'};
+    String s = new String(a);
+    ```
+
+- 提取字符数组初始化
+
+    ```java
+    char a[] = {'w', 'e', 'l', 't'};
+    String s = new String(a, 1, 2); // 偏移1，取2个，也就是"el"
+    ```
+
+- 字符串常量的引用赋值
+
+    ```java
+    String s1, s2;
+    s1 = "welt";
+    s2 = "welt";
+    ```
+
+    ```mermaid
+    graph LR;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+    ```
