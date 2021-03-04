@@ -321,4 +321,61 @@ int arr[][] = { {1, 2}, {3, 4} };
 
 > 使用new分配二维数组数组内存时，整形数组中所有元素都是0。
 
-#### 数组基操
+#### 数组遍历
+
+最基础的遍历：
+
+```java
+for (int i = 0; i < arr.length(); i++) {
+    for (int j = 0; j < arr[i].length(); j++) {
+        TODO();
+    }
+    TODO();
+}
+```
+
+利用`foreach`遍历：
+
+```java
+for (int x[] : arr) {
+    for (int e : x) {
+        TODO();
+    }
+    TODO();
+}
+```
+
+#### 数组填充和替换
+
+- `fill(ElemType[] a, ElemType value)`将数组`a`中所有元素填充为`value`；
+
+- `fill(ElemType[] a, int formIndex, int toIndex, ElemType value)`是有范围的填充；
+
+#### 对数组排序
+
+```java
+public static void main(String[] args) {
+    int[] arr = { 1, 6, -1, 7 };
+    Arrays.sort(arr);
+    for (int e : arr) {
+        System.out.print(e + " ");
+    }
+    System.out.println();
+}
+```
+
+#### 数组复制
+
+```java
+int arr[] = {1, 2, 3, 4, 5};
+int arr_copy[] = Arrays.copyOf(arr, 3);
+```
+
+`arr_copy`长度为3，是`arr`的前3个元素，如果`copyOf`的第二个参数，也就是长度参数大于复制目标的长度，那么就用0填充。
+
+范围复制：
+
+```java
+int arr[] = {1, 2, 3, 4, 5};
+int newarr[] = Arrays.copyOfRange(arr, 0, 3);
+```
