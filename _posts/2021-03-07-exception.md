@@ -202,6 +202,172 @@ int main() {
 
 ## Python异常处理
 
+#### try/except
+
+在`Pytohn`中，我们可以用`try/except`语句来捕获异常：
+
+```python
+try:
+    doSomething
+except:
+    handleException
+```
+
+和C++中的`try/catch`语法相似：
+
+```python
+try:
+    x = int(input("Input a number: "))
+except ValueError:
+    print("Not a number input!")
+```
+
+一个`except`子句是可以处理多个异常的：
+
+```python
+...
+except (RuntimeError, TypeError, NameError):
+    pass
+```
+
+为了应对人为忽略的情况，我们会在最后一个子句收纳所有的异常：
+
+```python
+import sys
+
+try:
+    f = open('myfile.txt')
+    s = f.readline()
+    i = int(s.strip())
+except OSError as err:
+    print("OS error: {0}".format(err))
+except ValueError:
+    print("Could not convert data to an integer.")
+except:
+    '''打印未预料到的异常，然后把异常揪出来'''
+    print("Unexpected error:", sys.exc_info()[0])
+    raise
+```
+
+#### try/except...else
+
+`try/except`还有一个可选的`else`子句，如果使用这个子句，那么必须放在所有的`except`语句之后，它将在`try`语句**未发生任何异常是执行**：
+
+```python
+try:
+    doSomething
+except Error1:
+    HandleError1
+except Error2:
+    HandleError2
+...
+else:
+    print("No exception")
+    doMoreThings
+```
+
+> 使用`else`子句比把所有的语句都放在`try`子句里面要好，这样可以避免一些意想不到，而`except`又无法捕获的异常。
+
+#### try-finally
+
+这是最完整的异常处理语句：
+
+```python
+try:
+    doSomething
+except Error:
+    HandleError
+else:
+    '''没有异常时会执行的代码'''
+    doWithoutException
+finally:
+    '''不管有没有异常都要执行的代码'''
+    doNoMatterException
+```
+
+#### 抛出异常
+
+我们发现，`python`中，`try`和C++中的`try`等价，`except`和C++中的`catch`等价。实际上`python`中也有和C++中`throw`近似的关键字：`raise`。
+
+我们用`raise`语句抛出一个指定异常：
+
+```python
+raise [Exception [, args [, traceback]]]
+```
+
+例如：
+
+```python
+x = 10
+if x > 5:
+    raise Exception('x 不能大于 5。x 的值为: {}'.format(x))
+```
+
+这时就会触发异常：
+
+```bash
+Traceback (most recent call last):
+  File "test.py", line 3, in <module>
+    raise Exception('x 不能大于 5。x 的值为: {}'.format(x))
+Exception: x 不能大于 5。x 的值为: 10
+```
+
+当我们已经捕获一个异常后，如果不想处理它，我们也可以在`except`语句下，仅用`raise`就可以抛出该异常：
+
+```python
+>>> try:
+        raise NameError('HiThere')
+    except NameError:
+        print('An exception flew by!')
+        raise
+   
+An exception flew by!
+Traceback (most recent call last):
+  File "<stdin>", line 2, in ？
+NameError: HiThere
+```
+
+#### 用户自定义异常
+
+我们通过创建`Exception`类的子类，重写方法来拥有自己的异常：
+
+```python
+class MyError(Exception):
+    def __init__(self, value):
+        self.value = value
+    
+    def __str__(self):
+        return repr(self.value)
+
+# 此时我们触发一个异常：
+
+try:
+    raise MyError(2 * 2)
+except MyError as e:
+    print('My exception occurred, value:', e.value)
+```
+
+执行后会输出：
+
+```bash
+My exception occurred, value: 4
+```
+
+> 当创建一个模块有可能抛出多种不同的异常时，一种通常的做法是为这个包建立一个基础异常类，然后基于这个基础类为不同的错误情况创建不同的子类。
+
+#### try/finally：定义清理行为
+
+我们甚至可以忽略`except`子句：
+
+```python
+try:
+    doSomething
+finally:
+    cleanBehavior
+```
+
+如果一个异常在`try`子句里（或者在`except`和`else`子句里）被抛出，而又没有任何的`except`把它截住，那么这个异常会在`finally`子句执行后被抛出。
+
 ## 参考
 
 - <https://www.runoob.com/cplusplus/cpp-exceptions-handling.html>
