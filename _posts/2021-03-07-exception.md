@@ -366,7 +366,224 @@ finally:
     cleanBehavior
 ```
 
-如果一个异常在`try`子句里（或者在`except`和`else`子句里）被抛出，而又没有任何的`except`把它截住，那么这个异常会在`finally`子句执行后被抛出。
+如果一个异常在`try`子句里（或者在`except`和`else`子句里）被抛出，而又没有任何的`except`把它截住，那么这个异常会在`finally`子句执行**后**被抛出。
+
+#### Python断言
+
+`Python`断言的语法很简单：
+
+```python
+assert expression
+```
+
+等价于：
+
+```python
+if not expression:
+    raise AssertionError
+```
+
+你可以像Java那样在断言中加入信息：
+
+```python
+assert 1==2, '1 不等于 2'
+```
+
+## Java异常处理
+
+#### Exception类的层次
+
+和`Python`类似，所有异常类都是从`java.lang.Exception`类继承的子类。相关类的继承关系如下：
+
+![Exception的继承](https://www.runoob.com/wp-content/uploads/2013/12/12-130Q1234I6223.jpg)
+
+如上图所示，异常类有两个主要的子类：`IOException`和`RuntimeException`类
+
+#### 两种异常
+
+Java提供了两类主要的异常: `runtime exception`和`checked exception`，也就是运行时异常和检查性异常：
+
+- 对于运行期异常，我们可以不需要处理运行时异常，当出现这样的异常时，总是由JVM接管。比如：我们从来没有人去处理过NullPointerException异常，它就是运行时异常，并且这种异常还是最常见的异常之一。
+
+- 检查性异常，也就是我们经常遇到的IO异常，以及SQL异常都是这种异常。对于这种异常，JAVA编译器强制要求我们必需对出现的这些异常进行catch。所以，面对这种异常不管我们是否愿意，只能自己去写一大堆catch块去处理可能的异常。
+
+#### 捕获异常
+
+使用`try`和`catch`可以捕获异常：
+
+```java
+try {
+    // 程序代码
+} catch (ExceptionName e1) {
+    // Catch块
+}
+```
+
+你会发现这个写法几乎和C++的异常处理一模一样，在此不做赘述。
+
+实例：
+
+```java
+import java.io.*;
+public class ExceptTest {
+    public static void main(String[] args) {
+        try {
+            int a[] = new int[2];
+            System.out.println("Access element three :" + a[3]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Exception thrown  :" + e);
+        }
+        System.out.println("Out of the block");
+    }
+}
+```
+
+上述代码编译运行输出如下：
+
+```bash
+Exception thrown  :java.lang.ArrayIndexOutOfBoundsException: 3
+Out of the block
+```
+
+#### 多重捕获快
+
+类似与C++，Java也支持多重捕获块：
+
+```java
+try {
+   // 程序代码
+} catch (异常类型1 异常的变量名1) {
+  // 程序代码
+} catch(异常类型2 异常的变量名2) {
+  // 程序代码
+} catch(异常类型3 异常的变量名3) {
+  // 程序代码
+}
+```
+
+实例：
+
+```java
+try {
+    file = new FileInputStream(fileName);
+    x = (byte) file.read();
+} catch(FileNotFoundException f) { // Not valid!
+    f.printStackTrace();
+    return -1;
+} catch(IOException i) {
+    i.printStackTrace();
+    return -1;
+}
+```
+
+#### throws/throw关键字
+
+如果一个方法没有捕获到一个检查性异常，那么该方法必须使用`throws`关键字来声明。`throws`关键字放在方法签名的尾部：
+
+```java
+public void function(double amount) throws RemoteException,
+                                    InsufficientFundsExecption 
+{
+    // Method implementtation
+    if (something) {
+        throw new RemoteException();
+    }
+}
+```
+
+在这里`throws`后是函数中可能会出现的问题，标识以便于这样的处理：
+
+```java
+try {
+    function();
+} catch (RemoteException e1) {
+    handle exception 1
+} catch (InsufficientFundsExecption e2) {
+    handle exception 2
+}
+```
+
+也可以使用`throw`关键字抛出一个异常，无论它是新实例化的还是刚捕获到的，这里就和C++中用法一模一样，不做赘述。
+
+#### finally关键字
+
+和`Python`一样，我们会有一个`finally`语句来创建在`try`代码块后面执行的代码块（无论是否发生异常总会被执行）。在 finally 代码块中，可以运行清理类型等收尾善后性质的语句：
+
+```java
+try {
+  // 程序代码
+} catch(异常类型1 异常的变量名1) {
+  // 程序代码
+} catch(异常类型2 异常的变量名2) {
+  // 程序代码
+} finally {
+  // 程序代码
+}
+```
+
+#### 注意
+
+- `catch`不能独立于`try`存在；
+
+- 在`try/catch`后面添加`finally`块并非强制性要求的；
+
+- `try`代码后不能既没`catch`块也没`finally`块；
+
+- `try,`catch,`finally`块之间不能添加任何代码。
+
+#### 声明自定义异常
+
+Java也可以自定义异常，但有以下几点注意：
+
+- 所有异常都必须是`Throwable`的子类；
+
+- 如果希望写一个检查性异常类，则需要继承`Exception`类；
+
+- 如果你想写一个运行时异常类，那么需要继承`RuntimeException`类。
+
+一个常见的做法是自定义一个BaseException作为“根异常”，然后，派生出各种业务类型的异常。
+
+BaseException需要从一个适合的Exception派生，通常建议从RuntimeException派生：
+
+```java
+public class BaseException extends RuntimeException {
+}
+```
+
+其他业务类型的异常就可以从`BaseException`派生：
+
+```java
+public class UserNotFoundException extends BaseException {
+}
+
+public class LoginFailedException extends BaseException {
+}
+...
+```
+
+自定义的`BaseException`应该提供多个构造方法：
+
+```java
+public class BaseException extends RuntimeException {
+    public BaseException() {
+        super();
+    }
+
+    public BaseException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public BaseException(String message) {
+        super(message);
+    }
+
+    public BaseException(Throwable cause) {
+        super(cause);
+    }
+}
+```
+
+上述构造方法实际上都是原样照抄`RuntimeException`。这样，抛出异常的时候，就可以选择合适的构造方法。通过IDE可以根据父类快速生成子类的构造方法。
 
 ## 参考
 
@@ -375,3 +592,5 @@ finally:
 - <http://www.cplusplus.com/reference/exception/exception/what/>
 
 - <https://www.runoob.com/python/python-exceptions.html>
+
+- <https://www.runoob.com/java/java-exceptions.html>
