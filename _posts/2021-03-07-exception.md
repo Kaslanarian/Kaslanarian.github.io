@@ -194,4 +194,18 @@ int main() {
 
 我们将`ooops`作为`exception`类的子类，然后对`what`的方法进行重写，以输出自定义信息，也就是异常发生原因。
 
-> 无抛出保证：你也许注意到了`noexcept`关键字，它被用来规定成员函数永远不会抛出异常，这也这也适用于C ++标准库中的所有派生类，在C++98中，它被`throw()`替代：`cosnt char* what() const throw();`
+> 无抛出保证：你也许注意到了`noexcept`关键字，它被用来规定成员函数永远不会抛出异常，这也这也适用于C ++标准库中的所有派生类，在C++98中，写法是：`cosnt char* what() const throw();`。
+
+#### 关于断言
+
+除此之外，断言是更简单更粗暴的一种异常处理，你可以在[这里](https://welts.xyz/matrix-c/2021/02/20/matrix1/#%E5%8A%9F%E8%83%BD%E6%80%A7%E7%9A%84%E5%AE%8F)的`Assert`获取加强版的断言。
+
+## Python异常处理
+
+## 参考
+
+- <https://www.runoob.com/cplusplus/cpp-exceptions-handling.html>
+
+- <http://www.cplusplus.com/reference/exception/exception/what/>
+
+- <https://www.runoob.com/python/python-exceptions.html>
