@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                inlineMath: [['$','$']]
+                }
+            });
+        </script>
+    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="尘世闲游，听凭风引">
+    <meta name="keywords"  content="邢存远的博客">
+    <meta name="theme-color" content="#000000">
+    
+    <title>关于pyecharts - 邢存远的博客 | Welt Xing's Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2021/03/03/pyecharts-learn/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Vago Mundo</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/catagories/">class</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tag</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/pyecharts_header.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+        position: relative;
+        background-image: url('/img/pyecharts_header.jpg')
+    }
+
+        {
+        % if page.header-mask %
+    }
+
+    header.intro-header .header-mask {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+
+        background: rgba(0, 0, 0, {
+                    {
+                    page.header-mask
+                }
+            }
+
+        );
+    }
+
+        {
+        % endif %
+    }
+</style>
+<header class="intro-header">
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Python" title="Python">Python</a>
+                        
+                    </div>
+                    <h1>关于pyecharts</h1>
+                    
+                    
+                    <h2 class="subheading">学习记录</h2>
+                    
+                    <span class="meta">Posted by Welt Xing on March 3, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Container -->
+        <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+            <h1 id="pyecharts学习记录">Pyecharts学习记录</h1>
+
+<h2 id="引言">引言</h2>
+
+<p>大一下修过《人工智能程序设计》，在那里初次接触了<code class="highlighter-rouge">pyecharts</code>，一个可视化效果非常好的图表绘画库，但当时前端知识为0，只能生成一个<code class="highlighter-rouge">html</code>文件之后截屏使用。最近随着博客的搭建，接触了一些<code class="highlighter-rouge">HTML</code>的知识，昨天又成功嵌入了一个<code class="highlighter-rouge">echarts</code>图表，随即兴趣大发，准备复习下原来学过的知识并将其制成个人手册，使得博客的多样性更加丰富，同时为日后的数据可视化工作提供模板和带来便利。</p>
+
+<h2 id="参考">参考</h2>
+
+<p>本文是对<a href="https://pyecharts.org/#/zh-cn/intro">官方教程</a>的提炼，其中会删减不重要的内容，所以获得全部内容还请参考<a href="https://pyecharts.org/#/zh-cn/intro">这里</a></p>
+
+<h2 id="pyecharts获取相关">Pyecharts获取相关</h2>
+
+<p>命令行输入</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install </span>pyecharts
+</code></pre></div></div>
+
+<p>就可以获取v1的<code class="highlighter-rouge">pyecharts</code>，顺带一提，当年学习的是v0.5的<code class="highlighter-rouge">pyecharts</code>，接口与现在是有区别的。</p>
+
+<p>我们运行下面的$Python$脚本来测试安装是否成功：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pyecharts</span>
+<span class="o">&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">pyecharts</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="mf">1.9.0</span>
+</code></pre></div></div>
+
+<h2 id="快速开始">快速开始</h2>
+
+<p>我们用官网的例子作为快速开始程序：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pyecharts.charts</span> <span class="kn">import</span> <span class="n">Bar</span>
+
+<span class="n">bar</span> <span class="o">=</span> <span class="n">Bar</span><span class="p">()</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">add_xaxis</span><span class="p">([</span><span class="s">"衬衫"</span><span class="p">,</span> <span class="s">"羊毛衫"</span><span class="p">,</span> <span class="s">"雪纺衫"</span><span class="p">,</span> <span class="s">"裤子"</span><span class="p">,</span> <span class="s">"高跟鞋"</span><span class="p">,</span> <span class="s">"袜子"</span><span class="p">])</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">add_yaxis</span><span class="p">(</span><span class="s">"商家A"</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>调用<code class="highlighter-rouge">bar</code>的<code class="highlighter-rouge">render</code>函数可以将图表以<code class="highlighter-rouge">html</code>格式到处，默认是保存在脚本所在文件夹里，默认名是<code class="highlighter-rouge">render.html</code>，自然，你可以自定义保存路径和文件名。</p>
+
+<h4 id="链式调用">链式调用</h4>
+
+<p>你也可以链式调用函数以生成图表：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pyecharts.charts</span> <span class="kn">import</span> <span class="n">Bar</span>
+
+<span class="n">bar</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Bar</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">add_xaxis</span><span class="p">([</span><span class="s">"衬衫"</span><span class="p">,</span> <span class="s">"羊毛衫"</span><span class="p">,</span> <span class="s">"雪纺衫"</span><span class="p">,</span> <span class="s">"裤子"</span><span class="p">,</span> <span class="s">"高跟鞋"</span><span class="p">,</span> <span class="s">"袜子"</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">add_yaxis</span><span class="p">(</span><span class="s">"商家A"</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span>
+<span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>两脚本的执行结果相同：</p>
+
+<p><img src="/img/pyecharts1.png" alt="pyecharts1" /></p>
+
+<h4 id="使用配置项">使用配置项</h4>
+
+<p>我们当然不能傻瓜一般地使用默认生成的图表，若我们想要修改大小，颜色，主题等配置时，就要用到<code class="highlighter-rouge">options</code>配置项，“在<code class="highlighter-rouge">pyecharts</code>中，一切皆Options”</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pyecharts.charts</span> <span class="kn">import</span> <span class="n">Bar</span>
+<span class="kn">from</span> <span class="nn">pyecharts</span> <span class="kn">import</span> <span class="n">options</span> <span class="k">as</span> <span class="n">opts</span>
+
+<span class="n">bar</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Bar</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">add_xaxis</span><span class="p">([</span><span class="s">"衬衫"</span><span class="p">,</span> <span class="s">"羊毛衫"</span><span class="p">,</span> <span class="s">"雪纺衫"</span><span class="p">,</span> <span class="s">"裤子"</span><span class="p">,</span> <span class="s">"高跟鞋"</span><span class="p">,</span> <span class="s">"袜子"</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">add_yaxis</span><span class="p">(</span><span class="s">"商家A"</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">set_global_opts</span><span class="p">(</span><span class="n">title_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">TitleOpts</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">"主标题"</span><span class="p">,</span> <span class="n">subtitle</span><span class="o">=</span><span class="s">"副标题"</span><span class="p">))</span>
+    <span class="c1"># 或者直接使用字典参数
+</span>    <span class="c1"># .set_global_opts(title_opts={"text": "主标题", "subtext": "副标题"})
+</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>可以发现我们为图表加入了主标题和副标题：</p>
+
+<p><img src="/img/pyecharts2.png" alt="pyecharts2" /></p>
+
+<h4 id="使用主题">使用主题</h4>
+
+<p>主题的使用可以使你的可视化效果更好，更有美观性。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pyecharts.charts</span> <span class="kn">import</span> <span class="n">Bar</span>
+<span class="kn">from</span> <span class="nn">pyecharts</span> <span class="kn">import</span> <span class="n">options</span> <span class="k">as</span> <span class="n">opts</span>
+<span class="c1"># 内置主题类型可查看 pyecharts.globals.ThemeType
+</span><span class="kn">from</span> <span class="nn">pyecharts.globals</span> <span class="kn">import</span> <span class="n">ThemeType</span>
+
+<span class="n">bar</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bar</span><span class="p">(</span><span class="n">init_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">InitOpts</span><span class="p">(</span><span class="n">theme</span><span class="o">=</span><span class="n">ThemeType</span><span class="o">.</span><span class="n">LIGHT</span><span class="p">))</span><span class="o">.</span><span class="n">add_xaxis</span><span class="p">(</span>
+    <span class="p">[</span><span class="s">"衬衫"</span><span class="p">,</span> <span class="s">"羊毛衫"</span><span class="p">,</span> <span class="s">"雪纺衫"</span><span class="p">,</span> <span class="s">"裤子"</span><span class="p">,</span> <span class="s">"高跟鞋"</span><span class="p">,</span>
+     <span class="s">"袜子"</span><span class="p">])</span><span class="o">.</span><span class="n">add_yaxis</span><span class="p">(</span><span class="s">"商家A"</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span><span class="o">.</span><span class="n">add_yaxis</span><span class="p">(</span>
+         <span class="s">"商家B"</span><span class="p">,</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">66</span><span class="p">])</span><span class="o">.</span><span class="n">set_global_opts</span><span class="p">(</span>
+             <span class="n">title_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">TitleOpts</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">"主标题"</span><span class="p">,</span> <span class="n">subtitle</span><span class="o">=</span><span class="s">"副标题"</span><span class="p">)))</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>下面是主题效果：</p>
+
+<p><img src="/img/pyecharts3.png" alt="pyecharts3" /></p>
+
+<h4 id="图表嵌入">图表嵌入</h4>
+
+<p>我们可以在个人博客中嵌入<code class="highlighter-rouge">pyecharts</code>生成的<code class="highlighter-rouge">HTML</code>文件，接下来可以看到它比图表更具有表现力。我们用上面的图表作为测试。</p>
+
+<p><a href="/file/pyecharts1.html">这个</a>就是我们生成的HTML文件。我们按照网上的方法，修改HTML文件中图表的大小，再利用iframe标签进行插入：</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;iframe</span> <span class="na">src=</span><span class="s">"/file/pyecharts1.html"</span> 
+        <span class="na">scrolling=</span><span class="s">"no"</span> 
+        <span class="na">allowfullscreen=</span><span class="s">"true"</span> 
+        <span class="na">width=</span><span class="s">"700"</span> 
+        <span class="na">height=</span><span class="s">"400"</span>
+        <span class="na">frameborder=</span><span class="s">"no"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/iframe&gt;</span>
+</code></pre></div></div>
+<p>我们在这里将<code class="highlighter-rouge">width</code>和<code class="highlighter-rouge">height</code>设置为700和400，那么在HTML文件中，就需要将HTML的配置项中的宽度和高度设为相同值：</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"6329c2a1f2e0414b8bb6cc96d72d8f51"</span> 
+        <span class="na">class=</span><span class="s">"chart-container"</span> 
+        <span class="na">style=</span><span class="s">"width:700px; height:400px;"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>效果如下，你可以将光标移动到色块上观察效果：</p>
+
+<iframe src="/file/pyecharts1.html" scrolling="no" allowfullscreen="true" width="700" height="400" frameborder="no">
+</iframe>
+
+<h2 id="全局配置项">全局配置项</h2>
+
+<p>全局配置项可通过<code class="highlighter-rouge">set_global_opts</code>方法设置。</p>
+
+<p>下面是各种配置项的位置情况：</p>
+
+<p><img src="/img/global_opts.png" alt="global opts" /></p>
+
+<p>我们在此记录较重要和常用的配置</p>
+
+<h4 id="初始化配置项">初始化配置项</h4>
+
+<p>我们在之前设置主题时用到了下面的语句：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Bar</span><span class="p">(</span><span class="n">init_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">InitOpts</span><span class="p">(</span><span class="n">theme</span><span class="o">=</span><span class="n">ThemeType</span><span class="o">.</span><span class="n">LIGHT</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>这里就是初始化配置项填写的位置，具体参数说明：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">参数名</th>
+      <th style="text-align: center">数据类型</th>
+      <th style="text-align: center">默认值</th>
+      <th style="text-align: center">说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">width</td>
+      <td style="text-align: center">str</td>
+      <td style="text-align: center">“900px”</td>
+      <td style="text-align: center">图表画布宽度，css长度单位</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">height</td>
+      <td style="text-align: center">str</td>
+      <td style="text-align: center">“500px”</td>
+      <td style="text-align: center">图表画布高度，css长度单位</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">chart_id</td>
+      <td style="text-align: center">Optional[str]</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: center">图表 ID，图表唯一标识，用于在多图表时区分</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">renderer</td>
+      <td style="text-align: center">str</td>
+      <td style="text-align: center">“canvas”</td>
+      <td style="text-align: center">渲染风格，可选 “canvas”，”svg”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">page_title</td>
+      <td style="text-align: center">str</td>
+      <td style="text-align: center">“Awesome-pyecharts”</td>
+      <td style="text-align: center">网页标题</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">theme</td>
+      <td style="text-align: center">str</td>
+      <td style="text-align: center">“white”</td>
+      <td style="text-align: center">图表主题</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">bg_color</td>
+      <td style="text-align: center">Optional[str]</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: center">图表背景颜色</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">js_host</td>
+      <td style="text-align: center">str</td>
+      <td style="text-align: center">””</td>
+      <td style="text-align: center">远程 js host，如不设置默认为 https://assets.pyecharts.org/assets/”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">animation_opts</td>
+      <td style="text-align: center">Union[AnimationOpts, dict]</td>
+      <td style="text-align: center">AnimationOpts()</td>
+      <td style="text-align: center">画图动画初始化配置，参考 <code class="highlighter-rouge">global_options.AnimationOpts</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="标题配置项">标题配置项</h4>
+
+<p>我们要这样修改标题配置项：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bar</span><span class="o">.</span><span class="n">set_global_opts</span><span class="p">(</span><span class="n">title_opts</span><span class="o">=</span><span class="p">{</span><span class="s">"text"</span><span class="p">:</span> <span class="s">"主标题"</span><span class="p">,</span> <span class="s">"subtext"</span><span class="p">:</span> <span class="s">"副标题"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>更多配置如下表所示：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">参数名</th>
+      <th style="text-align: center">数据类型</th>
+      <th style="text-align: center">默认值</th>
+      <th style="text-align: center">说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">title</td>
+      <td style="text-align: center">Optional[str]</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: center">主标题文本，支持使用 \n 换行。</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">title_link</td>
+      <td style="text-align: center">Optional[str]</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: center">主标题跳转 URL 链接</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">title_target</td>
+      <td style="text-align: center">Optional[str]</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: center">主标题跳转链接方式，默认值是: blank ，可选参数: ‘self’, ‘blank’ ，self’ 当前窗口打开; ‘blank’ 新窗口打开</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">subtitle</td>
+      <td style="text-align: center">Optional[str]</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: center">副标题文本，支持使用 \n 换行</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">subtitle_link</td>
+      <td style="text-align: center">Optional[str]</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: center">副标题跳转 URL 链接</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">subtitle_target</td>
+      <td style="text-align: center">Optional[str]</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: center">副标题跳转链接方式，默认值是: blank ，可选参数: ‘self’, ‘blank’ ，self’ 当前窗口打开; ‘blank’ 新窗口打开</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">pos_left</td>
+      <td style="text-align: center">Optional[str]</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: center">title 组件离容器左侧的距离，left 的值可以是像 20 这样的具体像素值，可以是像 ‘20%’ 这样相对于容器高宽的百分比，也可以是 ‘left’, ‘center’, ‘right’</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">padding</td>
+      <td style="text-align: center">Union[Sequence, Numeric]</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">标题内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距，分别设置四个方向的内边距：padding: [5， 10， 5， 10]，分别是上，右，下，左</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">item_gap</td>
+      <td style="text-align: center">Numeric</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">主副标题之间的间距</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>其余的配置相对来说不是很重要，在此省略。</p>
+
+<h2 id="图表">图表</h2>
+
+<p>接下来会介绍几类常用的图表的例子，并将其嵌入在网页中</p>
+
+<h4 id="柱状图">柱状图</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pyecharts.options</span> <span class="k">as</span> <span class="n">opts</span>
+<span class="kn">from</span> <span class="nn">pyecharts.charts</span> <span class="kn">import</span> <span class="n">Bar</span><span class="p">,</span> <span class="n">Line</span>
+
+<span class="n">x_data</span> <span class="o">=</span> <span class="p">[</span><span class="s">"1月"</span><span class="p">,</span> <span class="s">"2月"</span><span class="p">,</span> <span class="s">"3月"</span><span class="p">,</span> <span class="s">"4月"</span><span class="p">,</span> <span class="s">"5月"</span><span class="p">,</span> <span class="s">"6月"</span><span class="p">,</span> <span class="s">"7月"</span><span class="p">,</span> <span class="s">"8月"</span><span class="p">,</span> <span class="s">"9月"</span><span class="p">,</span> <span class="s">"10月"</span><span class="p">,</span> <span class="s">"11月"</span><span class="p">,</span> <span class="s">"12月"</span><span class="p">]</span>
+
+<span class="n">bar</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Bar</span><span class="p">(</span><span class="n">init_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">InitOpts</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s">"1600px"</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s">"800px"</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">add_xaxis</span><span class="p">(</span><span class="n">xaxis_data</span><span class="o">=</span><span class="n">x_data</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_yaxis</span><span class="p">(</span>
+        <span class="n">series_name</span><span class="o">=</span><span class="s">"蒸发量"</span><span class="p">,</span>
+        <span class="n">y_axis</span><span class="o">=</span><span class="p">[</span>
+            <span class="mf">2.0</span><span class="p">,</span>
+            <span class="mf">4.9</span><span class="p">,</span>
+            <span class="mf">7.0</span><span class="p">,</span>
+            <span class="mf">23.2</span><span class="p">,</span>
+            <span class="mf">25.6</span><span class="p">,</span>
+            <span class="mf">76.7</span><span class="p">,</span>
+            <span class="mf">135.6</span><span class="p">,</span>
+            <span class="mf">162.2</span><span class="p">,</span>
+            <span class="mf">32.6</span><span class="p">,</span>
+            <span class="mf">20.0</span><span class="p">,</span>
+            <span class="mf">6.4</span><span class="p">,</span>
+            <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="n">label_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">LabelOpts</span><span class="p">(</span><span class="n">is_show</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">add_yaxis</span><span class="p">(</span>
+        <span class="n">series_name</span><span class="o">=</span><span class="s">"降水量"</span><span class="p">,</span>
+        <span class="n">y_axis</span><span class="o">=</span><span class="p">[</span>
+            <span class="mf">2.6</span><span class="p">,</span>
+            <span class="mf">5.9</span><span class="p">,</span>
+            <span class="mf">9.0</span><span class="p">,</span>
+            <span class="mf">26.4</span><span class="p">,</span>
+            <span class="mf">28.7</span><span class="p">,</span>
+            <span class="mf">70.7</span><span class="p">,</span>
+            <span class="mf">175.6</span><span class="p">,</span>
+            <span class="mf">182.2</span><span class="p">,</span>
+            <span class="mf">48.7</span><span class="p">,</span>
+            <span class="mf">18.8</span><span class="p">,</span>
+            <span class="mf">6.0</span><span class="p">,</span>
+            <span class="mf">2.3</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="n">label_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">LabelOpts</span><span class="p">(</span><span class="n">is_show</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">extend_axis</span><span class="p">(</span>
+        <span class="n">yaxis</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">AxisOpts</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s">"温度"</span><span class="p">,</span>
+            <span class="n">type_</span><span class="o">=</span><span class="s">"value"</span><span class="p">,</span>
+            <span class="n">min_</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">max_</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+            <span class="n">interval</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="n">axislabel_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">LabelOpts</span><span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="s">"{value} °C"</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">set_global_opts</span><span class="p">(</span>
+        <span class="n">tooltip_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">TooltipOpts</span><span class="p">(</span>
+            <span class="n">is_show</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">trigger</span><span class="o">=</span><span class="s">"axis"</span><span class="p">,</span> <span class="n">axis_pointer_type</span><span class="o">=</span><span class="s">"cross"</span>
+        <span class="p">),</span>
+        <span class="n">xaxis_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">AxisOpts</span><span class="p">(</span>
+            <span class="n">type_</span><span class="o">=</span><span class="s">"category"</span><span class="p">,</span>
+            <span class="n">axispointer_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">AxisPointerOpts</span><span class="p">(</span><span class="n">is_show</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="s">"shadow"</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">yaxis_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">AxisOpts</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s">"水量"</span><span class="p">,</span>
+            <span class="n">type_</span><span class="o">=</span><span class="s">"value"</span><span class="p">,</span>
+            <span class="n">min_</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">max_</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+            <span class="n">interval</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+            <span class="n">axislabel_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">LabelOpts</span><span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="s">"{value} ml"</span><span class="p">),</span>
+            <span class="n">axistick_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">AxisTickOpts</span><span class="p">(</span><span class="n">is_show</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+            <span class="n">splitline_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">SplitLineOpts</span><span class="p">(</span><span class="n">is_show</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">line</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Line</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">add_xaxis</span><span class="p">(</span><span class="n">xaxis_data</span><span class="o">=</span><span class="n">x_data</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_yaxis</span><span class="p">(</span>
+        <span class="n">series_name</span><span class="o">=</span><span class="s">"平均温度"</span><span class="p">,</span>
+        <span class="n">yaxis_index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">y_axis</span><span class="o">=</span><span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mf">6.3</span><span class="p">,</span> <span class="mf">10.2</span><span class="p">,</span> <span class="mf">20.3</span><span class="p">,</span> <span class="mf">23.4</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">],</span>
+        <span class="n">label_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">LabelOpts</span><span class="p">(</span><span class="n">is_show</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">bar</span><span class="o">.</span><span class="n">overlap</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">"mixed_bar_and_line.html"</span><span class="p">)</span>
+</code></pre></div></div>
+<iframe src="/file/mixed_bar_and_line.html" scrolling="no" allowfullscreen="true" width="700" height="400" frameborder="no">
+</iframe>
+
+<h4 id="饼图">饼图</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pyecharts</span> <span class="kn">import</span> <span class="n">options</span> <span class="k">as</span> <span class="n">opts</span>
+<span class="kn">from</span> <span class="nn">pyecharts.charts</span> <span class="kn">import</span> <span class="n">Pie</span>
+<span class="kn">from</span> <span class="nn">pyecharts.faker</span> <span class="kn">import</span> <span class="n">Faker</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Pie</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">""</span><span class="p">,</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">Faker</span><span class="o">.</span><span class="n">choose</span><span class="p">(),</span> <span class="n">Faker</span><span class="o">.</span><span class="n">values</span><span class="p">())])</span>
+    <span class="o">.</span><span class="n">set_global_opts</span><span class="p">(</span><span class="n">title_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">TitleOpts</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Pie-Base"</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">set_series_opts</span><span class="p">(</span><span class="n">label_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">LabelOpts</span><span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="s">"{b}: {c}"</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">"./file/pie_base.html"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<iframe src="/file/pie_base.html" scrolling="no" allowfullscreen="true" width="700" height="400" frameborder="no">
+</iframe>
+
+<p>这里的数据来自<code class="highlighter-rouge">Pyecharts</code>提供的<code class="highlighter-rouge">dataset</code>，但我们可以知道数据格式必须是<code class="highlighter-rouge">list(dict)</code>。</p>
+
+<h4 id="关系图">关系图</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pyecharts</span> <span class="kn">import</span> <span class="n">options</span> <span class="k">as</span> <span class="n">opts</span>
+<span class="kn">from</span> <span class="nn">pyecharts.charts</span> <span class="kn">import</span> <span class="n">Graph</span>
+
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"node 1"</span><span class="p">,</span> <span class="s">"symbolSize"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"node 2"</span><span class="p">,</span> <span class="s">"symbolSize"</span><span class="p">:</span> <span class="mi">20</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"node 3"</span><span class="p">,</span> <span class="s">"symbolSize"</span><span class="p">:</span> <span class="mi">30</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"node 4"</span><span class="p">,</span> <span class="s">"symbolSize"</span><span class="p">:</span> <span class="mi">40</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"node 5"</span><span class="p">,</span> <span class="s">"symbolSize"</span><span class="p">:</span> <span class="mi">50</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"node 6"</span><span class="p">,</span> <span class="s">"symbolSize"</span><span class="p">:</span> <span class="mi">40</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"node 7"</span><span class="p">,</span> <span class="s">"symbolSize"</span><span class="p">:</span> <span class="mi">30</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"node 8"</span><span class="p">,</span> <span class="s">"symbolSize"</span><span class="p">:</span> <span class="mi">20</span><span class="p">},</span>
+<span class="p">]</span>
+<span class="n">links</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+        <span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s">"source"</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"name"</span><span class="p">),</span> <span class="s">"target"</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"name"</span><span class="p">)})</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Graph</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">""</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">links</span><span class="p">,</span> <span class="n">repulsion</span><span class="o">=</span><span class="mi">8000</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">set_global_opts</span><span class="p">(</span><span class="n">title_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">TitleOpts</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Graph-Base"</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">"graph_base.html"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>我们将每个节点之间都连上：</p>
+
+<iframe src="/file/graph_base.html" scrolling="no" allowfullscreen="true" width="700" height="400" frameborder="no">
+</iframe>
+
+<h4 id="雷达图">雷达图</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pyecharts.options</span> <span class="k">as</span> <span class="n">opts</span>
+<span class="kn">from</span> <span class="nn">pyecharts.charts</span> <span class="kn">import</span> <span class="n">Radar</span>
+
+<span class="n">v1</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">4300</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">28000</span><span class="p">,</span> <span class="mi">35000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">,</span> <span class="mi">19000</span><span class="p">]]</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">5000</span><span class="p">,</span> <span class="mi">14000</span><span class="p">,</span> <span class="mi">28000</span><span class="p">,</span> <span class="mi">31000</span><span class="p">,</span> <span class="mi">42000</span><span class="p">,</span> <span class="mi">21000</span><span class="p">]]</span>
+
+<span class="p">(</span><span class="n">Radar</span><span class="p">(</span><span class="n">init_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">InitOpts</span><span class="p">(</span>
+    <span class="n">width</span><span class="o">=</span><span class="s">"1280px"</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s">"720px"</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s">"#CCCCCC"</span><span class="p">))</span><span class="o">.</span><span class="n">add_schema</span><span class="p">(</span>
+        <span class="n">schema</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">opts</span><span class="o">.</span><span class="n">RadarIndicatorItem</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"销售（sales）"</span><span class="p">,</span> <span class="n">max_</span><span class="o">=</span><span class="mi">6500</span><span class="p">),</span>
+            <span class="n">opts</span><span class="o">.</span><span class="n">RadarIndicatorItem</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"管理（Administration）"</span><span class="p">,</span> <span class="n">max_</span><span class="o">=</span><span class="mi">16000</span><span class="p">),</span>
+            <span class="n">opts</span><span class="o">.</span><span class="n">RadarIndicatorItem</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"信息技术（Information Technology）"</span><span class="p">,</span>
+                                    <span class="n">max_</span><span class="o">=</span><span class="mi">30000</span><span class="p">),</span>
+            <span class="n">opts</span><span class="o">.</span><span class="n">RadarIndicatorItem</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"客服（Customer Support）"</span><span class="p">,</span> <span class="n">max_</span><span class="o">=</span><span class="mi">38000</span><span class="p">),</span>
+            <span class="n">opts</span><span class="o">.</span><span class="n">RadarIndicatorItem</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"研发（Development）"</span><span class="p">,</span> <span class="n">max_</span><span class="o">=</span><span class="mi">52000</span><span class="p">),</span>
+            <span class="n">opts</span><span class="o">.</span><span class="n">RadarIndicatorItem</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"市场（Marketing）"</span><span class="p">,</span> <span class="n">max_</span><span class="o">=</span><span class="mi">25000</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">splitarea_opt</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">SplitAreaOpts</span><span class="p">(</span>
+            <span class="n">is_show</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">areastyle_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">AreaStyleOpts</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
+        <span class="n">textstyle_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">TextStyleOpts</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">"#fff"</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">series_name</span><span class="o">=</span><span class="s">"预算分配（Allocated Budget）"</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">v1</span><span class="p">,</span>
+        <span class="n">linestyle_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">LineStyleOpts</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">"#CD0000"</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">series_name</span><span class="o">=</span><span class="s">"实际开销（Actual Spending）"</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">v2</span><span class="p">,</span>
+        <span class="n">linestyle_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">LineStyleOpts</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">"#5CACEE"</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">set_series_opts</span><span class="p">(</span><span class="n">label_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">LabelOpts</span><span class="p">(</span>
+        <span class="n">is_show</span><span class="o">=</span><span class="bp">False</span><span class="p">))</span><span class="o">.</span><span class="n">set_global_opts</span><span class="p">(</span>
+            <span class="n">title_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">TitleOpts</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">"基础雷达图"</span><span class="p">),</span>
+            <span class="n">legend_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">LegendOpts</span><span class="p">())</span><span class="o">.</span>
+ <span class="n">render</span><span class="p">(</span><span class="s">"/home/welt/Desktop/Kaslanarian.github.io/file/basic_radar_chart.html"</span><span class="p">)</span>
+ <span class="p">)</span>
+</code></pre></div></div>
+
+<iframe src="/file/basic_radar_chart.html" scrolling="no" allowfullscreen="true" width="700" height="400" frameborder="no">
+</iframe>
+
+<h4 id="散点图">散点图</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pyecharts</span> <span class="kn">import</span> <span class="n">options</span> <span class="k">as</span> <span class="n">opts</span>
+<span class="kn">from</span> <span class="nn">pyecharts.charts</span> <span class="kn">import</span> <span class="n">Scatter</span>
+<span class="kn">from</span> <span class="nn">pyecharts.faker</span> <span class="kn">import</span> <span class="n">Faker</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Scatter</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">add_xaxis</span><span class="p">(</span><span class="n">Faker</span><span class="o">.</span><span class="n">choose</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">add_yaxis</span><span class="p">(</span><span class="s">"商家A"</span><span class="p">,</span> <span class="n">Faker</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">set_global_opts</span><span class="p">(</span>
+        <span class="n">title_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">TitleOpts</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Scatter-VisualMap(Color)"</span><span class="p">),</span>
+        <span class="n">visualmap_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">VisualMapOpts</span><span class="p">(</span><span class="n">max_</span><span class="o">=</span><span class="mi">150</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">"scatter_visualmap_color.html"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<iframe src="/file/scatter_visualmap_color.html" scrolling="no" allowfullscreen="true" width="700" height="400" frameborder="no">
+</iframe>
+
+<h4 id="3d曲面图">3D曲面图</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">pyecharts.options</span> <span class="k">as</span> <span class="n">opts</span>
+<span class="kn">from</span> <span class="nn">pyecharts.charts</span> <span class="kn">import</span> <span class="n">Surface3D</span>
+
+<span class="k">def</span> <span class="nf">float_range</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="n">end</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="n">step</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+                <span class="n">round_number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="s">"""
+    浮点数 range
+    :param start: 起始值
+    :param end: 结束值
+    :param step: 步长
+    :param round_number: 精度
+    :return: 返回一个 list
+    """</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">:</span>
+            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">round_number</span><span class="p">))</span>
+            <span class="n">start</span> <span class="o">+=</span> <span class="n">step</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">temp</span>
+
+
+<span class="k">def</span> <span class="nf">surface3d_data</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">t0</span> <span class="ow">in</span> <span class="n">float_range</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">t0</span>
+        <span class="k">for</span> <span class="n">t1</span> <span class="ow">in</span> <span class="n">float_range</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">t1</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="mf">3.14</span>
+            <span class="k">yield</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
+
+
+<span class="p">(</span><span class="n">Surface3D</span><span class="p">(</span><span class="n">init_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">InitOpts</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s">"1600px"</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s">"800px"</span><span class="p">))</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">series_name</span><span class="o">=</span><span class="s">""</span><span class="p">,</span>
+    <span class="n">shading</span><span class="o">=</span><span class="s">"color"</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">surface3d_data</span><span class="p">()),</span>
+    <span class="n">xaxis3d_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">Axis3DOpts</span><span class="p">(</span><span class="n">type_</span><span class="o">=</span><span class="s">"value"</span><span class="p">),</span>
+    <span class="n">yaxis3d_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">Axis3DOpts</span><span class="p">(</span><span class="n">type_</span><span class="o">=</span><span class="s">"value"</span><span class="p">),</span>
+    <span class="n">grid3d_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">Grid3DOpts</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_global_opts</span><span class="p">(</span><span class="n">visualmap_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">VisualMapOpts</span><span class="p">(</span>
+    <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">max_</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">min_</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">range_color</span><span class="o">=</span><span class="p">[</span>
+        <span class="s">"#313695"</span><span class="p">,</span>
+        <span class="s">"#4575b4"</span><span class="p">,</span>
+        <span class="s">"#74add1"</span><span class="p">,</span>
+        <span class="s">"#abd9e9"</span><span class="p">,</span>
+        <span class="s">"#e0f3f8"</span><span class="p">,</span>
+        <span class="s">"#ffffbf"</span><span class="p">,</span>
+        <span class="s">"#fee090"</span><span class="p">,</span>
+        <span class="s">"#fdae61"</span><span class="p">,</span>
+        <span class="s">"#f46d43"</span><span class="p">,</span>
+        <span class="s">"#d73027"</span><span class="p">,</span>
+        <span class="s">"#a50026"</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">))</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">"surface_wave.html"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<iframe src="/file/surface_wave.html" scrolling="no" allowfullscreen="true" width="700" height="400" frameborder="no">
+</iframe>
+
+<h4 id="树图">树图</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pyecharts</span> <span class="kn">import</span> <span class="n">options</span> <span class="k">as</span> <span class="n">opts</span>
+<span class="kn">from</span> <span class="nn">pyecharts.charts</span> <span class="kn">import</span> <span class="n">Tree</span>
+
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s">"children"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"B"</span><span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s">"children"</span><span class="p">:</span> <span class="p">[{</span><span class="s">"children"</span><span class="p">:</span> <span class="p">[{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"I"</span><span class="p">}],</span> <span class="s">"name"</span><span class="p">:</span> <span class="s">"E"</span><span class="p">},</span> <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"F"</span><span class="p">}],</span>
+                <span class="s">"name"</span><span class="p">:</span> <span class="s">"C"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s">"children"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span><span class="s">"children"</span><span class="p">:</span> <span class="p">[{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"J"</span><span class="p">},</span> <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"K"</span><span class="p">}],</span> <span class="s">"name"</span><span class="p">:</span> <span class="s">"G"</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"H"</span><span class="p">},</span>
+                <span class="p">],</span>
+                <span class="s">"name"</span><span class="p">:</span> <span class="s">"D"</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+        <span class="s">"name"</span><span class="p">:</span> <span class="s">"A"</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Tree</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">""</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">set_global_opts</span><span class="p">(</span><span class="n">title_opts</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">TitleOpts</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Tree-基本示例"</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">"/home/welt/Desktop/Kaslanarian.github.io/file/tree_base.html"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<iframe src="/file/tree_base.html" scrolling="no" allowfullscreen="true" width="700" height="400" frameborder="no">
+</iframe>
+
+<p>至此，我们总结出大部分常用的图表的基本形式，如果对自定义要求不高的话，完全可以做到开箱即用。</p>
+
+
+            <hr style="visibility: hidden;">
+
+            <ul class="pager">
+                
+                <li class="previous">
+                    <a href="/2021/03/03/java-learn/" data-toggle="tooltip"
+                        data-placement="top" title="Java Notebook">
+                        Previous<br>
+                        <span>Java Notebook</span>
+                    </a>
+                </li>
+                
+                
+                <li class="next">
+                    <a href="/2021/03/05/DS/" data-toggle="tooltip"
+                        data-placement="top" title="Java数据结构">
+                        Next<br>
+                        <span>Java数据结构</span>
+                    </a>
+                </li>
+                
+            </ul>
+
+
+            <!--Gitalk评论start  -->
+            
+            <!-- 引入Gitalk评论插件  -->
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+            <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+            <div id="gitalk-container"></div>
+            <!-- 引入一个生产md5的js，用于对id值进行处理，防止其过长 -->
+            <!-- Thank DF:https://github.com/NSDingFan/NSDingFan.github.io/issues/3#issuecomment-407496538 -->
+            <script src="/js/md5.min.js"></script>
+            <script type="text/javascript">
+                var gitalk = new Gitalk({
+                    clientID: '9004d006c6bf961062fc',
+                    clientSecret: '4f3b028982b0c83d4b6113929bbed17da1d3926e',
+                    repo: 'Kaslanarian.github.io',
+                    owner: 'Kaslanarian',
+                    admin: ['Kaslanarian'],
+                    distractionFreeMode: true,
+                id: md5(location.pathname),
+                    });
+                gitalk.render('gitalk-container');
+            </script>
+            
+            <!-- Gitalk end -->
+
+            
+
+        </div>
+
+        <!-- Side Catalog Container -->
+        
+        <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+            <div class="side-catalog">
+                <hr class="hidden-sm hidden-xs">
+                <h5>
+                    <a class="catalog-toggle" href="#">CATALOG</a>
+                </h5>
+                <ul class="catalog-body"></ul>
+            </div>
+        </div>
+        
+
+        <!-- Sidebar Container -->
+        <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+            <!-- Featured Tags -->
+            
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                <div class="tags">
+                    
+                    
+                    <a href="/tags/#matrix-c" title="matrix-c" rel="12">
+                        matrix-c
+                    </a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/tags/#线性代数" title="线性代数" rel="9">
+                        线性代数
+                    </a>
+                    
+                    
+                    
+                    <a href="/tags/#日常" title="日常" rel="2">
+                        日常
+                    </a>
+                    
+                    
+                    
+                    <a href="/tags/#课程" title="课程" rel="2">
+                        课程
+                    </a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/tags/#C/C++" title="C/C++" rel="2">
+                        C/C++
+                    </a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/tags/#Java" title="Java" rel="4">
+                        Java
+                    </a>
+                    
+                    
+                    
+                    <a href="/tags/#Python" title="Python" rel="2">
+                        Python
+                    </a>
+                    
+                    
+                </div>
+            </section>
+            
+
+            <!-- Friends Blog -->
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js", function () {
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link {
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top: -0.1em;
+        }
+    }
+</style>
+
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/暂无">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/kaslana-52">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/暂无">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Kaslanarian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Vago Mundo 2021
+                    <br>
+                    Theme on <a href="https://github.com/Kaslanarian/Kaslanarian.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=Kaslanarian&repo=Kaslanarian.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'G-MVHVLE31FV';
+    var _gaDomain = 'welts.xyz';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '8dea5c02aae248a2baf01c29381d72bc';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

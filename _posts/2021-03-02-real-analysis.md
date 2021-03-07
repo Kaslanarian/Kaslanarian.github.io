@@ -7,7 +7,7 @@ author:     Welt Xing
 header-img: img/matrix_equations.png
 catalog:    true
 tags:
-    - 实变函数与泛函分析
+    - 课程
 ---
 
 # 实变函数与泛函分析

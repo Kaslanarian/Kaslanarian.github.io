@@ -4,7 +4,7 @@ title:      社会实践记录
 subtitle:   数据处理
 date:       2021-02-28
 author:     Welt Xing
-header-img: img/noelle.jpg
+header-img: img/diluc.jpg
 catalog:    true
 tags:
     - 日常
