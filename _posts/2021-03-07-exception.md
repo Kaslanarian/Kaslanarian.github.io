@@ -585,6 +585,16 @@ public class BaseException extends RuntimeException {
 
 上述构造方法实际上都是原样照抄`RuntimeException`。这样，抛出异常的时候，就可以选择合适的构造方法。通过IDE可以根据父类快速生成子类的构造方法。
 
+#### Java断言
+
+同样，你也可以用`assert`作为程序断言：
+
+```java
+assert 1==2;
+
+assert 1==2 : "1不等于2";
+```
+
 ## 参考
 
 - <https://www.runoob.com/cplusplus/cpp-exceptions-handling.html>
