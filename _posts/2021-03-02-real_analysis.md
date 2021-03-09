@@ -4,7 +4,7 @@ title:      实变函数与泛函分析
 subtitle:   笔记概要
 date:       2021-03-02
 author:     Welt Xing
-header-img: img/matrix_equations.png
+header-img: img/post-bg-desk.jpg
 catalog:    true
 tags:
     - 课程
@@ -153,7 +153,7 @@ $$
 导集，全体聚点的集合：
 
 $$
-E'=\{x:\forall U(x),U(x)\cap E\backslash\{x\}\neq\empty\}
+E'=\{x:\forall U(x),U(x)\cap E\backslash\{x\}\neq\emptyset\}
 $$
 
 边界，全体边界点的集合（$\partial E$）;
@@ -174,7 +174,7 @@ $$
 
 * 波尔查诺-维尔斯特拉斯定理：若$E$是有界无限集，则至少有一个聚点。
 
-* 设$E\neq\empty,E\neq\mathbf{R}^n\to \partial{E}\neq\empty$
+* 设$E\neq\emptyset,E\neq\mathbf{R}^n\to \partial{E}\neq\emptyset$
 
 #### 开集，闭集和完备集
 
