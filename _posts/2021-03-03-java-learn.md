@@ -10,8 +10,6 @@ tags:
     - Java
 ---
 
-# Java Learning Note
-
 ## 导语
 
 去年的人工智能导论中就已经接触过`Java`，在那之前还学习过一段时间，但随着时间推移内容已经忘了不少，只记得基础的语法，今年的$KR\&P$还是要用到`Java`，故在学期初期事情比较少的时候进行学习和整理。同时，作为一门流行至今的程序设计语言，会总比不会好。
@@ -98,7 +96,7 @@ Hello world
 
 #### 字符类型
 
-- Java里的`char`占两个字节，是`C/C++`的两倍，使得java的字符几乎可以处理所有国家的语言文字:
+* Java里的`char`占两个字节，是`C/C++`的两倍，使得java的字符几乎可以处理所有国家的语言文字:
 
     我们若在`C`中运行下面的程序：
 
@@ -125,7 +123,7 @@ Hello world
 
 #### 布尔类型
 
-- 此处的布尔类型为`boolean`，而不是`C++`中的`bool`，但两个字面量`true`和`false`是相同的。
+* 此处的布尔类型为`boolean`，而不是`C++`中的`bool`，但两个字面量`true`和`false`是相同的。
 
 ### 变量和常量
 
@@ -144,21 +142,21 @@ public class Main {
 }
 ```
 
-- 如果`member_final`(成员常量)只声明不赋值，那么会报错；
+* 如果`member_final`(成员常量)只声明不赋值，那么会报错；
 
-- 如果`local_final`(局部常量)只声明不赋值是可以的，但之后必须被赋值，也只能被赋值一次，否则报错；
+* 如果`local_final`(局部常量)只声明不赋值是可以的，但之后必须被赋值，也只能被赋值一次，否则报错；
 
 ### 运算符
 
-- Java中自增自减运算符存在，用法与`C/C++`相同；
+* Java中自增自减运算符存在，用法与`C/C++`相同；
 
-- Java中移位操作多出一个`>>>`，意思是无符号右移。
+* Java中移位操作多出一个`>>>`，意思是无符号右移。
 
 ### 流程控制
 
-- Java也有switch-case，语法与C相同，但多出对**字符串**类型的支持；
+* Java也有switch-case，语法与C相同，但多出对**字符串**类型的支持；
 
-- Java有和C++类似的基于范围for循环：
+* Java有和C++类似的基于范围for循环：
 
     ```java
     int arr[] = {7, 10, 1};
@@ -173,21 +171,21 @@ public class Main {
 
 常用的字符串构造方法：(字符串使用前必须经过初始化，否则报错)
 
-- 用字符数组初始化
+* 用字符数组初始化
 
     ```java
     char a[] = {'w', 'e', 'l', 't'};
     String s = new String(a);
     ```
 
-- 提取字符数组初始化
+* 提取字符数组初始化
 
     ```java
     char a[] = {'w', 'e', 'l', 't'};
     String s = new String(a, 1, 2); // 偏移1，取2个，也就是"el"
     ```
 
-- 字符串常量的引用赋值
+* 字符串常量的引用赋值
 
     ```java
     String s1, s2;
@@ -199,13 +197,13 @@ public class Main {
 
 #### 常用用法
 
-- `String`之间可以相互连接，用'+'即可；此外，还可以连接其他数据类型，过程是调用`toString()`方法，然后再连接；
+* `String`之间可以相互连接，用'+'即可；此外，还可以连接其他数据类型，过程是调用`toString()`方法，然后再连接；
 
-- 字符串查找：`indexOf(String s)`找子串首次出现的索引位置，没找到就返回-1，`lastIndexOf`类似，但找的是最后一次出现的子串；
+* 字符串查找：`indexOf(String s)`找子串首次出现的索引位置，没找到就返回-1，`lastIndexOf`类似，但找的是最后一次出现的子串；
 
-- 获取`String`指定索引位置的字符不能像`C++`那样直接用索引，而是`str.charAt(int index)`；
+* 获取`String`指定索引位置的字符不能像`C++`那样直接用索引，而是`str.charAt(int index)`；
 
-- 
+*
     1. 用于获取子串的`subString(int begin_index), subString(int begin_index, end_index)`；
     2. 用于去除空格的`trim()`；
     3. 用于字符串替换的`replace(char old, char new)`；
@@ -347,9 +345,9 @@ for (int x[] : arr) {
 
 #### 数组填充和替换
 
-- `fill(ElemType[] a, ElemType value)`将数组`a`中所有元素填充为`value`；
+* `fill(ElemType[] a, ElemType value)`将数组`a`中所有元素填充为`value`；
 
-- `fill(ElemType[] a, int formIndex, int toIndex, ElemType value)`是有范围的填充；
+* `fill(ElemType[] a, int formIndex, int toIndex, ElemType value)`是有范围的填充；
 
 #### 对数组排序
 
@@ -426,8 +424,8 @@ public Anything(String name) {
 2. 在静态方法中不能**直接**调用非静态方法。
 
 > Java中不允许方法体内的局部变量为`static`。
-
 > 如果在执行类的时候希望先执行类的一些初始化动作，可以使用`static`定义一个静态区域：
+>
 > ```java
 > public class example {
 >       static {
@@ -536,7 +534,7 @@ object1.equals(object2) // 比较的是两个对象引用所指的内容是否�
 
 对象的销毁和我们之前提到的JVM垃圾回收机制相关，我们先来看下什么样的对象会被JVM识别为垃圾：
 
-- 对象引用超过了作用域：
+* 对象引用超过了作用域：
 
     ```java
     {
@@ -545,7 +543,7 @@ object1.equals(object2) // 比较的是两个对象引用所指的内容是否�
     // 到了这里A就应该消亡了
     ```
 
-- 将对象赋值为`null`：
+* 将对象赋值为`null`：
 
     ```java
     A a = new A();
@@ -558,151 +556,148 @@ JVM只能回收由`new`操作符创建的对象，否则无法被其识别，此
 
 参见[Java异常处理](https://welts.xyz/2021/03/07/exception/#java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86)
 
-## 读写文件
+## I/O（输入输出）
 
-下图是一个描述输入流和输出流的类层次图：
+### 关于流
 
-![层次图](https://www.runoob.com/wp-content/uploads/2013/12/iostream2xx.png)
+#### 输入流
 
-下面将要讨论的两个重要的流是`FileInputStream`和`FileOutputStream`：
+Java中所有输入流都是抽象类`InputStream`（字节输入流）或者抽象类`Reader`（字符输入流）的子类。
 
-#### FileInputStream
+Java中的字符是Unicode编码，是双字节的。`InputStream`是用来处理字节的，并不适合处理字节文本（如英文文档）。Java为字符文本的输入专门提供了一套单独的类`Reader`，但`Reader`类并不是`InputStream`类的替换者，只是在处理字符串时简化了编程。`Reader`类是字符输入流的抽象类。
 
-该流用于从文件读取数据，它的对象可以用关键字 new 来创建。
+#### 输出流
 
-有多种构造方法可用来创建对象。
+Java中所有输出流都是抽象类`OutputStream`（字节输出流）或者抽象类`Writer`（字符输出流）的子类。同样，`Writer`类也是为了处理字符而单独提供的抽象类。
 
-可以使用字符串类型的文件名来创建一个输入流对象来读取文件：
+### FIle类
+
+#### 文件创建与删除
+
+直接用程序说明：
 
 ```java
-InputStream f = new FileInputStream("./test.java");
+File file1 = new File(filename);
+File file2 = new File("dirname", "filename") // 比如dirname为"/home"，filename为"test.txt"
 ```
 
-当然也可以先创建文件对象再读取它：
+你可以像下面这样进行更完备的文件创建：
 
 ```java
-File f = new File("./test.java");
-InputStream out = new FileInputStream(f);
-```
-
-下面是一个自制程序来读取输出文件：
-
-```java
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-public class Main {
-    public static void main(String[] args) throws IOException {
-        InputStream stream = new FileInputStream("Makefile");
-        for (byte c : stream.readAllBytes()) {
-            System.out.print((char) c);
-        }
-        stream.close();
+File file = new File("word.txt");
+if (file.exists()) {
+    file.delete(); // 文件已存在则将文件删除
+} else {
+    try {          // 文件不存在则创建新文件
+        file.createNewFile();
+    } catch (Exception e) {
+        e.printStackTrace();
     }
 }
 ```
 
-<table class="reference">
-<tbody>
-		<tr>
-			<th style="width:44px;">
-				<strong>序号</strong></th>
-			<th style="width:533px;">
-				<strong>方法及描述</strong></th>
-		</tr>
-		<tr>
-			<td style="width:44px;">
-				1</td>
-			<td style="width:533px;">
-				<strong>public void close() throws IOException{}</strong><br>
-				关闭此文件输入流并释放与此流有关的所有系统资源。抛出IOException异常。</td>
-		</tr>
-		<tr>
-			<td style="width:44px;">
-				2</td>
-			<td style="width:533px;">
-				<strong>protected void finalize()throws IOException {}</strong><br>
-				这个方法清除与该文件的连接。确保在不再引用文件输入流时调用其 close 方法。抛出IOException异常。</td>
-		</tr>
-		<tr>
-			<td style="width:44px;">
-				3</td>
-			<td style="width:533px;">
-				<strong>public int read(int r)throws IOException{}</strong><br>
-				这个方法从 InputStream 对象读取指定字节的数据。返回为整数值。返回下一字节数据，如果已经到结尾则返回-1。</td>
-		</tr>
-		<tr>
-			<td style="width:44px;">
-				4</td>
-			<td style="width:533px;">
-				<strong>public int read(byte[] r) throws IOException{}</strong><br>
-				这个方法从输入流读取r.length长度的字节。返回读取的字节数。如果是文件结尾则返回-1。</td>
-		</tr>
-		<tr>
-			<td style="width:44px;">
-				5</td>
-			<td style="width:533px;">
-				<strong>public int available() throws IOException{}</strong><br>
-				返回下一次对此输入流调用的方法可以不受阻塞地从此输入流读取的字节数。返回一个整数值。</td>
-		</tr>
-	</tbody>
-</table>
+#### 获取文件信息
 
-#### FileOutputStream
+以下是`File`类的方法，供查阅使用：
 
-该类用于创建一个文件并与文件中写数据，**如果该流在打开文件进行输出前，目标文件不存在，那么该流会创建该文件。**
+| 序号 | 方法描述                                                     |
+| :--- | :----------------------------------------------------------- |
+| 1    | **public String getName()** 返回由此抽象路径名表示的文件或目录的名称。 |
+| 2    | **public String getParent()**  返回此抽象路径名的父路径名的路径名字符串，如果此路径名没有指定父目录，则返回 `null`。 |
+| 3    | **public File getParentFile()** 返回此抽象路径名的父路径名的抽象路径名，如果此路径名没有指定父目录，则返回 `null`。 |
+| 4    | **public String getPath()** 将此抽象路径名转换为一个路径名字符串。 |
+| 5    | **public boolean isAbsolute()** 测试此抽象路径名是否为绝对路径名。 |
+| 6    | **public String getAbsolutePath()** 返回抽象路径名的绝对路径名字符串。 |
+| 7    | **public boolean canRead()** 测试应用程序是否可以读取此抽象路径名表示的文件。 |
+| 8    | **public boolean canWrite()** 测试应用程序是否可以修改此抽象路径名表示的文件。 |
+| 9    | **public boolean exists()** 测试此抽象路径名表示的文件或目录是否存在。 |
+| 10   | **public boolean isDirectory()** 测试此抽象路径名表示的文件是否是一个目录。 |
+| 11   | **public boolean isFile()** 测试此抽象路径名表示的文件是否是一个标准文件。 |
+| 12   | **public long lastModified()** 返回此抽象路径名表示的文件最后一次被修改的时间。 |
+| 13   | **public long length()** 返回由此抽象路径名表示的文件的长度。 |
+| 14   | **public boolean createNewFile() throws IOException** 当且仅当不存在具有此抽象路径名指定的名称的文件时，原子地创建由此抽象路径名指定的一个新的空文件。 |
+| 15   | **public boolean delete()**  删除此抽象路径名表示的文件或目录。 |
+| 16   | **public void deleteOnExit()** 在虚拟机终止时，请求删除此抽象路径名表示的文件或目录。 |
+| 17   | **public String[] list()** 返回由此抽象路径名所表示的目录中的文件和目录的名称所组成字符串数组。 |
+| 18   | **public String[] list(FilenameFilter filter)** 返回由包含在目录中的文件和目录的名称所组成的字符串数组，这一目录是通过满足指定过滤器的抽象路径名来表示的。 |
+| 19   | **public File[] listFiles()**  返回一个抽象路径名数组，这些路径名表示此抽象路径名所表示目录中的文件。 |
+| 20   | **public File[] listFiles(FileFilter filter)** 返回表示此抽象路径名所表示目录中的文件和目录的抽象路径名数组，这些路径名满足特定过滤器。 |
+| 21   | **public boolean mkdir()** 创建此抽象路径名指定的目录。      |
+| 22   | **public boolean mkdirs()** 创建此抽象路径名指定的目录，包括创建必需但不存在的父目录。 |
+| 23   | **public boolean renameTo(File dest)**  重新命名此抽象路径名表示的文件。 |
+| 24   | **public boolean setLastModified(long time)** 设置由此抽象路径名所指定的文件或目录的最后一次修改时间。 |
+| 25   | **public boolean setReadOnly()** 标记此抽象路径名指定的文件或目录，以便只可对其进行读操作。 |
+| 26   | **public static File createTempFile(String prefix, String suffix, File directory) throws IOException** 在指定目录中创建一个新的空文件，使用给定的前缀和后缀字符串生成其名称。 |
+| 27   | **public static File createTempFile(String prefix, String suffix) throws IOException** 在默认临时文件目录中创建一个空文件，使用给定前缀和后缀生成其名称。 |
+| 28   | **public int compareTo(File pathname)** 按字母顺序比较两个抽象路径名。 |
+| 29   | **public int compareTo(Object o)** 按字母顺序比较抽象路径名与给定对象。 |
+| 30   | **public boolean equals(Object obj)** 测试此抽象路径名与给定对象是否相等。 |
+| 31   | **public String toString()**  返回此抽象路径名的路径名字符串。 |
 
-与上面类似，你可以用文件名字符串创建对象
+### 文件输入输出流
+
+目的是将`In/OutputStream`和`File`进行连接：
+
+#### FileIn/OutputStream
+
+`FileInputStream`常用的构造方法如下：
 
 ```java
-OutputStream f = new FileOutputStream("./test.txt");
+FileInputStream(String filename);
+FileInputStream(File file);
 ```
 
-也可以使用一个文件对象来创建一个输出流来写文件：
+`FileOutputStream`类有与上面类似的构造方法，创建一个`FileOutputStream`对象时，可以指定不存在的文件名，但该文件不能被其他程序打开。
+
+我们来看一个测试程序：
 
 ```java
-File f = new File("./test.txt");
-OutputStream f = new FileOutputStream(f);
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        String content = "我虽无意逐鹿，却知苍生苦楚\n";
+        FileOutputStream out = new FileOutputStream("test.txt");
+        out.write(content.getBytes());
+        out.close();
+
+        FileInputStream in = new FileInputStream("test.txt");
+        System.out.print(new String(in.readAllBytes()));
+        in.close();
+    }
+}
 ```
 
-你可以用下列方法来对流进行操作：
+这里我们实现了将一句话写入文件，然后读取文件并输出到控制台的程序。
 
-<table class="reference">
-	<tbody>
-		<tr>
-			<th style="width:47px;">
-				<strong>序号</strong></th>
-			<th style="width:529px;">
-				<strong>方法及描述</strong></th>
-		</tr>
-		<tr>
-			<td style="width:47px;">
-				1</td>
-			<td style="width:529px;">
-				<strong>public void close() throws IOException{}</strong><br>
-				关闭此文件输入流并释放与此流有关的所有系统资源。抛出IOException异常。</td>
-		</tr>
-		<tr>
-			<td style="width:47px;">
-				2</td>
-			<td style="width:529px;">
-				<strong>protected void finalize()throws IOException {}</strong><br>
-				这个方法清除与该文件的连接。确保在不再引用文件输入流时调用其 close 方法。抛出IOException异常。</td>
-		</tr>
-		<tr>
-			<td style="width:47px;">
-				3</td>
-			<td style="width:529px;">
-				<strong>public void write(int w)throws IOException{}</strong><br>
-				这个方法把指定的字节写到输出流中。</td>
-		</tr>
-		<tr>
-			<td style="width:47px;">
-				4</td>
-			<td style="width:529px;">
-				<strong>public void write(byte[] w)</strong><br>
-				把指定数组中w.length长度的字节写到OutputStream中。</td>
-		</tr>
-	</tbody>
-</table>
+> 这里的in/out是针对Java程序而言：将外部文件的内容引入源文件为“in”，反之为“out”.
+
+#### FileReader/Writer类
+
+背景：由于汉字在文件中只占用两个字节，如果使用字节流，读取不好会出现乱码现象，此时采用字符流`Reader/Writer`类即可避免这种情况。
+
+`FileReader`顺序读取文件，只要不关闭流，每次调用`read()`方法就顺序地读取源中其余的内容，直到源的末尾或者流关闭。
+
+我们再次用类似的程序做测试：
+
+```java
+public class Main {
+    public static void main(String[] args) throws IOException {
+        String content = "我虽无意逐鹿，却知苍生苦楚\n";
+        FileWriter fw = new FileWriter("test.txt");
+        fw.write(content);
+        fw.close();
+
+        FileReader fr = new FileReader("test.txt");
+        char[] ret = new char[1024];
+        fr.read(ret);
+        System.out.print(new String(ret));
+        fr.close();
+    }
+}
+
+```
+
+可以发现我们这里写入可以是直接的字符串，而读取也可以用字符流读取。
