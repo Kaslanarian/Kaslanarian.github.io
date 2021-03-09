@@ -82,13 +82,13 @@ Hello world
 
 #### 整数类型
 
-- 八进制表示：以0开头，`0123`就是十进制的`83`；
+* 八进制表示：以0开头，`0123`就是十进制的`83`；
 
-- 多出一个`byte`类型表示`int8`；
+* 多出一个`byte`类型表示`int8`；
 
 #### 浮点类型
 
-- 小数默认被看做`double`，如果想要是`float`就要在后面加上`f`或者`F`
+* 小数默认被看做`double`，如果想要是`float`就要在后面加上`f`或者`F`
   
     ```java
     float f1 = 13.23f;
@@ -553,3 +553,156 @@ object1.equals(object2) // 比较的是两个对象引用所指的内容是否�
     ```
 
 JVM只能回收由`new`操作符创建的对象，否则无法被其识别，此时你可以自定义`Object`的`finalize`方法，类似与`C++`中的重载`delete`.
+
+## 异常处理
+
+参见[Java异常处理](https://welts.xyz/2021/03/07/exception/#java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86)
+
+## 读写文件
+
+下图是一个描述输入流和输出流的类层次图：
+
+![层次图](https://www.runoob.com/wp-content/uploads/2013/12/iostream2xx.png)
+
+下面将要讨论的两个重要的流是`FileInputStream`和`FileOutputStream`：
+
+#### FileInputStream
+
+该流用于从文件读取数据，它的对象可以用关键字 new 来创建。
+
+有多种构造方法可用来创建对象。
+
+可以使用字符串类型的文件名来创建一个输入流对象来读取文件：
+
+```java
+InputStream f = new FileInputStream("./test.java");
+```
+
+当然也可以先创建文件对象再读取它：
+
+```java
+File f = new File("./test.java");
+InputStream out = new FileInputStream(f);
+```
+
+下面是一个自制程序来读取输出文件：
+
+```java
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        InputStream stream = new FileInputStream("Makefile");
+        for (byte c : stream.readAllBytes()) {
+            System.out.print((char) c);
+        }
+        stream.close();
+    }
+}
+```
+
+<table class="reference">
+<tbody>
+		<tr>
+			<th style="width:44px;">
+				<strong>序号</strong></th>
+			<th style="width:533px;">
+				<strong>方法及描述</strong></th>
+		</tr>
+		<tr>
+			<td style="width:44px;">
+				1</td>
+			<td style="width:533px;">
+				<strong>public void close() throws IOException{}</strong><br>
+				关闭此文件输入流并释放与此流有关的所有系统资源。抛出IOException异常。</td>
+		</tr>
+		<tr>
+			<td style="width:44px;">
+				2</td>
+			<td style="width:533px;">
+				<strong>protected void finalize()throws IOException {}</strong><br>
+				这个方法清除与该文件的连接。确保在不再引用文件输入流时调用其 close 方法。抛出IOException异常。</td>
+		</tr>
+		<tr>
+			<td style="width:44px;">
+				3</td>
+			<td style="width:533px;">
+				<strong>public int read(int r)throws IOException{}</strong><br>
+				这个方法从 InputStream 对象读取指定字节的数据。返回为整数值。返回下一字节数据，如果已经到结尾则返回-1。</td>
+		</tr>
+		<tr>
+			<td style="width:44px;">
+				4</td>
+			<td style="width:533px;">
+				<strong>public int read(byte[] r) throws IOException{}</strong><br>
+				这个方法从输入流读取r.length长度的字节。返回读取的字节数。如果是文件结尾则返回-1。</td>
+		</tr>
+		<tr>
+			<td style="width:44px;">
+				5</td>
+			<td style="width:533px;">
+				<strong>public int available() throws IOException{}</strong><br>
+				返回下一次对此输入流调用的方法可以不受阻塞地从此输入流读取的字节数。返回一个整数值。</td>
+		</tr>
+	</tbody>
+</table>
+
+#### FileOutputStream
+
+该类用于创建一个文件并与文件中写数据，**如果该流在打开文件进行输出前，目标文件不存在，那么该流会创建该文件。**
+
+与上面类似，你可以用文件名字符串创建对象
+
+```java
+OutputStream f = new FileOutputStream("./test.txt");
+```
+
+也可以使用一个文件对象来创建一个输出流来写文件：
+
+```java
+File f = new File("./test.txt");
+OutputStream f = new FileOutputStream(f);
+```
+
+你可以用下列方法来对流进行操作：
+
+<table class="reference">
+	<tbody>
+		<tr>
+			<th style="width:47px;">
+				<strong>序号</strong></th>
+			<th style="width:529px;">
+				<strong>方法及描述</strong></th>
+		</tr>
+		<tr>
+			<td style="width:47px;">
+				1</td>
+			<td style="width:529px;">
+				<strong>public void close() throws IOException{}</strong><br>
+				关闭此文件输入流并释放与此流有关的所有系统资源。抛出IOException异常。</td>
+		</tr>
+		<tr>
+			<td style="width:47px;">
+				2</td>
+			<td style="width:529px;">
+				<strong>protected void finalize()throws IOException {}</strong><br>
+				这个方法清除与该文件的连接。确保在不再引用文件输入流时调用其 close 方法。抛出IOException异常。</td>
+		</tr>
+		<tr>
+			<td style="width:47px;">
+				3</td>
+			<td style="width:529px;">
+				<strong>public void write(int w)throws IOException{}</strong><br>
+				这个方法把指定的字节写到输出流中。</td>
+		</tr>
+		<tr>
+			<td style="width:47px;">
+				4</td>
+			<td style="width:529px;">
+				<strong>public void write(byte[] w)</strong><br>
+				把指定数组中w.length长度的字节写到OutputStream中。</td>
+		</tr>
+	</tbody>
+</table>

@@ -118,3 +118,98 @@ $$
 
 在集合$A$和集合$B$之间存在一个满射$\phi:A\to B$则两集合对等，此时两者有相同基数：$\overline{\overline{A}}=\overline{\overline{B}}$
 
+## 点集
+
+#### 聚点，内点和界点
+
+若$E是$n$维空间的一个点集，$P_0$是其中一个定点：
+
+* 如果存在$P_0$的某个领域$U(P_0)$，使得$U(P_0)\subset E$，则称$P_0$为$E$的**内点**；
+  如果$P_0$是$E^c$的内点，那么$P_0$是$E$的**外点**；
+  如果$P_0$即非$E$的内点也不是$E$的外点，则称$P_0$是$E$的**界点**或者是**边界点**。
+
+* 如果$P_0$的任一领域都有$E$中无限多点，则称$P_0$为$E$的一个**聚点**。
+  $\to$有限集无聚点；
+  $\to E$之内点必是$E$之聚点，但$E$的聚点却不一定是$E$的内点，因为还可能是界点
+
+定理：下面三个称述等价
+
+* $P_0$是$E$的聚点；
+
+* $\forall U(P_0),\exists P\in E\;and\;P\neq P_0$
+
+* $\exists \{P_n\}=\{P_1,P_2,...,P_n\}(P_i\neq P_j),s.t.P_n\to P_0(n\to\infty)$
+
+孤立点：
+
+* $P_0\in E$但不是$E$的聚点，则称为孤立点，充要条件：$\exists U(P_0),s.t. E\cap U(P_0)=\{P_0\}$
+
+开核，全体内点的集合：
+
+$$
+\mathring{E}=\{x:\exists U(x)\subset E\}
+$$
+
+导集，全体聚点的集合：
+
+$$
+E'=\{x:\forall U(x),U(x)\cap E\backslash\{x\}\neq\empty\}
+$$
+
+边界，全体边界点的集合（$\partial E$）;
+
+闭包：$E\cup E'$，也可以写成$\overline{E}$
+
+我们有：
+
+$$
+\overline{E}=E\cup\partial E=\mathring{E}\cup\partial E=E'\cup\{E的孤立点\}
+$$
+
+定理：
+
+* $A\subset B\to A'\subset B',\mathring{A}\subset\mathring{B},\overline{A}\subset\overline{B}$
+
+* $(A\cup B)'=A'\cup B'$
+
+* 波尔查诺-维尔斯特拉斯定理：若$E$是有界无限集，则至少有一个聚点。
+
+* 设$E\neq\empty,E\neq\mathbf{R}^n\to \partial{E}\neq\empty$
+
+#### 开集，闭集和完备集
+
+定义：
+
+* 设$E\subset\mathbf{R}^n$，如果E的每一个点都是E的内点，则称E为**开集**；
+
+* 设$E\subset\mathbf{R}^n$，如果E的每一个聚点都属于E，则称E是**闭集**；
+
+判定条件：
+
+* $E为开集\leftrightarrow E\subset\mathring{E}，亦即E=\mathring{E}$
+
+* $E为闭集\leftrightarrow E'\subset E,亦即\partial E\subset E$
+
+定理1：$\forall E\subset\mathbf{R}^n,\mathring{E}是开集,E'和\overline{E}都是闭集.$
+
+定理2：$E$是开集，则$E^c$是闭集；$E$是闭集，则$E^c$是开集.
+
+定理3：任意个开集的并仍是开集，有限个开集的交是开集；
+
+定理4：任意个闭集的交仍是闭集，有限个闭集的并是闭集；
+
+海涅-伯雷尔有限覆盖定理：设$F$是一个有界闭集，$\mathscr{M}$是一族开集$\{U_i\}_{i\in\Lambda}$，它覆盖了$F$，则$\mathscr{M}$中必存在有限多个开集$U_1.U_2,...,U_m$，它们同样覆盖了$F$
+
+定义：设$M$是度量空间$X$中的一个集合，$\mathscr{M}$是$X$中任一族覆盖了$M$的开集，如果币可以从$\mathscr{M}$中选出有限个开集仍然覆盖$M$，则称$M$是$X$中的**紧集**.
+
+定理：
+
+$$
+M是\mathbf{R}^n中的紧集\to M是\mathbf{R}^n中的有界闭集.
+$$
+
+定义：
+
+* 设$E\subset\mathbf{R}^n$，如果$E\subset E'$，那么$E$就是**自密集**，也就是说，集合中每一个点都是聚点的集合是自密集，或者说没有孤立点的集合就是自密集.
+  
+* 设$E\subset\mathbf{R}^n$，如果$E=E'$，那么$E$就是**完备集**或**完全集**，完备集就是自密闭集，也就是没有孤立点的闭集.

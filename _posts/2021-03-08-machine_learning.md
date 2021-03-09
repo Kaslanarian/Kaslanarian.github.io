@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      机器学习导论
-subtitle:   Recording
+subtitle:   记录
 date:       2021-03-08
 author:     Welt Xing
 header-img: img/post-bg-desk.jpg
