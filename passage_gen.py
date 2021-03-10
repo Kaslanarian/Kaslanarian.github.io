@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import time, os
 
 localtime = time.localtime(time.time())
