@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import os
+import os, shutil
 
 picture_path = "/home/welt/Pictures"
 
@@ -10,9 +10,13 @@ time_picutre_pair = dict([[
 
 picture_got = time_picutre_pair[sorted(time_picutre_pair)[-1]]
 new_name = input("图片新名称：")
-os.system("mv %s/%s ./img/%s.%s" % (
+
+shutil.move("%s/%s" % (
     picture_path,
     picture_got,
-    new_name,
-    picture_got[picture_got.rfind(".") + 1:],
-))
+), "./img")
+
+shutil.move(
+    "./img/%s" % (picture_got),
+    "./img/%s" % new_name + picture_got[picture_got.rfind("."):],
+)
