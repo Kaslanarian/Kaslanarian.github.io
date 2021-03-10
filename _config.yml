@@ -26,7 +26,17 @@ jianshu_username: 暂无
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
 permalink: pretty
 paginate: 10
-exclude: ["less", "node_modules", "Gruntfile.js", "package.json", "README.md", "passage_gen.py, .vscode"]
+exclude:
+    [
+        "less",
+        "node_modules",
+        "Gruntfile.js",
+        "package.json",
+        "README.md",
+        "passage_gen.py",
+        ".vscode",
+        "picture_handle.py",
+    ]
 anchorjs: true # if you want to customize anchor. check out line:181 of `post.html`
 
 # Gems
@@ -47,22 +57,22 @@ kramdown:
 
 # Gitalk
 gitalk:
-    enable:             true #是否开启Gitalk评论
-    clientID:           9004d006c6bf961062fc
-    clientSecret:       4f3b028982b0c83d4b6113929bbed17da1d3926e
-    repo:               Kaslanarian.github.io #仓库名称
-    owner:              Kaslanarian
-    admin:              Kaslanarian
+    enable: true #是否开启Gitalk评论
+    clientID: 9004d006c6bf961062fc
+    clientSecret: 4f3b028982b0c83d4b6113929bbed17da1d3926e
+    repo: Kaslanarian.github.io #仓库名称
+    owner: Kaslanarian
+    admin: Kaslanarian
     distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
 # 统计
 
 # Analytics settings
 # Baidu Analytics
-ba_track_id:    8dea5c02aae248a2baf01c29381d72bc
+ba_track_id: 8dea5c02aae248a2baf01c29381d72bc
 # Google Analytics
-ga_track_id:    G-MVHVLE31FV
-ga_domain:      welts.xyz
+ga_track_id: G-MVHVLE31FV
+ga_domain: welts.xyz
 
 # Featured Tags
 featured-tags: true # 是否使用首页标签
