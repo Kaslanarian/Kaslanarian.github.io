@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                inlineMath: [['$','$']]
+                }
+            });
+        </script>
+    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="尘世闲游，听凭风引">
+    <meta name="keywords"  content="邢存远的博客">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Java Notebook - 邢存远的博客 | Welt Xing's Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2021/03/03/java-learn/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Vago Mundo</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tag</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/java_header.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+        position: relative;
+        background-image: url('/img/java_header.jpg')
+    }
+
+        {
+        % if page.header-mask %
+    }
+
+    header.intro-header .header-mask {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+
+        background: rgba(0, 0, 0, {
+                    {
+                    page.header-mask
+                }
+            }
+
+        );
+    }
+
+        {
+        % endif %
+    }
+</style>
+<header class="intro-header">
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                    </div>
+                    <h1>Java Notebook</h1>
+                    
+                    
+                    <h2 class="subheading">学习记录</h2>
+                    
+                    <span class="meta">Posted by Welt Xing on March 3, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Container -->
+        <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+            <h2 id="导语">导语</h2>
+
+<p>去年的人工智能导论中就已经接触过<code class="highlighter-rouge">Java</code>，在那之前还学习过一段时间，但随着时间推移内容已经忘了不少，只记得基础的语法，今年的$KR\&amp;P$还是要用到<code class="highlighter-rouge">Java</code>，故在学期初期事情比较少的时候进行学习和整理。同时，作为一门流行至今的程序设计语言，会总比不会好。</p>
+
+<h2 id="java的运行过程">Java的运行过程</h2>
+
+<p>自从学习过《计算机系统基础》之后，对程序设计语言的了解不再满足于仅仅编写出<code class="highlighter-rouge">Hello World</code>，而是想知道程序的运行过程。</p>
+
+<p>我们来看看Java的编译和运行过程：</p>
+
+<p><img src="/img/java_process.png" alt="Java运行过程" /></p>
+
+<p>Java程序既是编译型，又是解释型的：</p>
+
+<ol>
+  <li>
+    <p>程序代码经过编译之后转换为称作Java字节码的中间语言；</p>
+  </li>
+  <li>
+    <p>Java虚拟机(JVM)对字节码进行解释(解释成机器码)和运行。</p>
+  </li>
+  <li>
+    <p>编译一次但解释在每次运行程序时都会进行。</p>
+  </li>
+</ol>
+
+<p>明白这一过程，我们就可以弄清<code class="highlighter-rouge">JDK</code>和<code class="highlighter-rouge">JRE</code>的区别了：</p>
+
+<ul>
+  <li>
+    <p>JRE : Java runtime environment，它提供了Java的<strong>运行</strong>环境，也就是说，它只能运行编译好的字节码，而不能让程序被编译成字节码，有了JRE我们就可以运行Java程序，比如<a href="https://vlab.ustc.edu.cn/guide/doc_logisim.html">Logisim</a>;</p>
+  </li>
+  <li>
+    <p>JDK : Java development kit，是程序员使用java语言编写java程序所需的开发工具包，是提供给程序员使用的。JDK包含了JRE，同时还包含了编译java源码的编译器javac，还包含了很多java程序调试和分析的工具：jconsole，jvisualvm等工具软件，还包含了java程序编写所需的文档和demo例子程序。——摘自<a href="https://www.zhihu.com/question/20317448/answer/14737358">知乎问答</a></p>
+  </li>
+</ul>
+
+<h2 id="hello-world">Hello World</h2>
+
+<p>这里，我们将不再依赖一键编译运行工具，例如<code class="highlighter-rouge">code-runner</code>，一些IDE等去运行一个<code class="highlighter-rouge">Hello World</code>，而是通过自己的理解去用命令行写出来：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello world"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>我们已经知道，<code class="highlighter-rouge">javac</code>就是前面所说的编译器，而<code class="highlighter-rouge">java</code>是解释器：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;</span> tldr java
+ - Execute a java .class file that contains a main method by using just the class name:
+   java 
+...
+
+<span class="o">&gt;&gt;</span> tldr javac
+ - Compile a .java file:
+   javac 
+...
+</code></pre></div></div>
+
+<p>那么我们需要做什么？先编译后运行：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;</span> javac Main.java <span class="c"># 会生成Main.class文件</span>
+<span class="o">&gt;&gt;</span> java Main       <span class="c"># 运行的是Main这个类</span>
+Hello world
+</code></pre></div></div>
+
+<p>运行成功！</p>
+
+<h2 id="简单语法复习">简单语法复习</h2>
+
+<p>该部分着重强调的是<code class="highlighter-rouge">Java</code>语法与<code class="highlighter-rouge">C/C++</code>，<code class="highlighter-rouge">Python</code>语法的区别和联系，便于笔者记忆和学习，建议有一定<code class="highlighter-rouge">C/C++</code>语言基础的读者观看。</p>
+
+<h3 id="基本数据类型">基本数据类型</h3>
+
+<h4 id="整数类型">整数类型</h4>
+
+<ul>
+  <li>
+    <p>八进制表示：以0开头，<code class="highlighter-rouge">0123</code>就是十进制的<code class="highlighter-rouge">83</code>；</p>
+  </li>
+  <li>
+    <p>多出一个<code class="highlighter-rouge">byte</code>类型表示<code class="highlighter-rouge">int8</code>；</p>
+  </li>
+</ul>
+
+<h4 id="浮点类型">浮点类型</h4>
+
+<ul>
+  <li>
+    <p>小数默认被看做<code class="highlighter-rouge">double</code>，如果想要是<code class="highlighter-rouge">float</code>就要在后面加上<code class="highlighter-rouge">f</code>或者<code class="highlighter-rouge">F</code></p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">float</span> <span class="n">f1</span> <span class="o">=</span> <span class="mf">13.23f</span><span class="o">;</span>
+  <span class="kt">double</span> <span class="n">d1</span> <span class="o">=</span> <span class="mf">4562.12d</span><span class="o">;</span>
+  <span class="kt">double</span> <span class="n">d2</span> <span class="o">=</span> <span class="mf">45678.1564</span><span class="o">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="字符类型">字符类型</h4>
+
+<ul>
+  <li>
+    <p>Java里的<code class="highlighter-rouge">char</code>占两个字节，是<code class="highlighter-rouge">C/C++</code>的两倍，使得java的字符几乎可以处理所有国家的语言文字:</p>
+
+    <p>我们若在<code class="highlighter-rouge">C</code>中运行下面的程序：</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="sc">'你'</span><span class="p">;</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">"%c</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>程序会报错，因为此时字符‘你’不在ASCII表内，属于<code class="highlighter-rouge">overflow</code>；</p>
+
+    <p>但在Java中：</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="sc">'你'</span><span class="o">;</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+
+    <p>程序会正确输出‘你’，这就是差异。</p>
+  </li>
+</ul>
+
+<h4 id="布尔类型">布尔类型</h4>
+
+<ul>
+  <li>此处的布尔类型为<code class="highlighter-rouge">boolean</code>，而不是<code class="highlighter-rouge">C++</code>中的<code class="highlighter-rouge">bool</code>，但两个字面量<code class="highlighter-rouge">true</code>和<code class="highlighter-rouge">false</code>是相同的。</li>
+</ul>
+
+<h3 id="变量和常量">变量和常量</h3>
+
+<h4 id="常量的声明">常量的声明</h4>
+
+<p>Java中我们用<code class="highlighter-rouge">const</code>关键字声明一个常量，而且常量是否为成员变量会影响其用法：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">member_final</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="kt">int</span> <span class="n">local_final</span><span class="o">;</span>
+        <span class="n">local_final</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">local_final</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>如果<code class="highlighter-rouge">member_final</code>(成员常量)只声明不赋值，那么会报错；</p>
+  </li>
+  <li>
+    <p>如果<code class="highlighter-rouge">local_final</code>(局部常量)只声明不赋值是可以的，但之后必须被赋值，也只能被赋值一次，否则报错；</p>
+  </li>
+</ul>
+
+<h3 id="运算符">运算符</h3>
+
+<ul>
+  <li>
+    <p>Java中自增自减运算符存在，用法与<code class="highlighter-rouge">C/C++</code>相同；</p>
+  </li>
+  <li>
+    <p>Java中移位操作多出一个<code class="highlighter-rouge">&gt;&gt;&gt;</code>，意思是无符号右移。</p>
+  </li>
+</ul>
+
+<h3 id="流程控制">流程控制</h3>
+
+<ul>
+  <li>
+    <p>Java也有switch-case，语法与C相同，但多出对<strong>字符串</strong>类型的支持；</p>
+  </li>
+  <li>
+    <p>Java有和C++类似的基于范围for循环：</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">int</span> <span class="n">arr</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span><span class="mi">7</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span> <span class="mi">1</span><span class="o">};</span>
+  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">:</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="字符串">字符串</h3>
+
+<h4 id="构造方法">构造方法</h4>
+
+<p>常用的字符串构造方法：(字符串使用前必须经过初始化，否则报错)</p>
+
+<ul>
+  <li>
+    <p>用字符数组初始化</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">char</span> <span class="n">a</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span><span class="sc">'w'</span><span class="o">,</span> <span class="sc">'e'</span><span class="o">,</span> <span class="sc">'l'</span><span class="o">,</span> <span class="sc">'t'</span><span class="o">};</span>
+  <span class="nc">String</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>提取字符数组初始化</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">char</span> <span class="n">a</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span><span class="sc">'w'</span><span class="o">,</span> <span class="sc">'e'</span><span class="o">,</span> <span class="sc">'l'</span><span class="o">,</span> <span class="sc">'t'</span><span class="o">};</span>
+  <span class="nc">String</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span> <span class="c1">// 偏移1，取2个，也就是"el"</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>字符串常量的引用赋值</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">String</span> <span class="n">s1</span><span class="o">,</span> <span class="n">s2</span><span class="o">;</span>
+  <span class="n">s1</span> <span class="o">=</span> <span class="s">"welt"</span><span class="o">;</span>
+  <span class="n">s2</span> <span class="o">=</span> <span class="s">"welt"</span><span class="o">;</span>
+</code></pre></div>    </div>
+
+    <p>这里是<code class="highlighter-rouge">s1</code>和<code class="highlighter-rouge">s2</code><strong>指向同一段内存空间</strong>，该内存空间存储的是字符串”welt”。</p>
+  </li>
+</ul>
+
+<h4 id="常用用法">常用用法</h4>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">String</code>之间可以相互连接，用’+’即可；此外，还可以连接其他数据类型，过程是调用<code class="highlighter-rouge">toString()</code>方法，然后再连接；</p>
+  </li>
+  <li>
+    <p>字符串查找：<code class="highlighter-rouge">indexOf(String s)</code>找子串首次出现的索引位置，没找到就返回-1，<code class="highlighter-rouge">lastIndexOf</code>类似，但找的是最后一次出现的子串；</p>
+  </li>
+  <li>
+    <p>获取<code class="highlighter-rouge">String</code>指定索引位置的字符不能像<code class="highlighter-rouge">C++</code>那样直接用索引，而是<code class="highlighter-rouge">str.charAt(int index)</code>；</p>
+  </li>
+</ul>
+
+<p>*
+    1. 用于获取子串的<code class="highlighter-rouge">subString(int begin_index), subString(int begin_index, end_index)</code>；
+    2. 用于去除空格的<code class="highlighter-rouge">trim()</code>；
+    3. 用于字符串替换的<code class="highlighter-rouge">replace(char old, char new)</code>；
+    4. 用于判断字符串开头和结尾的<code class="highlighter-rouge">startWith(String prefix)</code>和<code class="highlighter-rouge">endWith(String suffix)</code>；
+    5. 判断字符串相等不能用”==”，和C中原因几乎相同，<code class="highlighter-rouge">equals(Stirng)</code>方法返回<code class="highlighter-rouge">boolean</code>，<code class="highlighter-rouge">compareTo(String)</code>方法返回<code class="highlighter-rouge">int</code>，相当于<code class="highlighter-rouge">C</code>中的<code class="highlighter-rouge">strcmp(char*)</code>;
+    6. 用于分割字符串的<code class="highlighter-rouge">split</code>，<code class="highlighter-rouge">split(String sign)</code>，sign为分割字符串的分割符，也可以用正则表达式；<code class="highlighter-rouge">split(String sign, int limit)</code>则限定了拆分次数，会分割<code class="highlighter-rouge">limit-1</code>次，也就是<code class="highlighter-rouge">limit</code>个字符串。</p>
+
+<h4 id="字符串格式化">字符串格式化</h4>
+
+<p>由于本人很少使用日期时间的原因，故关于日期和时间的格式化在这里跳过。</p>
+
+<p>相比于<code class="highlighter-rouge">C\C++</code>，Java的常规类型格式化多出这些内容：</p>
+
+<ol>
+  <li>
+    <p><code class="highlighter-rouge">"%b, %B"</code>，格式化为布尔类型；</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">"%h, %H"</code>，格式化为散列码；</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">"%a, %A"</code>，格式化为带有效位和指数的十六进制浮点数。</p>
+  </li>
+</ol>
+
+<h3 id="正则表达式">正则表达式</h3>
+
+<p>正则表达式，Java兼容了基本的正则表达式：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+   <span class="nc">Scanner</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+   <span class="nc">String</span> <span class="n">str</span><span class="o">;</span>
+   <span class="nc">String</span> <span class="n">regex</span> <span class="o">=</span> <span class="s">"\\w+@\\w+(\\.\\w{2,3})*\\.\\w{2,3}"</span><span class="o">;</span>
+   <span class="k">do</span> <span class="o">{</span>
+       <span class="n">str</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"exit"</span><span class="o">))</span> <span class="o">{</span>
+           <span class="k">break</span><span class="o">;</span>
+       <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="n">regex</span><span class="o">))</span> <span class="o">{</span>
+           <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">str</span> <span class="o">+</span> <span class="s">"是一个合法的邮箱地址格式"</span><span class="o">);</span>
+       <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+           <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">str</span> <span class="o">+</span> <span class="s">"不是一个合法的邮箱地址格式"</span><span class="o">);</span>
+       <span class="o">}</span>
+   <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+   <span class="n">s</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+   <span class="k">return</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>该程序是一个邮箱地址格式判断的程序，其中的<code class="highlighter-rouge">regex</code>就是一个正则表达式。</p>
+
+<h3 id="字符串生成器">字符串生成器</h3>
+
+<p>简单的说，就是<code class="highlighter-rouge">String</code>的内容无法改变，导致在进行连接的时候其实是多出一个<code class="highlighter-rouge">copy</code>，如果操作频繁，回导致效率很低，所以有一个新的类<code class="highlighter-rouge">StringBuilder</code>，一个可变的字符序列，它的几个常用方法：<code class="highlighter-rouge">append()</code>可以追加内容，参数可以是多个类型；<code class="highlighter-rouge">insert(int offset, String content)</code>将在offset处插入content字符串；<code class="highlighter-rouge">delete(int start, int end)</code>删除start和end之间的字符串。</p>
+
+<h3 id="数组">数组</h3>
+
+<h4 id="一维数组的创建">一维数组的创建</h4>
+
+<p>你可以这样创建一个一维数组：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ElemType</span> <span class="nc">ArrName</span><span class="o">[];</span>
+<span class="nc">ElemType</span><span class="o">[]</span> <span class="nc">ArrName</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>这样的数组是无法使用的，你还需要为其分配内存空间：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrName</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ElemType</span><span class="o">[</span><span class="nc">ElemNumber</span><span class="o">];</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>使用new分配数组内存时，整形数组中所有元素都是0。</p>
+</blockquote>
+
+<p>当然，上面的操作可以合并进行：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ElemType</span> <span class="nc">ArrName</span><span class="o">[]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ElemType</span><span class="o">[</span><span class="nc">ElemNumber</span><span class="o">];</span>
+<span class="nc">ElemType</span><span class="o">[]</span> <span class="nc">ArrName</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ElemType</span><span class="o">[</span><span class="nc">ElemNumber</span><span class="o">];</span>
+</code></pre></div></div>
+
+<p>该写法是普遍采用的创建数组方法。</p>
+
+<h4 id="一维数组的初始化">一维数组的初始化</h4>
+
+<p>数组的初始化有以下两种基本形式：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">arr1</span><span class="o">[]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">};</span>
+<span class="kt">int</span> <span class="n">arr2</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span><span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">};</span>
+</code></pre></div></div>
+
+<h4 id="二维数组的创建">二维数组的创建</h4>
+
+<p>你可以这样先声明再分配一个二维数组：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ElemType</span> <span class="nc">ArrName</span><span class="o">[][];</span>
+<span class="nc">ElemType</span><span class="o">[][]</span> <span class="nc">ArrName</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>分配空间的时候可以一起分配或者分别分配：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">4</span><span class="o">]</span><span class="err">；</span> <span class="c1">// 一起分配</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">2</span><span class="o">][];</span>
+<span class="n">a</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+<span class="n">a</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">4</span><span class="o">];</span>  <span class="c1">// 分别分配</span>
+</code></pre></div></div>
+
+<h4 id="二维数组的初始化">二维数组的初始化</h4>
+
+<p>二维数组的初始化与一维数组类似，同样可以使用大括号完成：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">arr</span><span class="o">[][]</span> <span class="o">=</span> <span class="o">{</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">},</span> <span class="o">{</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">}</span> <span class="o">};</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>使用new分配二维数组数组内存时，整形数组中所有元素都是0。</p>
+</blockquote>
+
+<h4 id="数组遍历">数组遍历</h4>
+
+<p>最基础的遍历：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">length</span><span class="o">();</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="no">TODO</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="no">TODO</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>利用<code class="highlighter-rouge">foreach</code>遍历：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">[]</span> <span class="o">:</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">e</span> <span class="o">:</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="no">TODO</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="no">TODO</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="数组填充和替换">数组填充和替换</h4>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">fill(ElemType[] a, ElemType value)</code>将数组<code class="highlighter-rouge">a</code>中所有元素填充为<code class="highlighter-rouge">value</code>；</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">fill(ElemType[] a, int formIndex, int toIndex, ElemType value)</code>是有范围的填充；</p>
+  </li>
+</ul>
+
+<h4 id="对数组排序">对数组排序</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="mi">7</span> <span class="o">};</span>
+    <span class="nc">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">e</span> <span class="o">:</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">e</span> <span class="o">+</span> <span class="s">" "</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="数组复制">数组复制</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">arr</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">};</span>
+<span class="kt">int</span> <span class="n">arr_copy</span><span class="o">[]</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">copyOf</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">arr_copy</code>长度为3，是<code class="highlighter-rouge">arr</code>的前3个元素，如果<code class="highlighter-rouge">copyOf</code>的第二个参数，也就是长度参数大于复制目标的长度，那么就用0填充。</p>
+
+<p>范围复制：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">arr</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">};</span>
+<span class="kt">int</span> <span class="n">newarr</span><span class="o">[]</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">copyOfRange</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h2 id="类与对象">类与对象</h2>
+
+<h3 id="权限修饰符">权限修饰符</h3>
+
+<p>虽然C++和Java共用一套权限修饰符，但含义有些许差别。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>private</th>
+      <th>protected</th>
+      <th>public</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>本类</td>
+      <td>可见</td>
+      <td>可见</td>
+      <td>可见</td>
+    </tr>
+    <tr>
+      <td>同包的其他类或子类</td>
+      <td>不可见</td>
+      <td>可见</td>
+      <td>可见</td>
+    </tr>
+    <tr>
+      <td>其他包的类或子类</td>
+      <td>不可见</td>
+      <td>不可见</td>
+      <td>可见</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>包的概念将在后面介绍。</p>
+
+<h3 id="构造方法-1">构造方法</h3>
+
+<p>特点，没有返回值（和<code class="highlighter-rouge">C++</code>相同），而且不需要<code class="highlighter-rouge">void</code>关键字修饰。</p>
+
+<blockquote>
+  <p>如果在类中定义的构造方法都不是无参的，那么编译器也不会为其设置一个默认构造函数，只有在类中没有定义任何构造方法时，系统才会自动创建默认构造函数。</p>
+</blockquote>
+
+<p><code class="highlighter-rouge">this</code>也可以调用构造方法：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">Anything</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">(</span><span class="s">"this 调用有参构造方法"</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"无参构造方法"</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="nf">Anything</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"有参构造方法"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="静态变量常量和方法">静态变量，常量和方法</h3>
+
+<p>由<code class="highlighter-rouge">static</code>关键字修饰的变量，常量和方法被称作静态变量、常量和方法。</p>
+
+<p>作用是为了”共享”（和C中的<code class="highlighter-rouge">static</code>的作用“相反”）；我们直接使用<code class="highlighter-rouge">类名.静态成员/方法</code>就可以使用。</p>
+
+<p>静态方法的规定：</p>
+
+<ol>
+  <li>
+    <p>静态方法中不能使用<code class="highlighter-rouge">this</code>关键字；</p>
+  </li>
+  <li>
+    <p>在静态方法中不能<strong>直接</strong>调用非静态方法。</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p>Java中不允许方法体内的局部变量为<code class="highlighter-rouge">static</code>。
+如果在执行类的时候希望先执行类的一些初始化动作，可以使用<code class="highlighter-rouge">static</code>定义一个静态区域：</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">example</span> <span class="o">{</span>
+      <span class="kd">static</span> <span class="o">{</span>
+          <span class="no">TODO</span><span class="o">();</span>
+      <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h3 id="类的主方法">类的主方法</h3>
+
+<p>形式：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="no">TODO</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>可以看出：</p>
+
+<ol>
+  <li>
+    <p>主方法是静态的，所以如果要在主方法中调用其他函数，<strong>这些函数也必须是静态的</strong>；</p>
+  </li>
+  <li>
+    <p>和<code class="highlighter-rouge">C</code>不一样，这里的<code class="highlighter-rouge">main</code>是没有返回值的；</p>
+  </li>
+  <li>
+    <p>主方法的形参就是参数，我们可以用程序测试一下：</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">for</span> <span class="o">(</span><span class="nc">String</span> <span class="n">arg</span> <span class="o">:</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+         <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">arg</span><span class="o">);</span>
+     <span class="o">}</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+
+    <p>在命令行输入：</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="o">&gt;&gt;</span> javac Main.java <span class="c"># 此处不是输入参数的地方，因为不执行</span>
+ <span class="o">&gt;&gt;</span> java Main 1 2 3
+</code></pre></div>    </div>
+
+    <p>然后就可以看到输出：</p>
+
+    <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 1
+ 2
+ 3
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="对象">对象</h3>
+
+<h4 id="对象的创建">对象的创建</h4>
+
+<p>在之前的数组和字符串部分，我们已经在创建对象了：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="s">"abc"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>在此强调这里的语法和<code class="highlighter-rouge">C++</code>的差别：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">A</span><span class="p">(...);</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">C++</code>的<code class="highlighter-rouge">new</code>语法创建的是一个指针，但<code class="highlighter-rouge">Java</code>创建的就是一个对象的引用。</p>
+
+<blockquote>
+  <p>JVM的内存处理机制：每个对象都有生命周期，生命周期结束后就会被回收，无法再被使用。</p>
+</blockquote>
+
+<h4 id="对象的引用">对象的引用</h4>
+
+<p>事实上，在</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>中，标识符<code class="highlighter-rouge">str</code>称作“引用对象”，如一个<code class="highlighter-rouge">Book</code>类的引用可以使用以下代码：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Book</span> <span class="n">book</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>一个引用对象不一定需要有一个对象相关联（比如上面），<strong>引用与对象相关联</strong>的语法如下：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>引用只是存放对象的内存地址，并非存放一个对象。严格地说，引用和对象不同。</p>
+
+<blockquote>
+  <p>前桥和弥在《<a href="https://book.douban.com/subject/21317828/">征服C指针</a>》中提到过一个趣闻：JAVA在推出时宣传自己是没有指针的，目的就是为了吸引当时被C指针折磨已久的程序员们。但实际上前桥认为Java的引用可以说就是C的指针，所以这算是一个“虚假营销”。至此我们可以发现他的观点确实有合理之处。</p>
+</blockquote>
+
+<h4 id="对象的比较">对象的比较</h4>
+
+<p>Java中有两种比较对象的方式：分别为“==”运算符和<code class="highlighter-rouge">equals()</code>方法：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">object1</span> <span class="o">==</span> <span class="n">object2</span><span class="o">;</span>     <span class="c1">// 比较的是两个对象引用的地址是否相同；</span>
+<span class="n">object1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">object2</span><span class="o">)</span> <span class="c1">// 比较的是两个对象引用所指的内容是否相同.</span>
+</code></pre></div></div>
+
+<p>区别可以理解为<code class="highlighter-rouge">C</code>中两个<code class="highlighter-rouge">char*</code>，<code class="highlighter-rouge">ptr1</code>和<code class="highlighter-rouge">ptr2</code>，<code class="highlighter-rouge">==</code>比较的就是地址是否相同，但<code class="highlighter-rouge">strcmp(ptr1, ptr2)</code>比较的是内容。</p>
+
+<h4 id="对象的销毁">对象的销毁</h4>
+
+<p>对象的销毁和我们之前提到的JVM垃圾回收机制相关，我们先来看下什么样的对象会被JVM识别为垃圾：</p>
+
+<ul>
+  <li>
+    <p>对象引用超过了作用域：</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">{</span>
+      <span class="no">A</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="no">A</span><span class="o">();</span>
+  <span class="o">}</span>
+  <span class="c1">// 到了这里A就应该消亡了</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>将对象赋值为<code class="highlighter-rouge">null</code>：</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="no">A</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="no">A</span><span class="o">();</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>JVM只能回收由<code class="highlighter-rouge">new</code>操作符创建的对象，否则无法被其识别，此时你可以自定义<code class="highlighter-rouge">Object</code>的<code class="highlighter-rouge">finalize</code>方法，类似与<code class="highlighter-rouge">C++</code>中的重载<code class="highlighter-rouge">delete</code>.</p>
+
+<h2 id="异常处理">异常处理</h2>
+
+<p>参见<a href="https://welts.xyz/2021/03/07/exception/#java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86">Java异常处理</a></p>
+
+<h2 id="io输入输出">I/O（输入输出）</h2>
+
+<h3 id="关于流">关于流</h3>
+
+<h4 id="输入流">输入流</h4>
+
+<p>Java中所有输入流都是抽象类<code class="highlighter-rouge">InputStream</code>（字节输入流）或者抽象类<code class="highlighter-rouge">Reader</code>（字符输入流）的子类。</p>
+
+<p>Java中的字符是Unicode编码，是双字节的。<code class="highlighter-rouge">InputStream</code>是用来处理字节的，并不适合处理字节文本（如英文文档）。Java为字符文本的输入专门提供了一套单独的类<code class="highlighter-rouge">Reader</code>，但<code class="highlighter-rouge">Reader</code>类并不是<code class="highlighter-rouge">InputStream</code>类的替换者，只是在处理字符串时简化了编程。<code class="highlighter-rouge">Reader</code>类是字符输入流的抽象类。</p>
+
+<h4 id="输出流">输出流</h4>
+
+<p>Java中所有输出流都是抽象类<code class="highlighter-rouge">OutputStream</code>（字节输出流）或者抽象类<code class="highlighter-rouge">Writer</code>（字符输出流）的子类。同样，<code class="highlighter-rouge">Writer</code>类也是为了处理字符而单独提供的抽象类。</p>
+
+<h3 id="file类">FIle类</h3>
+
+<h4 id="文件创建与删除">文件创建与删除</h4>
+
+<p>直接用程序说明：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">File</span> <span class="n">file1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+<span class="nc">File</span> <span class="n">file2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">"dirname"</span><span class="o">,</span> <span class="s">"filename"</span><span class="o">)</span> <span class="c1">// 比如dirname为"/home"，filename为"test.txt"</span>
+</code></pre></div></div>
+
+<p>你可以像下面这样进行更完备的文件创建：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">"word.txt"</span><span class="o">);</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">file</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">file</span><span class="o">.</span><span class="na">delete</span><span class="o">();</span> <span class="c1">// 文件已存在则将文件删除</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>          <span class="c1">// 文件不存在则创建新文件</span>
+        <span class="n">file</span><span class="o">.</span><span class="na">createNewFile</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="获取文件信息">获取文件信息</h4>
+
+<p>以下是<code class="highlighter-rouge">File</code>类的方法，供查阅使用：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">序号</th>
+      <th style="text-align: left">方法描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left"><strong>public String getName()</strong> 返回由此抽象路径名表示的文件或目录的名称。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">2</td>
+      <td style="text-align: left"><strong>public String getParent()</strong>  返回此抽象路径名的父路径名的路径名字符串，如果此路径名没有指定父目录，则返回 <code class="highlighter-rouge">null</code>。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">3</td>
+      <td style="text-align: left"><strong>public File getParentFile()</strong> 返回此抽象路径名的父路径名的抽象路径名，如果此路径名没有指定父目录，则返回 <code class="highlighter-rouge">null</code>。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">4</td>
+      <td style="text-align: left"><strong>public String getPath()</strong> 将此抽象路径名转换为一个路径名字符串。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">5</td>
+      <td style="text-align: left"><strong>public boolean isAbsolute()</strong> 测试此抽象路径名是否为绝对路径名。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">6</td>
+      <td style="text-align: left"><strong>public String getAbsolutePath()</strong> 返回抽象路径名的绝对路径名字符串。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">7</td>
+      <td style="text-align: left"><strong>public boolean canRead()</strong> 测试应用程序是否可以读取此抽象路径名表示的文件。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">8</td>
+      <td style="text-align: left"><strong>public boolean canWrite()</strong> 测试应用程序是否可以修改此抽象路径名表示的文件。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">9</td>
+      <td style="text-align: left"><strong>public boolean exists()</strong> 测试此抽象路径名表示的文件或目录是否存在。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">10</td>
+      <td style="text-align: left"><strong>public boolean isDirectory()</strong> 测试此抽象路径名表示的文件是否是一个目录。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">11</td>
+      <td style="text-align: left"><strong>public boolean isFile()</strong> 测试此抽象路径名表示的文件是否是一个标准文件。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">12</td>
+      <td style="text-align: left"><strong>public long lastModified()</strong> 返回此抽象路径名表示的文件最后一次被修改的时间。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">13</td>
+      <td style="text-align: left"><strong>public long length()</strong> 返回由此抽象路径名表示的文件的长度。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">14</td>
+      <td style="text-align: left"><strong>public boolean createNewFile() throws IOException</strong> 当且仅当不存在具有此抽象路径名指定的名称的文件时，原子地创建由此抽象路径名指定的一个新的空文件。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">15</td>
+      <td style="text-align: left"><strong>public boolean delete()</strong>  删除此抽象路径名表示的文件或目录。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">16</td>
+      <td style="text-align: left"><strong>public void deleteOnExit()</strong> 在虚拟机终止时，请求删除此抽象路径名表示的文件或目录。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">17</td>
+      <td style="text-align: left"><strong>public String[] list()</strong> 返回由此抽象路径名所表示的目录中的文件和目录的名称所组成字符串数组。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">18</td>
+      <td style="text-align: left"><strong>public String[] list(FilenameFilter filter)</strong> 返回由包含在目录中的文件和目录的名称所组成的字符串数组，这一目录是通过满足指定过滤器的抽象路径名来表示的。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">19</td>
+      <td style="text-align: left"><strong>public File[] listFiles()</strong>  返回一个抽象路径名数组，这些路径名表示此抽象路径名所表示目录中的文件。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">20</td>
+      <td style="text-align: left"><strong>public File[] listFiles(FileFilter filter)</strong> 返回表示此抽象路径名所表示目录中的文件和目录的抽象路径名数组，这些路径名满足特定过滤器。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">21</td>
+      <td style="text-align: left"><strong>public boolean mkdir()</strong> 创建此抽象路径名指定的目录。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">22</td>
+      <td style="text-align: left"><strong>public boolean mkdirs()</strong> 创建此抽象路径名指定的目录，包括创建必需但不存在的父目录。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">23</td>
+      <td style="text-align: left"><strong>public boolean renameTo(File dest)</strong>  重新命名此抽象路径名表示的文件。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">24</td>
+      <td style="text-align: left"><strong>public boolean setLastModified(long time)</strong> 设置由此抽象路径名所指定的文件或目录的最后一次修改时间。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">25</td>
+      <td style="text-align: left"><strong>public boolean setReadOnly()</strong> 标记此抽象路径名指定的文件或目录，以便只可对其进行读操作。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">26</td>
+      <td style="text-align: left"><strong>public static File createTempFile(String prefix, String suffix, File directory) throws IOException</strong> 在指定目录中创建一个新的空文件，使用给定的前缀和后缀字符串生成其名称。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">27</td>
+      <td style="text-align: left"><strong>public static File createTempFile(String prefix, String suffix) throws IOException</strong> 在默认临时文件目录中创建一个空文件，使用给定前缀和后缀生成其名称。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">28</td>
+      <td style="text-align: left"><strong>public int compareTo(File pathname)</strong> 按字母顺序比较两个抽象路径名。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">29</td>
+      <td style="text-align: left"><strong>public int compareTo(Object o)</strong> 按字母顺序比较抽象路径名与给定对象。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">30</td>
+      <td style="text-align: left"><strong>public boolean equals(Object obj)</strong> 测试此抽象路径名与给定对象是否相等。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">31</td>
+      <td style="text-align: left"><strong>public String toString()</strong>  返回此抽象路径名的路径名字符串。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="文件输入输出流">文件输入输出流</h3>
+
+<p>目的是将<code class="highlighter-rouge">In/OutputStream</code>和<code class="highlighter-rouge">File</code>进行连接：</p>
+
+<h4 id="fileinoutputstream">FileIn/OutputStream</h4>
+
+<p><code class="highlighter-rouge">FileInputStream</code>常用的构造方法如下：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">FileInputStream</span><span class="o">(</span><span class="nc">String</span> <span class="n">filename</span><span class="o">);</span>
+<span class="nc">FileInputStream</span><span class="o">(</span><span class="nc">File</span> <span class="n">file</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">FileOutputStream</code>类有与上面类似的构造方法，创建一个<code class="highlighter-rouge">FileOutputStream</code>对象时，可以指定不存在的文件名，但该文件不能被其他程序打开。</p>
+
+<p>我们来看一个测试程序：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.FileInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">content</span> <span class="o">=</span> <span class="s">"我虽无意逐鹿，却知苍生苦楚\n"</span><span class="o">;</span>
+        <span class="nc">FileOutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"test.txt"</span><span class="o">);</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">content</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+        <span class="nc">FileInputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"test.txt"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="n">in</span><span class="o">.</span><span class="na">readAllBytes</span><span class="o">()));</span>
+        <span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>这里我们实现了将一句话写入文件，然后读取文件并输出到控制台的程序。</p>
+
+<blockquote>
+  <p>这里的in/out是针对Java程序而言：将外部文件的内容引入源文件为“in”，反之为“out”.</p>
+</blockquote>
+
+<h4 id="filereaderwriter类">FileReader/Writer类</h4>
+
+<p>背景：由于汉字在文件中只占用两个字节，如果使用字节流，读取不好会出现乱码现象，此时采用字符流<code class="highlighter-rouge">Reader/Writer</code>类即可避免这种情况。</p>
+
+<p><code class="highlighter-rouge">FileReader</code>顺序读取文件，只要不关闭流，每次调用<code class="highlighter-rouge">read()</code>方法就顺序地读取源中其余的内容，直到源的末尾或者流关闭。</p>
+
+<p>我们再次用类似的程序做测试：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">content</span> <span class="o">=</span> <span class="s">"我虽无意逐鹿，却知苍生苦楚\n"</span><span class="o">;</span>
+        <span class="nc">FileWriter</span> <span class="n">fw</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileWriter</span><span class="o">(</span><span class="s">"test.txt"</span><span class="o">);</span>
+        <span class="n">fw</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">content</span><span class="o">);</span>
+        <span class="n">fw</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+        <span class="nc">FileReader</span> <span class="n">fr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="s">"test.txt"</span><span class="o">);</span>
+        <span class="kt">char</span><span class="o">[]</span> <span class="n">ret</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>
+        <span class="n">fr</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">ret</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="n">ret</span><span class="o">));</span>
+        <span class="n">fr</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>可以发现我们这里写入可以是直接的字符串，而读取也可以用字符流读取。</p>
+
+
+            <hr style="visibility: hidden;">
+
+            <ul class="pager">
+                
+                <li class="previous">
+                    <a href="/2021/03/02/real_analysis/" data-toggle="tooltip"
+                        data-placement="top" title="实变函数与泛函分析">
+                        Previous<br>
+                        <span>实变函数与泛函分析</span>
+                    </a>
+                </li>
+                
+                
+                <li class="next">
+                    <a href="/2021/03/03/pyecharts-learn/" data-toggle="tooltip"
+                        data-placement="top" title="关于pyecharts">
+                        Next<br>
+                        <span>关于pyecharts</span>
+                    </a>
+                </li>
+                
+            </ul>
+
+
+            <!--Gitalk评论start  -->
+            
+            <!-- 引入Gitalk评论插件  -->
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+            <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+            <div id="gitalk-container"></div>
+            <!-- 引入一个生产md5的js，用于对id值进行处理，防止其过长 -->
+            <!-- Thank DF:https://github.com/NSDingFan/NSDingFan.github.io/issues/3#issuecomment-407496538 -->
+            <script src="/js/md5.min.js"></script>
+            <script type="text/javascript">
+                var gitalk = new Gitalk({
+                    clientID: '9004d006c6bf961062fc',
+                    clientSecret: '4f3b028982b0c83d4b6113929bbed17da1d3926e',
+                    repo: 'Kaslanarian.github.io',
+                    owner: 'Kaslanarian',
+                    admin: ['Kaslanarian'],
+                    distractionFreeMode: true,
+                id: md5(location.pathname),
+                    });
+                gitalk.render('gitalk-container');
+            </script>
+            
+            <!-- Gitalk end -->
+
+            
+
+        </div>
+
+        <!-- Side Catalog Container -->
+        
+        <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+            <div class="side-catalog">
+                <hr class="hidden-sm hidden-xs">
+                <h5>
+                    <a class="catalog-toggle" href="#">CATALOG</a>
+                </h5>
+                <ul class="catalog-body"></ul>
+            </div>
+        </div>
+        
+
+        <!-- Sidebar Container -->
+        <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+            <!-- Featured Tags -->
+            
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                <div class="tags">
+                    
+                    
+                    <a href="/tags/#matrix-c" title="matrix-c" rel="12">
+                        matrix-c
+                    </a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/tags/#线性代数" title="线性代数" rel="9">
+                        线性代数
+                    </a>
+                    
+                    
+                    
+                    <a href="/tags/#日常" title="日常" rel="2">
+                        日常
+                    </a>
+                    
+                    
+                    
+                    <a href="/tags/#课程" title="课程" rel="5">
+                        课程
+                    </a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/tags/#C/C++" title="C/C++" rel="2">
+                        C/C++
+                    </a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/tags/#Java" title="Java" rel="4">
+                        Java
+                    </a>
+                    
+                    
+                    
+                    <a href="/tags/#Python" title="Python" rel="2">
+                        Python
+                    </a>
+                    
+                    
+                </div>
+            </section>
+            
+
+            <!-- Friends Blog -->
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js", function () {
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link {
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top: -0.1em;
+        }
+    }
+</style>
+
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/暂无">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/kaslana-52">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/暂无">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Kaslanarian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Vago Mundo 2021
+                    <br>
+                    Theme on <a href="https://github.com/Kaslanarian/Kaslanarian.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=Kaslanarian&repo=Kaslanarian.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'G-MVHVLE31FV';
+    var _gaDomain = 'welts.xyz';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '8dea5c02aae248a2baf01c29381d72bc';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

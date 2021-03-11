@@ -4,15 +4,13 @@ title:      实变函数与泛函分析
 subtitle:   笔记概要
 date:       2021-03-02
 author:     Welt Xing
-header-img: img/post-bg-desk.jpg
+header-img: img/math_header.jpg
 catalog:    true
 tags:
     - 课程
 ---
 
-# 实变函数与泛函分析
-
-一些重要/陌生知识点的记录以供复习参考
+> 一些重要/陌生知识点的记录以供复习参考
 
 ## 集合
 
@@ -225,3 +223,227 @@ $$
 我们又可以得到闭集的构造如下：
 
 定理：直线上的闭集$F$或者是全直线，或者是从直线上挖掉有限个或可数个互不相交的开区间（即$F$的余区间）所得到的集.
+
+#### 康托尔三分集
+
+即康托尔疏朗集.
+
+定义：设$E\subset\mathbf{R}^n$
+
+* $F\subset\mathbf{R}^n$，若对任意$x\in F$和任意领域$U(x)$，$U(x)\cap E\neq\emptyset$，则称$E$在$F$中**稠密**.
+
+* 若对任意$x\in\mathbf{R}^n$和任意邻域$U(x)$，存在$U(y)\subset U(x)\cup E^c$，则称$E$是**疏朗集**或**无处稠密集**.
+
+如有限点集或收敛可数列都是疏朗集，有理点$\mathbf{Q}^n$在$\mathbf{R}^n$中稠密
+
+> 直观上，如果$X$中的任一点$x$可以被$A$中的点很好的逼近，则称$A$在$X$中稠密.
+
+![康托尔集](/img/kantor.png)
+
+性质：
+
+* $P$是完备集（自密的闭集是完备的）
+
+* $P$没有内点（区间集都是相互隔离的闭区间）
+
+* $[0,1]\backslash P$是可数个互不相交的开区间，其长度为$1$:
+
+  $$
+  \sum_{n=1}^\infty\dfrac{2^{n-1}}{3^n}=1
+  $$
+
+  这导致$P$的长度只能是$0$.
+
+* $P$的基数为$c$.
+
+总结：**康托尔集是一个测度为0且基数为$c$的疏朗完备集。**
+
+## 测度论
+
+### 外侧度
+
+定义：设$E$为$\mathbf{R}^n$中任一点集，对于每一列覆盖$E$的开区间$E\subset\mathop{\cup}\limits_{i=1}^\infty I_i$，作出它的体积总和$\mu=\sum_{i=1}^\infty\|I_i\|$（$\mu$可以是$\infty$，不同的列有不同的$\mu$），所有这一切的$\mu$组成了一个下方有界的数集，它的下确界（完全由$E$决定）称为$E$的<u>勒贝格外测度</u>，简称<u>$L$外侧度</u>或<u>外测度</u>，记为$m^*E$，即：
+
+$$
+m^*E=\inf_{E\subset\mathop{\cup}\limits_{i=1}^\infty I_i}\sum_{i=1}^\infty|I_i|.
+$$
+
+性质：
+
+1. $m^\star E\geqslant 0$，当$E=\emptyset$时，$m^\star E=0$.
+
+2. 设$A\subset B$，则$m^\star A\leqslant m^*B$.
+
+3. $$
+    m^*(\mathop{\cup}\limits_{i=1}^\infty A_i)\leqslant\sum_{i=1}^\infty m^*A_i
+    $$（次可数可加性）
+
+### 可测集
+
+外侧度的优点是任何集合都有外侧度，但是外侧度只具有次可数可加性，不具有可数可加性.
+
+我们想对外侧度$m^*$的定义域加以限制，设法在$\mathbf{R}^n$中找一个集合类$\mathscr{M}$，在$\mathscr{M}$上能够满足**测度公理**。
+
+定义：设$E$为$\mathbf{R}^n$中的点集，如果对任意点集$T$都有
+
+$$
+m^*T=m^*(T\cap E)+m^*(T\cap E^c)
+$$
+
+则称$E$是$L$可测的，此时$E$的外测度$m^*E$就是$E$的$L$测度，记为$mE$. $L$可测集全体记为$\mathscr{M}$.
+
+定理1：集合$E$可测的充分必要条件是$\forall A\subset E,B\subset E^c$，总有
+
+$$
+m^*(A\cup B)=m^*A+m^*B
+$$
+
+（该定理将定义进行了简化）
+
+定理2：$S$可测的充要条件是$S^c$可测.
+
+定理3：设$S_1,S_2$都可测，则$S_1\cup S_2$可测，并且当$S_1\cap S_2=\emptyset$时，对于任意集合$T$总有：
+
+$$
+m^*[T\cap(S_1\cup S_2)]=m^*(T\cap S_1)+m^*(T\cap S_2)
+$$
+
+（即分配律）
+
+推论1：设$S_i(i=1,2,...,n)$都可测，则$\cup_{i=1}^n S_i$也可测，并且当集合两两互不相交时，对于任意集合$T$都有：
+
+$$
+m^*\big(T\cap(\mathop{\cup}\limits_{i=1}^nS_i) \big)=\sum_{i=1}^nm^*(T\cap S_i).
+$$
+
+定理4：设$S_1$和$S_2$都可测，则$S_1\cap S_2$可测。
+
+推论2：设...可测，则$\cap_{i=1}^nS_i$也可测。
+
+定理5：设$S_1$和$S_2$可测，那么$S_1\backslash S_2$可测。
+
+定理6：设$\{S_i\}$是一列互不相交的可测集，则$\cup_{i=1}^\infty S_i$也是可测集，且：
+
+$$
+m(\mathop{\cup}\limits_{i=1}^\infty S_i)=\sum_{i=1}^\infty mS_i.
+$$
+
+（即可数可加性）
+
+推论3：设$\{S_i\}$是一列可测集，即使相交，它们的并也是可测集合.
+
+定理7：设$\{S_i\}$是一列可测集，它们的交也是可测集合
+
+定理8：设$\{S_i\}$是一列递增的可测集：
+
+$$
+S_1\subset S_2\subset\cdots\subset S_n\subset\cdots,
+$$
+
+令$S=\cup_{i=1}^\infty S_i=\lim_{n\to\infty}S_n$，则：
+
+$$
+mS=\lim_{n\to\infty}mS_n
+$$
+
+定理9：设$\{S_i\}$是一列递降的可测集：
+
+$$
+S_1\supset S_2\supset...\supset S_n\supset ...,
+$$
+
+令$S=\cup_{i=1}^\infty S_i=\lim_{n\to\infty}S_n$，则当$mS_1<\infty$时：
+
+$$
+mS=\lim_{n\to\infty}mS_n.
+$$
+
+注意这里$mS_1<\infty$，也就是：
+
+测度有限不一定集合有界，但集合有界必有测度有限。
+
+### 可测集类
+
+背景：我们已经定义了可测集合，但哪些集合是可测的我们不知道。
+
+定理1：
+
+* 凡外侧度为零之集皆可测，称为**零刻度集**；
+
+* 零测度集之任何子集仍为零测度集；
+
+* 有限个或可数个零测度集之和集仍未零测度集.
+
+> 第三点类似与无穷级数：$\sum_{i=1}^\infty0=0$在可数无穷成立，但不可数无穷不然。
+
+定理2：区间$I$（不论开，闭或半开半闭区间）都是可测集合，且$mI=\|I\|$.
+
+定理3：凡开集，闭集皆可测（表示为区间之并）
+
+定义1：设$\varOmega$是由$\mathbf{R}^n$的一些子集类组成的集合类，如果$\varOmega$满足条件：
+
+1. $\emptyset\in\varOmega$.
+
+2. 若$E\in\varOmega$，则$E^c\in\varOmega$.
+
+3. 若$E_n\in\varOmega,n=1,2,...,$则
+
+    $$
+    \mathop{\cup}\limits_{n=1}^\infty E_n\in\varOmega
+    $$
+
+则称$\varOmega$是$\mathbf{R}^n$的一个$\sigma$代数.
+
+我们可以发现$\mathbf{R}^n$中可测集全体所成的集合类$L_n$是一$\sigma$代数.
+
+定义2：设$\varOmega$是$\mathbf{R}^n$上的一个$\sigma$代数，如果定义在$\varOmega$上的一个非负值集合函数$\mu$满足：
+
+1. $\mu(\emptyset)=0$
+
+2. 若$E_n\in\varOmega,n=1,2,...,$且任意$n\neq m$，$E_n\cap E_m=\emptyset$，有
+
+  $$
+  \mu(\mathop{\cup}\limits_{n=1}^\infty E_n)=\sum_{n=1}^\infty\mu(E_n)
+  $$
+
+则称$\mu$是$\varOmega$上的正测度.
+
+所以我们可以说：勒贝格测度$m$是定义在$\sigma$代数$L$上的测度.
+
+定义3：设$\varSigma$是$\mathbf{R}^n$的一个子集族，则称所有包含$\varSigma$的$\sigma$代数的交集为$\Sigma$产生的$\sigma$代数.
+
+定义4：当上述$\varSigma$为$\mathbf{R}^n$中全体子集组成的子集类，则记为$\mathscr{B}$，称为伯雷尔代数.
+
+定理4：凡伯雷尔集都是勒贝格可测集.
+
+定义5：若$\varOmega$是$\mathbf{R}^n$上的一个$\sigma$代数，$\mu$是$\varOmega$上的测度，则称$(\mathbf{R}^n,\Omega,\mu)$为**测度空间**.
+
+定义6：设集合$G$可以表示称一系列开集的交：
+
+$$
+G=\mathop{\cap}\limits_{i=1}^\infty G_i
+$$
+
+则称$G$为$G_\delta$型集；
+
+设集合$F$可以表示称一系列闭集的并：
+
+$$
+F=\mathop{\cup}\limits_{i=1}^\infty F_i
+$$
+
+则称$F$为$F_\sigma$型集.
+
+> 以上两者都是伯雷尔集
+
+定理5：设$E$是任意可测集，则一定存在$G_\delta$型集$G$，使得$G\supset E$，且$m(G\backslash E)=0$
+
+定理6：设$E$是任一可测集，则一定存在$F_\sigma$型集$F$，使得$F\subset E$，且$m(E\backslash F)=0$
+
+定理7：若$E$是一个可测集，则：
+
+1. $mE=\inf\{mG:G是开集，E\subset G\}$（外正规性）
+
+2. $mE=\sup\{mK:K是紧集，K\subset E\}$（内正规性）
+
+> 区间都是可测的，但集合不一定

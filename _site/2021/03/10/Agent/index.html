@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                inlineMath: [['$','$']]
+                }
+            });
+        </script>
+    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="尘世闲游，听凭风引">
+    <meta name="keywords"  content="邢存远的博客">
+    <meta name="theme-color" content="#000000">
+    
+    <title>智能系统与应用 - 邢存远的博客 | Welt Xing's Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2021/03/10/Agent/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Vago Mundo</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tag</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/agent_header.jpeg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+        position: relative;
+        background-image: url('/img/agent_header.jpeg')
+    }
+
+        {
+        % if page.header-mask %
+    }
+
+    header.intro-header .header-mask {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+
+        background: rgba(0, 0, 0, {
+                    {
+                    page.header-mask
+                }
+            }
+
+        );
+    }
+
+        {
+        % endif %
+    }
+</style>
+<header class="intro-header">
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#课程" title="课程">课程</a>
+                        
+                    </div>
+                    <h1>智能系统与应用</h1>
+                    
+                    
+                    <h2 class="subheading">Notebook</h2>
+                    
+                    <span class="meta">Posted by Welt Xing on March 10, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Container -->
+        <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+            <h2 id="智能agent">智能Agent</h2>
+
+<p><img src="/img/agent1.png" alt="agent1" /></p>
+
+<p><img src="/img/agent2.png" alt="agent2" /></p>
+
+<p>重点：性能度量最大化。</p>
+
+<p><img src="/img/agent3.png" alt="agent3" /></p>
+
+<p>区别：一个是性能最大化，一个是期望的性能最大化。</p>
+
+<p>任务环境的规范描述：</p>
+
+<ul>
+  <li>
+    <p>性能（Performance）</p>
+  </li>
+  <li>
+    <p>环境（Environment）</p>
+  </li>
+  <li>
+    <p>执行器（Actuators）</p>
+  </li>
+  <li>
+    <p>传感器（Sensors）</p>
+  </li>
+</ul>
+
+<p>任务环境分类：</p>
+
+<p><img src="/img/agent4.png" width="50%" /></p>
+
+<p>$Agent$的结构：</p>
+
+<script type="math/tex; mode=display">Agent=structure+program</script>
+
+<p><img src="/img/agent5.png" alt="agent5" /></p>
+
+<p><img src="/img/Agent/agent6.png" alt="agent6" /></p>
+
+<p><img src="/img/Agent/agent7.png" alt="agent7" /></p>
+
+<p><img src="/img/Agent/agent8.png" alt="agent8" /></p>
+
+<p><img src="/img/Agent/agent9.png" alt="agent9" /></p>
+
+<p><img src="/img/Agent/agent10.png" alt="agent10" /></p>
+
+<h2 id="设计方法">设计方法</h2>
+
+<ol>
+  <li>
+    <p>显式编程</p>
+  </li>
+  <li>
+    <p>监督学习</p>
+  </li>
+  <li>
+    <p>优化</p>
+  </li>
+  <li>
+    <p>规划</p>
+  </li>
+  <li>
+    <p>强化学习</p>
+  </li>
+</ol>
+
+<h2 id="概率模型">概率模型</h2>
+
+<h3 id="不确定性的表示">不确定性的表示</h3>
+
+<h4 id="信念度和概率">信念度和概率</h4>
+
+<p>发生一事件$C$后，相比于原因$T$，我们更相信原因$E$，这时我们有：</p>
+
+<script type="math/tex; mode=display">E\succ T\tag{1}</script>
+
+<p>如果认为两个原因有等同可能性，那就是等可信度：</p>
+
+<script type="math/tex; mode=display">E\sim T\tag{2}</script>
+
+<p>我们加入条件可信度：</p>
+
+<script type="math/tex; mode=display">(E|C)\succ(T|C)\tag{3}</script>
+
+<p>我们再用一个实值函数来来表示<strong>信念度</strong>：</p>
+
+<ul>
+  <li>
+    <p>$P(A|C)\gt P(B|C)$当且仅当$(A|C)\succ(B|C)$</p>
+  </li>
+  <li>
+    <p>$P(A|C)= P(B|C)$当且仅当$(A|C)\sim(B|C)$</p>
+  </li>
+</ul>
+
+<p>当这样的函数$P$满足概率论公理：</p>
+
+<p><img src="/img/Agent/pro1.png" alt="Pro1" /></p>
+
+<p>就可以当做概率来看待。</p>
+
+<h5 id="条件概率">条件概率</h5>
+
+<script type="math/tex; mode=display">P(A|B)=\dfrac{P(A,B)}{P(B)}\tag{4}</script>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>注：这里的$P(A,B)$其实就是概率论中更常用的$P(AB)$，也就是同时发生，后面的$P(A</td>
+        <td>B,C)$对应的是$P(A</td>
+        <td>(BC))$</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h5 id="全概率法则">全概率法则</h5>
+
+<script type="math/tex; mode=display">P(A|C)=\sum_{B\in\mathcal{B}}P(A|B,C)P(B|C)\tag{5}</script>
+
+<p>其中$\mathcal{B}$由互斥且可穷举的命题构成的集合.</p>
+
+<h5 id="贝叶斯规则">贝叶斯规则</h5>
+
+<script type="math/tex; mode=display">P(A|B)=\dfrac{P(B|A)P(A)}{P(B)}\tag{6}</script>
+
+<p>一个运用就是归因：</p>
+
+<p><img src="/img/Agent/pro2.png" alt="pro2" /></p>
+
+<h4 id="概率分布">概率分布</h4>
+
+<h5 id="离散概率分布">离散概率分布</h5>
+
+<p><img src="/img/Agent/pro3.png" alt="pro3" /></p>
+
+<blockquote>
+  <p>参数数量问题：均匀分布中只有$n-1$个独立参数，因为最后一个概率是$1-\sum_{i=1}^{n-1}p_i$</p>
+</blockquote>
+
+<h5 id="连续概率分布">连续概率分布</h5>
+
+<p><img src="/img/Agent/pro4.png" alt="pro4" /></p>
+
+<h5 id="均匀分布">均匀分布</h5>
+
+<p><img src="/img/Agent/pro5.png" alt="pro5" /></p>
+
+<blockquote>
+  <p>这里的参数数量为2，也就是$a,b$.</p>
+</blockquote>
+
+<h5 id="高斯正态分布">高斯正态分布</h5>
+
+<script type="math/tex; mode=display">p(w)=\mathcal{N}(w|\mu,\sigma^2)=\dfrac{1}{\sigma}\phi(\dfrac{w-\mu}{\sigma})</script>
+
+<p>其中$\phi$就是标准正态分布函数：</p>
+
+<script type="math/tex; mode=display">\phi(x)=\dfrac{1}{\sqrt{2\pi}}\exp(-\dfrac{x^2}{2})</script>
+
+<p><img src="/img/Agent/pro6.png" alt="pro6" /></p>
+
+<blockquote>
+  <p>这里也是两个参数：$\mu$和$\sigma^2$</p>
+</blockquote>
+
+<h5 id="截断式高斯分布">截断式高斯分布</h5>
+
+<p><img src="/img/Agent/pro7.png" alt="pro7" /></p>
+
+<p>注意到这里其实是将概率密度，也就是分子进行规范化，使其在$[a,b]$的积分为$1$.</p>
+
+<blockquote>
+  <p>这里是四个参数：$\mu,\sigma^2,a,b.$</p>
+</blockquote>
+
+<h5 id="多模态的连续概率分布">多模态的连续概率分布</h5>
+
+<p>就是将多个正态分布进行加权：</p>
+
+<script type="math/tex; mode=display">p(w|\mu_1,\sigma_1^2,...,\mu_n,\sigma_n^2,\rho_1,...,\rho_n)=\sum_{i=1}^n\rho_i\mathcal{N}(w|\mu_i,\sigma_i^2)</script>
+
+<p>其中$\sum_{i=1}^n\rho_i=1$</p>
+
+<p><img src="/img/Agent/pro8.png" alt="pro8" /></p>
+
+<blockquote>
+  <p>这里的参数为$3n-1$</p>
+</blockquote>
+
+<h4 id="联合概率密度">联合概率密度</h4>
+
+<h5 id="离散联合分布">离散联合分布</h5>
+
+<p><img src="/img/Agent/pro9.png" alt="pro9" /></p>
+
+<blockquote>
+  <p>参数是$2^n-1个$.</p>
+</blockquote>
+
+<h5 id="独立性假设">独立性假设</h5>
+
+<p><img src="/img/Agent/pro10.png" alt="pro10" /></p>
+
+<blockquote>
+  <p>注意到参数的数量锐减到$n$.</p>
+</blockquote>
+
+<h5 id="决策树表示">决策树表示</h5>
+
+<p><img src="/img/Agent/pro11.png" alt="pro11" /></p>
+
+<h5 id="多元均匀分布及其混合模型">多元均匀分布及其混合模型</h5>
+
+<p><img src="/img/Agent/pro12.png" alt="pro12" /></p>
+
+<h5 id="多元高斯分布">多元高斯分布</h5>
+
+<p><img src="/img/Agent/pro13.png" alt="pro13" /></p>
+
+<h5 id="多元高斯混合模型">多元高斯混合模型</h5>
+
+<p><img src="/img/Agent/pro14.png" alt="pro14" /></p>
+
+<blockquote>
+  <p>所谓的“混合”就是加权和</p>
+</blockquote>
+
+<h4 id="条件概率分布">条件概率分布</h4>
+
+<h5 id="离散条件模型">离散条件模型</h5>
+
+<p><img src="/img/Agent/pro15.png" alt="pro15" /></p>
+
+<blockquote>
+  <p>这里的$m^{n+1}$是$m$(X的情况数)$\times m^n$(证据变量的情况数)</p>
+</blockquote>
+
+<h5 id="条件高斯模型">条件高斯模型</h5>
+
+<p><img src="/img/Agent/pro16.png" alt="pro16" /></p>
+
+<h5 id="线性高斯模型">线性高斯模型</h5>
+
+<p><img src="/img/Agent/pro17.png" alt="pro17" /></p>
+
+<blockquote>
+  <p>理解为：对应每一个固定的$y$，$x$都满足正态分布$\mathcal{N}(2y+1,10^2)$</p>
+</blockquote>
+
+<h5 id="条件线性高斯模型">条件线性高斯模型</h5>
+
+<p><img src="/img/Agent/pro18.png" alt="pro18" /></p>
+
+<h5 id="sigmoid模型">Sigmoid模型</h5>
+
+<p>常用于分类问题：</p>
+
+<p><img src="/img/Agent/pro19.png" alt="pro19" /></p>
+
+<h4 id="贝叶斯网络">贝叶斯网络</h4>
+
+<p><img src="/img/Agent/bayes.png" alt="bayes_net" /></p>
+
+<p><img src="/img/Agent/bayes_condition.png" alt="bayes_cond" /></p>
+
+<p>这里的关系式：</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{aligned}
+P(X,Y|Z)=P(X|Z)P(Y|Z)&\leftrightarrow(X\perp Y|Z)\\&\leftrightarrow P(X|Z)=P(X|Y,Z)
+\end{aligned} %]]></script>
+
+<p><img src="/img/Agent/bayes_chain.png" alt="bayes_chain" /></p>
+
+<p><img src="/img/Agent/bayes_struct.png" alt="bayes_strcut" /></p>
+
+<p>我们在这里做一个证明：</p>
+
+<ol>
+  <li>
+    <p>顺序结构</p>
+
+    <script type="math/tex; mode=display">% <![CDATA[
+\begin{aligned}
+ p(x,y,z)&=p(z)p(x|z)p(y|x)\\
+ p(y,z|x)&=\frac{p(x,y,z)}{p(x)}\\
+ &=\frac{p(z)p(x|z)p(y|x)}{p(x)}\\
+ &=p(z|x)p(y|x)\to y,z关于x条件独立
+ \end{aligned} %]]></script>
+  </li>
+  <li>
+    <p>同父结构</p>
+
+    <script type="math/tex; mode=display">% <![CDATA[
+\begin{aligned}
+ p(x_1,x_3,x_4)&=p(x_3|x_1)p(x_4|x_1)p(x_1)\\
+ p(x_3,x_4|x_1)&=\frac{p(x_1,x_3,x_4)}{p(x_1)}\\&=p(x_3|x_1)p(x_4|x_1)\to x_3,x_4关于x_1条件独立
+ \end{aligned} %]]></script>
+  </li>
+  <li>
+    <p>V型结构（当$x_4$取值完全未知）</p>
+
+    <script type="math/tex; mode=display">% <![CDATA[
+\begin{aligned}
+ p(x_1,x_2)&=\sum_{x_4}p(x_1,x_2,x_4)\\
+ &=\sum_{x_4}p(x_4|x_1,x_2)p(x_1)p(x_2)\\
+ &=p(x_1)p(x_2)\sum_{x_4}p(x_4|x_1,x_2)\\
+ &=p(x_1)p(x_2)\to 相互独立
+ \end{aligned} %]]></script>
+  </li>
+</ol>
+
+<h5 id="有向分离d-分离">有向分离（d-分离）</h5>
+
+<p><img src="/img/Agent/d_separation.png" alt="有向分离" /></p>
+
+<h4 id="马尔科夫覆盖">马尔科夫覆盖</h4>
+
+<p><img src="/img/Agent/markov.png" alt="markov" /></p>
+
+<h4 id="混合贝叶斯网络">混合贝叶斯网络</h4>
+
+<p><img src="/img/mixed_bayes.png" alt="mixbayes" /></p>
+
+<h3 id="时序模型">时序模型</h3>
+
+<h4 id="马尔科夫链">马尔科夫链</h4>
+
+<p><img src="/img/Agent/markov_link.png" alt="马尔科夫链" /></p>
+
+<p>例子：</p>
+
+<p><img src="/img/Agent/markov_ex.png" alt="实例" /></p>
+
+<h4 id="隐马尔科夫模型">隐马尔科夫模型</h4>
+
+<p><img src="/img/Agent/hidden_markov.png" alt="隐马尔科夫" /></p>
+
+<h4 id="线性动态系统">线性动态系统</h4>
+
+<p><img src="/img/Agent/linear_dynamic.png" alt="线性动态系统" /></p>
+
+<h4 id="动态贝叶斯网络">动态贝叶斯网络</h4>
+
+<p><img src="/img/Agent/dynamic_bayes.png" alt="动态贝叶斯" /></p>
+
+<blockquote>
+  <p>我们只需要①初始态，②转移方程</p>
+</blockquote>
+
+
+            <hr style="visibility: hidden;">
+
+            <ul class="pager">
+                
+                <li class="previous">
+                    <a href="/2021/03/09/os-note/" data-toggle="tooltip"
+                        data-placement="top" title="2021操作系统">
+                        Previous<br>
+                        <span>2021操作系统</span>
+                    </a>
+                </li>
+                
+                
+            </ul>
+
+
+            <!--Gitalk评论start  -->
+            
+            <!-- 引入Gitalk评论插件  -->
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+            <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+            <div id="gitalk-container"></div>
+            <!-- 引入一个生产md5的js，用于对id值进行处理，防止其过长 -->
+            <!-- Thank DF:https://github.com/NSDingFan/NSDingFan.github.io/issues/3#issuecomment-407496538 -->
+            <script src="/js/md5.min.js"></script>
+            <script type="text/javascript">
+                var gitalk = new Gitalk({
+                    clientID: '9004d006c6bf961062fc',
+                    clientSecret: '4f3b028982b0c83d4b6113929bbed17da1d3926e',
+                    repo: 'Kaslanarian.github.io',
+                    owner: 'Kaslanarian',
+                    admin: ['Kaslanarian'],
+                    distractionFreeMode: true,
+                id: md5(location.pathname),
+                    });
+                gitalk.render('gitalk-container');
+            </script>
+            
+            <!-- Gitalk end -->
+
+            
+
+        </div>
+
+        <!-- Side Catalog Container -->
+        
+        <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+            <div class="side-catalog">
+                <hr class="hidden-sm hidden-xs">
+                <h5>
+                    <a class="catalog-toggle" href="#">CATALOG</a>
+                </h5>
+                <ul class="catalog-body"></ul>
+            </div>
+        </div>
+        
+
+        <!-- Sidebar Container -->
+        <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+            <!-- Featured Tags -->
+            
+            <section>
+                <hr class="hidden-sm hidden-xs">
+                <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                <div class="tags">
+                    
+                    
+                    <a href="/tags/#matrix-c" title="matrix-c" rel="12">
+                        matrix-c
+                    </a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/tags/#线性代数" title="线性代数" rel="9">
+                        线性代数
+                    </a>
+                    
+                    
+                    
+                    <a href="/tags/#日常" title="日常" rel="2">
+                        日常
+                    </a>
+                    
+                    
+                    
+                    <a href="/tags/#课程" title="课程" rel="5">
+                        课程
+                    </a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/tags/#C/C++" title="C/C++" rel="2">
+                        C/C++
+                    </a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/tags/#Java" title="Java" rel="4">
+                        Java
+                    </a>
+                    
+                    
+                    
+                    <a href="/tags/#Python" title="Python" rel="2">
+                        Python
+                    </a>
+                    
+                    
+                </div>
+            </section>
+            
+
+            <!-- Friends Blog -->
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js", function () {
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link {
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top: -0.1em;
+        }
+    }
+</style>
+
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/暂无">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/kaslana-52">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/暂无">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Kaslanarian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Vago Mundo 2021
+                    <br>
+                    Theme on <a href="https://github.com/Kaslanarian/Kaslanarian.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=Kaslanarian&repo=Kaslanarian.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'G-MVHVLE31FV';
+    var _gaDomain = 'welts.xyz';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '8dea5c02aae248a2baf01c29381d72bc';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
