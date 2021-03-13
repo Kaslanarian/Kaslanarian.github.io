@@ -3,11 +3,13 @@ INFO := simple commit
 test:
 	@jekyll server
 
+commit:
+	@make clean
+	@git add .
+	@git commit -m "$(INFO)"
+
 push:
-	make clean
-	git add .
-	git commit -m "$(INFO)"
-	git push origin main
+	@git push origin main
 
 .PHONY:
 clean:
