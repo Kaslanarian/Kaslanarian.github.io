@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      C的多线程编程
+title:      C的线程编程
 subtitle:   以及操作系统相关知识的学习
 date:       2021-03-16
 author:     Welt Xing
