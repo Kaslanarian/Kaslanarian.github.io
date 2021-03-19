@@ -11,6 +11,11 @@ commit:
 push:
 	@git push origin main
 
+java-test:
+	@javac scripts/PostInfo.java
+	@java scripts.PostInfo
+
 .PHONY:
 clean:
 	@-rm -rf _site
+	@-rm ./scripts/*.class

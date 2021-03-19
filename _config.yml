@@ -33,10 +33,9 @@ exclude:
         "Gruntfile.js",
         "package.json",
         "README.md",
-        "passage_gen.py",
         ".vscode",
-        "picture_handle.py",
         "Makefile",
+        "scripts"
     ]
 anchorjs: true # if you want to customize anchor. check out line:181 of `post.html`
 
