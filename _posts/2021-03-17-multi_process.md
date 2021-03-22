@@ -141,6 +141,44 @@ Child completed
 
 ![程序流程图](http://c.biancheng.net/uploads/allimg/181102/2-1Q102110425511.gif)
 
+## exec函数族
+
+事实上，C中并不存在`exec`函数，而是由execl, execlp, execle, execv, execvp, execve等函数组成的函数族（$\text{exec family}$），这些函数参数不同，但功能相同，都是用一个新的程序去替换原程序（replaces the current process image with a new process image）。下面是
+
+```cpp
+/* Execute PATH with arguments ARGV and environment from `environ'.  */
+extern int execv (const char *__path, char *const __argv[])
+     __THROW __nonnull ((1, 2));
+
+/* Execute PATH with all arguments after PATH until a NULL pointer,
+   and the argument after that for environment.  */
+extern int execle (const char *__path, const char *__arg, ...)
+     __THROW __nonnull ((1, 2));
+
+/* Execute PATH with all arguments after PATH until
+   a NULL pointer and environment from `environ'.  */
+extern int execl (const char *__path, const char *__arg, ...)
+     __THROW __nonnull ((1, 2));
+
+/* Execute FILE, searching in the `PATH' environment variable if it contains
+   no slashes, with arguments ARGV and environment from `environ'.  */
+extern int execvp (const char *__file, char *const __argv[])
+     __THROW __nonnull ((1, 2));
+
+/* Execute FILE, searching in the `PATH' environment variable if
+   it contains no slashes, with all arguments after FILE until a
+   NULL pointer and environment from `environ'.  */
+extern int execlp (const char *__file, const char *__arg, ...)
+     __THROW __nonnull ((1, 2));
+
+...
+
+/* Replace the current process, executing PATH with arguments ARGV and
+   environment ENVP.  ARGV and ENVP are terminated by NULL pointers.  */
+extern int execve (const char *__path, char *const __argv[],
+           char *const __envp[]) __THROW __nonnull ((1, 2));
+```
+
 ## 进程终止
 
 当进程完成执行最后语句并且通过系统调用`exit()`请求操作系统删除自身时，进程终止。这时，进程可以返回状态值（通常为整数）到父进程（通过系统调用`wait()`）。所有进程资源，如物理和虚拟内存、打开文件和 I/O 缓冲区等，会由操作系统释放.
