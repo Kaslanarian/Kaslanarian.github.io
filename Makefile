@@ -21,4 +21,3 @@ update:
 .PHONY:
 clean:
 	@-rm -rf _site
-	@-rm ./scripts/*.class
