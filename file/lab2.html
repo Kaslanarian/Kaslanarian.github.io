@@ -1,12 +1,4 @@
----
-layout:     post
-title:      Lab2导引
-subtitle:   
-date:       2021-04-08
-author:     Welt Xing
-tags:		img/lab1/header.jpg
-	- 操作系统
----
+<!DOCTYPE html>
 <html>
 <head>
 <title>lab2.md</title>
@@ -1091,55 +1083,55 @@ pos = (<span class="hljs-number">80</span>*displayRow+displayCol)*<span class="h
 <h1 id="5-%E4%BB%A3%E7%A0%81%E6%A1%86%E6%9E%B6">5. 代码框架</h1>
 <pre class="hljs"><code><div>lab2-STUID													#自行修改后打包(.zip)提交
 ├── lab2
-│   ├── Makefile
-│   ├── app													#用户代码
-│   │   ├── Makefile
-│   │   └── main.c									#主函数
-│   ├── bootloader									#引导程序
-│   │   ├── Makefile
-│   │   ├── boot.c
-│   │   ├── boot.h
-│   │   └── start.S
-│   ├── kernel
-│   │   ├── Makefile
-│   │   ├── include									#头文件
-│   │   │   ├── common
-│   │   │   │   ├── assert.h
-│   │   │   │   ├── const.h
-│   │   │   │   └── types.h
-│   │   │   ├── common.h
-│   │   │   ├── device
-│   │   │   │   ├── disk.h
-│   │   │   │   ├── keyboard.h
-│   │   │   │   ├── serial.h
-│   │   │   │   └── vga.h
-│   │   │   ├── device.h
-│   │   │   ├── x86
-│   │   │   │   ├── cpu.h
-│   │   │   │   ├── io.h
-│   │   │   │   ├── irq.h
-│   │   │   │   └── memory.h
-│   │   │   └── x86.h
-│   │   ├── kernel									#内核代码
-│   │   │   ├── disk.c							#磁盘读写API
-│   │   │   ├── doIrq.S							#中断处理
-│   │   │   ├── i8259.c							#重设主从8259A
-│   │   │   ├── idt.c								#初始化中断描述
-│   │   │   ├── irqHandle.c					#中断处理函数
-│   │   │   ├── keyboard.c					#初始化键码表
-│   │   │   ├── kvm.c								#初始化 GDT 和加载用户程序
-│   │   │   ├── serial.c						#初始化串口输出
-│   │   │   └── vga.c
-│   │   ├── lib
-│   │   │   └── abort.c
-│   │   └── main.c									#主函数
-│   ├── lib													#库函数
-│   │   ├── lib.h
-│   │   ├── syscall.c								#系统调用入口
-│   │   └── types.h
-│   └── utils
-│       ├── genBoot.pl							#生成引导程序
-│       └── genKernel.pl						#生成内核程序
+│   ├── Makefile
+│   ├── app													#用户代码
+│   │   ├── Makefile
+│   │   └── main.c									#主函数
+│   ├── bootloader									#引导程序
+│   │   ├── Makefile
+│   │   ├── boot.c
+│   │   ├── boot.h
+│   │   └── start.S
+│   ├── kernel
+│   │   ├── Makefile
+│   │   ├── include									#头文件
+│   │   │   ├── common
+│   │   │   │   ├── assert.h
+│   │   │   │   ├── const.h
+│   │   │   │   └── types.h
+│   │   │   ├── common.h
+│   │   │   ├── device
+│   │   │   │   ├── disk.h
+│   │   │   │   ├── keyboard.h
+│   │   │   │   ├── serial.h
+│   │   │   │   └── vga.h
+│   │   │   ├── device.h
+│   │   │   ├── x86
+│   │   │   │   ├── cpu.h
+│   │   │   │   ├── io.h
+│   │   │   │   ├── irq.h
+│   │   │   │   └── memory.h
+│   │   │   └── x86.h
+│   │   ├── kernel									#内核代码
+│   │   │   ├── disk.c							#磁盘读写API
+│   │   │   ├── doIrq.S							#中断处理
+│   │   │   ├── i8259.c							#重设主从8259A
+│   │   │   ├── idt.c								#初始化中断描述
+│   │   │   ├── irqHandle.c					#中断处理函数
+│   │   │   ├── keyboard.c					#初始化键码表
+│   │   │   ├── kvm.c								#初始化 GDT 和加载用户程序
+│   │   │   ├── serial.c						#初始化串口输出
+│   │   │   └── vga.c
+│   │   ├── lib
+│   │   │   └── abort.c
+│   │   └── main.c									#主函数
+│   ├── lib													#库函数
+│   │   ├── lib.h
+│   │   ├── syscall.c								#系统调用入口
+│   │   └── types.h
+│   └── utils
+│       ├── genBoot.pl							#生成引导程序
+│       └── genKernel.pl						#生成内核程序
 └── report
     └── 171220000.pdf
 </div></code></pre>
