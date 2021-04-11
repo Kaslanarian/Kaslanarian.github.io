@@ -39,4 +39,4 @@ tags:
 |   $\pm$   |    \pm    |
 |   $\mp$   |    \mp    |
 | $\propto$ |  \propto  |
-
+| $\pmb{x}$ |   \pmb    |
