@@ -40,3 +40,4 @@ tags:
 |   $\mp$   |    \mp    |
 | $\propto$ |  \propto  |
 | $\pmb{x}$ |   \pmb    |
+| $\Rightarrow$| \Rightarrow|
