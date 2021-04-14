@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:      智能系统
+title:      智能系统设计与应用
 subtitle:   公式推导
 date:       2021-03-18
 author:     Welt Xing
 header-img: img/agent_header.jpeg
 catalog:    true
 tags:
-    - 课程
+    - 智能系统
 ---
 
 ## 分类推理

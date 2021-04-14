@@ -7,7 +7,7 @@ author:     Welt Xing
 header-img: img/java_header.jpg
 catalog:    true
 tags:
-    - Java
+    - 编程技术
 ---
 
 ## 导语

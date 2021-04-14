@@ -8,6 +8,7 @@ header-img: img/chomework.jpg
 catalog:    true
 tags:
     - 日常
+    - 编程技术
 ---
 
 今天在群里看到一个外校学生问的问题，是他们的操作系统作业，虽然和我们比起来相差甚远，但仍有学习的必要。

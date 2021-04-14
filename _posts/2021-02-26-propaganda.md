@@ -6,7 +6,6 @@ date:       2021-02-22
 author:     Welt Xing
 header-img: img/star_whale.jpg
 catalog:    true
-categories: daily
 tags:
     - 日常
 ---

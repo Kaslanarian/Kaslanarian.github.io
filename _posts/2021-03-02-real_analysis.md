@@ -7,7 +7,7 @@ author:     Welt Xing
 header-img: img/math_header.jpg
 catalog:    true
 tags:
-    - 课程
+    - 数学
 ---
 
 > 一些重要/陌生知识点的记录以供复习参考

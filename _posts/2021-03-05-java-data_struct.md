@@ -7,7 +7,7 @@ author:     Welt Xing
 header-img: img/java_header.jpg
 catalog:    true
 tags:
-    - Java
+    - 编程技术
 ---
 
 > 本文将介绍一些数据结构及其使用方法，当作是构建`matrix-java`的准备工作。

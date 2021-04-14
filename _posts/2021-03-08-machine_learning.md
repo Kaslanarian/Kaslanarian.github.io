@@ -7,7 +7,6 @@ author:     Welt Xing
 header-img: img/post-bg-desk.jpg
 catalog:    true
 tags:
-    - 课程
     - 机器学习
 ---
 

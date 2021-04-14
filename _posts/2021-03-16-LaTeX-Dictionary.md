@@ -7,6 +7,7 @@ author:     Welt Xing
 header-img:
 catalog:    true
 tags:
+    - 其它
 ---
 
 > 本文用于LaTeX语法的记录，供查找使用，持续更新

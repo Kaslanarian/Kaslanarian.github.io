@@ -7,7 +7,7 @@ author:     Welt Xing
 header-img: img/pyecharts_header.jpg
 catalog:    true
 tags:
-    - Python
+    - 编程技术
 ---
 
 # Pyecharts学习记录
