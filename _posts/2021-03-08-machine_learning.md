@@ -77,10 +77,25 @@ $$
 - 多学习器下，算法优度没有传递性.
 - 偏差-方差分解只能用于以平方误差为评价标准的回归问题，对分类不适用
 
-
 ### 线性模型
 
 - 离散属性的处理（无序的离散属性不能转成数字，而是$k$维向量）.
 - $w$多解：加入归纳偏好（正则化）.
 - $\text{Logistic}(对数几率函数)\in\text{Sigmoid}$
 - 似然：$y_ip(y_i^+)+y_jp(y_j^-)$
+
+### SVM
+
+- $\kappa(x_i,x_j)$定义了一个距离，从而
+
+  $$
+  K=\begin{bmatrix}
+  \kappa(\pmb{x}_1,\pmb{x}_1)&\cdots\\
+  \vdots&\kappa(\pmb{x}_n,\pmb{x}_n)
+  \end{bmatrix}
+  $$
+
+  定义了一个空间.
+
+- 文本数据常用线性核，情况不明先用高斯核.
+- 正则化$\leftrightarrow$先验
