@@ -102,3 +102,5 @@ $$
 $$
 \bigg[\dfrac{\partial\boldsymbol{x}}{\partial y}\bigg]_i=\dfrac{\partial x_i}{\partial y}\quad\bigg[\dfrac{\partial{x}}{\partial \boldsymbol{y}}\bigg]_i=\dfrac{\partial x}{\partial y_i}\quad\bigg[\dfrac{\partial{x}}{\partial y}\bigg]_{ij}=\dfrac{\partial x_i}{\partial y_j}
 $$
+
+tools->develop->Deployment->SFTP->service_robot->ip新建->
