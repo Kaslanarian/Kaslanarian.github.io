@@ -53,9 +53,13 @@ $$
 
 等价结论是$\forall f\in\mathcal{F},P(R(f)-\hat{R}(f)\lt\varepsilon)\geqslant1-d\exp(-2N\varepsilon^2)$
 
-令$$\delta=d\exp(-2N\varepsilon^2)$$
+令
 
-则$$P(R(f)\lt\hat{R}(f)+\varepsilon)\geqslant1-\delta$$
+$$\delta=d\exp(-2N\varepsilon^2)$$
+
+则
+
+$$P(R(f)\lt\hat{R}(f)+\varepsilon)\geqslant1-\delta$$
 
 即至少$1-\delta$的概率$R(f)\lt\hat{R}(f)+\varepsilon$，
 
