@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      实变函数与泛函分析
-subtitle:   笔记概要
+title:      实变函数论
+subtitle:   基础知识
 date:       2021-03-02
 author:     Welt Xing
 header-img: img/math_header.jpg
