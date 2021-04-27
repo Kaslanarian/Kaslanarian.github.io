@@ -231,14 +231,17 @@ $$
 
 我们有$\text{Novikoff}$定理：对于我们的感知机问题，我们有
 
-1. 存在满足条件$\Vert\hat{w}_{\text{opt}}\Vert=0$的超平面$\Vert\hat{w}_{\text{opt}}\Vert\cdot\hat{x}=w_{\text{opt}}+b_{\text{opt}}=0$将数据集完全正确分开；且存在$\gamma>0$，对所有$i=1,2,...,N,y_i(\hat{w}_{\text{opt}}\cdot\hat{x}_i)\geqslant\gamma$.
+1. 存在满足条件$\Vert\hat w_\text{opt}\Vert=0$的超平面
+   $$
+   \Vert\hat{w}_{\text{opt}}\Vert\cdot\hat{x}=w_{\text{opt}}+b_{\text{opt}}=0
+   $$将数据集完全正确分开；且存在$\gamma>0$，对所有$i=1,2,...,N,y_i(\hat{w}_{\text{opt}}\cdot\hat{x}_i)\geqslant\gamma$.
 2. 令$R=\mathop{\max}\limits_{1\leqslant i\leqslant N}\Vert\hat{x}_i\Vert$，则感知机算法在训练数据集上的误分类次数$k$满足
 
 $$
 k\leqslant(\dfrac{R}{\gamma})^2
 $$
 
-定理表明，误分类的次数$k$是有上界的，算法确实是收敛的，但我们之前提到，收敛后的解有许多解，为了得到唯一的解，我们需要增加约束条件，这就引出我们的**支持向量机**，当数据集线性不可分时，则会发生震荡.
+定理表明，误分类的次数$k$是有上界的，算法确实是收敛的，但我们之前提到，收敛后的解有许多解，为了得到唯一的解，我们需要增加约束条件，这就引出我们的**支持向量机**；此外，当数据集线性不可分时，则会发生震荡.
 
 ### 算法的对偶形式
 
@@ -279,8 +282,10 @@ $$
 \boldsymbol{}{G}=[x_i\cdot x_j]_{N\times N}
 $$
 
-相关Python代码没有实现，先挖个坑.
+2.25 相关Python代码没有实现，先挖个坑.<br>
+2.27 基础算法和对偶算法都已经实现：<https://github.com/Kaslanarian/MSLCode/blob/main/perceptron.py>，支持特征为2时的图形表示，但由于没有设置$\text{Novikoff}$定理中提到的上界，所以无法应对线性不可分的情况.
 
 ## 相关
 
-[线性支持向量机的推导](https://welts.xyz/2021/04/12/svm/)
+[线性支持向量机的推导](https://welts.xyz/2021/04/12/svm/)<br>
+[Numpy的计算和维数问题](https://welts.xyz/2021/04/26/numpy_dim/)
