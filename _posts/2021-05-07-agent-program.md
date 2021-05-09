@@ -118,10 +118,8 @@ $$
 &\qquad\textbf{for each }\text{state }s\textbf{ in }S\textbf{ do}\\
 &\qquad\quad\textbf{if } R(s,\pi[s])+\gamma\sum_{s'}P(s'\vert s,a)U[s']\lt\max_{a\in\mathcal{A}(s)}\big(R(s,\pi[s])+\gamma\sum_{s'}P(s'\vert s,\pi[s])U[s']\big)\\
 &\qquad\qquad\pi[s]\gets\mathop{\arg\max}\limits_{a\in\mathcal{A}(s)}\big(R(s,a)+\gamma\sum_{s'}P(s'\vert s,a)U[s']\big)\\
-&\qquad\qquad unchanged\gets\text{False}
-&\quad\textbf{until }\delta\lt\dfrac{\epsilon(1-\gamma)}{\gamma}\\
-&\quad\textbf{until }unchanged
-&\textbf{return }\pi
+&\qquad\qquad unchanged\gets\text{False}\\
+&\quad\textbf{until }unchanged\\
 \end{aligned}
 $$
 
