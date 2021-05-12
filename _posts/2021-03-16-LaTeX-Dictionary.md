@@ -42,3 +42,6 @@ tags:
 | $\propto$ |  \propto  |
 | $\pmb{x}$ |   \pmb    |
 | $\Rightarrow$| \Rightarrow|
+| $\sqsubset$ | \subset |
+| $\sqsubseteq$ | \sqsubseteq |
+
