@@ -35,13 +35,14 @@ tags:
 
 ## 其他符号
 
-|   符号    | LaTeX形式 |
-| :-------: | :-------: |
-|   $\pm$   |    \pm    |
-|   $\mp$   |    \mp    |
-| $\propto$ |  \propto  |
-| $\pmb{x}$ |   \pmb    |
-| $\Rightarrow$| \Rightarrow|
-| $\sqsubset$ | \subset |
-| $\sqsubseteq$ | \sqsubseteq |
-
+|        符号        |    LaTeX形式     |
+| :----------------: | :--------------: |
+|       $\pm$        |       \pm        |
+|       $\mp$        |       \mp        |
+|     $\propto$      |     \propto      |
+|     $\pmb{x}$      |       \pmb       |
+|   $\Rightarrow$    |   \Rightarrow    |
+|    $\sqsubset$     |     \subset      |
+|   $\sqsubseteq$    |   \sqsubseteq    |
+|      $\perp$       |      \perp       |
+| $\leftrightarrows$ | \leftrightarrows |
