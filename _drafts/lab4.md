@@ -36,11 +36,11 @@
 
 2. 标准流输入的系统调用，这里也需要对进程阻塞进行额外的处理：
 
-```cpp
-void syscallReadStdIn(struct StackFrame *sf) {
-    // TODO: complete `stdin`
-}
-```
+   ```cpp
+   void syscallReadStdIn(struct StackFrame *sf) {
+       // TODO: complete `stdin`
+   }
+   ```
 
 ### 解决方案
 
