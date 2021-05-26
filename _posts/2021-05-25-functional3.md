@@ -11,7 +11,7 @@ tags:
 
 ## <center>引言
 
-我们之前介绍了赋范线性空间，那里只有长度（范数），但没有角度，因此也就没有内积，正交的概念了。本章就是来解决在赋范线性空间中引入角度和正交等概念。事实上希尔伯特在20世纪初便解决了这个问题，这种空间是希尔伯特空间的特例，称作希尔伯特空间。
+我们之前介绍了赋范线性空间，那里只有长度（范数），但没有角度，因此也就没有内积，正交的概念了。本章就是来解决在赋范线性空间中引入角度和正交等概念。事实上希尔伯特在20世纪初便解决了这个问题，这种空间是赋范线性空间的特例，称作希尔伯特空间。
 
 ## <center>内积空间的基本概念
 
@@ -323,3 +323,84 @@ $$
 **定理5**：两个希尔伯特空间$X$与$\tilde{X}$同构的充要条件是$X$与$\tilde{X}$有相同的希尔伯特维数.
 
 **推论3**：任何可分希尔伯特空间必然和某个$\mathbb{R}^n(\mathbb{C}^n)$或$l^2$同构.
+
+## <center>希尔伯特空间上的连续线性泛函
+
+**定理1**：（里斯定理）设$X$是希尔伯特空间，$f$是$X$上的连续线性泛函，那么存在唯一的$z\in X$，使对每一个$x\in X$，有
+
+$$
+f(x)=\big<x,z\big>
+$$
+
+且$\Vert f\Vert=\Vert z\Vert$.
+
+对每个$y\in X$，令$Ty=f_y$，其中$f_y$为$X$上如下定义的泛函：
+
+$$
+f_y(x)=\big<x,y\big>,x\in X
+$$
+
+> 个人理解：一个元素对应了一个连续线性泛函. 正对应里斯定理.
+
+显然$f_y$是$X$上的连续线性泛函，并且由里斯定理，$T$是$X\to X'$的映射，其中$X'$表示由$X$上连续线性泛函全体所成的巴拿赫空间，又$\Vert Ty\Vert=\Vert y\Vert$，容易看出对任何$x,y\in X$以及任何数$\alpha,\beta$有
+
+$$
+T(\alpha x+\beta y)=\overline{\alpha}Tx+\overline{\beta}Ty
+$$
+
+事实上，对于任意$z\in X$有
+
+$$
+\begin{aligned}
+T(\alpha x+\beta y)(z)
+&=\big<z,\alpha x+\beta y\big>\\
+&=\overline{\alpha}\big<z,x\big>+\overline{\beta}\big<z,y\big>\\
+&=\overline{\alpha}Tx(z)+\overline{\beta}Ty(z)\\
+&=(\overline{\alpha}Tx+\overline{\beta}Ty)(z)
+\end{aligned}
+$$
+
+称满足上式的映射$T$是**复共轭线性映射**，所以映射$Ty=f_y$是$X\to X'$上保持范数不变的复共轭线性映射，称为**复共轭同构映射**，如果两希尔伯特空间间存在这样的复共轭同构映射，则称它们**复共轭同构**，并不加以区别视为同一，写成$X=X'$。因此当$X$是希尔伯特空间时，$X=X'$，即$X$是**自共轭**的.
+
+设$X$是$n$维内积空间，$e_1,e_2,\cdots,e_n$为$X$中规范正交系，$A$为$X\to X$的线性算子，事实上$A$与$n$阶矩阵$(a_{ij})$相对应，其中$a_{ij}=\big<Ae_j,e_i\big>,i,j=1,2,\cdots,n$，令$(b_{ij})$表示矩阵$(a_{ij})$的共轭转置矩阵，即$b_{ij}=\overline{a_{ji}}$，记$(b_{ij})$对应的算子为$A^\star$，则
+
+$$
+\big<A^\star e_j,e_i\big>=b_{ij}=\overline{a_{ji}}=\overline{\big<Ae_i,e_j\big>}=\big<e_j,Ae_i\big>
+$$
+
+也就是
+
+$$
+\big<Ae_i,e_j\big>=\big<e_i,A^\star e_j\big>
+$$
+
+因此对$X$中任意向量
+
+$$
+x=\sum_{i=1}^nx_ie_i,y=\sum_{i=1}^ny_ie_i
+$$
+
+有
+
+$$
+\big<Ax,y\big>=\big<x,A^\star y\big>
+$$
+
+推广到内积空间：
+**定理2**：设$X,Y$是两个希尔伯特空间，$A\in\mathscr{B}(X,Y)$，那么存在唯一的$A^\star\in\mathscr{B}(Y,X)$，使得$\forall x\in X,y\in Y$，有
+
+$$
+\big<Ax,y\big>=\big<x,A^\star y\big>
+$$
+
+并且$\Vert A\Vert=\Vert A\Vert$.
+
+**定义**：设$A$是希尔伯特空间$X\to Y$的有界线性算子，则称定理2中的算子$A^\star$为$A$的**希尔伯特共轭算子**，或简称为共轭算子。
+
+共轭算子有下面的性质：
+
+1. $(A+B)^*=A^*+B^*$
+2. $(\alpha A)^*=\overline{\alpha}A^*$
+3. $(A^*)^*=A$
+4. $\Vert A^*A\Vert=\Vert AA^*\Vert=\Vert A\Vert^2$，由此可知$A^*A=0\leftrightarrow A=0$
+5. 当$X=Y,(AB)^*=B^*A^*$.
