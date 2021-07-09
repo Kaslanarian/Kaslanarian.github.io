@@ -31,7 +31,7 @@ for fname in os.listdir("_posts"):
     assert fname != filename, "文章名 %s 重复，文章创建失败" % filename
 
 # 默认背景
-picture_path = "genshin.jpg"
+picture_path = "img/genshin.jpg"
 
 # 默认作者
 author_name = "Welt Xing"
