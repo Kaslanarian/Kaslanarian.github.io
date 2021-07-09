@@ -81,6 +81,14 @@ for link in link_list:
         src_path[max(src_path.rfind('\\'), src_path.rfind('/')) + 1:],
     )
 
+# 处理公式现实问题：要在前一个"$$"前换行，在后一个"$$"后换行
+
+rex = r'\$\$\n.*?\n\$\$'
+formula_list = re.findall(rex, blog_text)
+
+for formula in formula_list:
+    blog_text = blog_text.replace(formula, '\n' + formula + '\n')
+
 # 写新文件
 print(filename)
 with open(filename, "w") as f:
