@@ -83,11 +83,11 @@ for link in link_list:
 
 # 处理公式现实问题：要在前一个"$$"前换行，在后一个"$$"后换行
 
-rex = r'\$\$\n.*?\n\$\$'
-formula_list = re.findall(rex, blog_text)
+# rex = r'\$\$\n.*?\n\$\$'
+# formula_list = re.findall(rex, blog_text)
 
-for formula in formula_list:
-    blog_text = blog_text.replace(formula, '\n' + formula + '\n')
+# for formula in formula_list:
+    # blog_text = blog_text.replace(formula, '\n' + formula + '\n')
 
 # 写新文件
 print(filename)
