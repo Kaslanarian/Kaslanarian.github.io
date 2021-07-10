@@ -1,6 +1,7 @@
 INFO := simple commit
 
 test:
+	@make clean
 	@jekyll server
 
 commit:
