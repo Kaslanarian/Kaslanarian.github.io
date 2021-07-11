@@ -71,6 +71,8 @@ for link in link_list:
     # e.g. ![image-20210520235006246](C:\Users\17530\AppData\Roaming\Typora\typora-user-images\image-20210520235006246.png)
     start = link.find('(')
     src_path = link[start + 1:-1]
+    if "http" in src_path:
+        continue
     os.system(
         "cp %s %s" %
         (src_path.replace('\\', '/').replace('C:', '/mnt/c'), target_path))
