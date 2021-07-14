@@ -1,13 +1,15 @@
 ---
 layout:     post
-title:      Title
-subtitle:   Subtitle
+title:      ligSVM源码解读（3）
+subtitle:   数据存储相关
 date:       2021-07-14
 author:     Welt Xing
 header-img: img/genshin.jpg
 catalog:    true
 tags:
+    - 编程技巧
 ---
+
 ## <center>引言
 
 SVM问题中，空间开销最大的两种数据，一个是训练数据，另一个则是核函数矩阵。由于两者都属于Tabular（表格）数据，因此我们没有必要将两者的实现分离。libSVM中用一个虚基类`QMatrix`表示数据矩阵，而其派生类`Kernel`则用来存储核函数，再往上是对应问题的特殊核函数存储。我们这里对它们进行讲解。
