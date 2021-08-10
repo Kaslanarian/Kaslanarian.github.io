@@ -2,9 +2,9 @@
 layout:     post
 title:      反向传播推导
 subtitle:   单隐层神经网络及拓展
-date:       2021-05-23
+date:       2021-08-10
 author:     Welt Xing
-header-img: img/nn.jpg
+header-img: img/nn_header.svg
 catalog:    true
 tags:
     - 机器学习
@@ -85,7 +85,7 @@ $$
 &=\dfrac{\partial}{\partial b_h}\bigg(\dfrac{1}{2}\sum_{j=1}^l(\hat{y}_j-y_j)^2\bigg)\cdot\dfrac{\partial b_h}{\partial\alpha_h}\cdot\dfrac{\partial\alpha_h}{\partial v_{ih}}\\
 &=\bigg(\sum_{j=1}^l(\hat{y}_j-y_j)\dfrac{\partial\hat{y}_j}{\partial b_h} \bigg)\dfrac{\partial b_h}{\partial\alpha_h}\cdot\dfrac{\partial\alpha_h}{\partial v_{ih}}\\
 &=\bigg(\sum_{j=1}^l(\hat{y}_j-y_j)\dfrac{\partial\hat{y}_j}{\partial\beta_j}\cdot\dfrac{\partial\beta_j}{\partial b_h}\bigg)\dfrac{\partial b_h}{\partial\alpha_h}\cdot\dfrac{\partial\alpha_h}{\partial v_{ih}}\\
-&=\dfrac{\partial b_h}{\partial\alpha_h}\cdot\dfrac{\partial\alpha_h}{\partial v_{ih}\cdot}\bigg(\sum_{j=1}^l(\hat{y}_j-y_j)\dfrac{\partial\hat{y}_j}{\partial\beta_j}\cdot\dfrac{\partial\beta_j}{\partial b_h}\bigg)\\
+&=\dfrac{\partial b_h}{\partial\alpha_h}\cdot\dfrac{\partial\alpha_h}{\partial v_{ih}}\cdot\bigg(\sum_{j=1}^l(\hat{y}_j-y_j)\dfrac{\partial\hat{y}_j}{\partial\beta_j}\cdot\dfrac{\partial\beta_j}{\partial b_h}\bigg)\\
 &=b_h(1-b_h)\cdot x_i\bigg( \sum_{j=1}^l(\hat{y}_j-y_j)\hat{y}_j(1-\hat{y}_j)\cdot w_{hj}\bigg)\\
 &=b_h(1-b_h)\cdot x_i\bigg(\sum_{j=1}^l-g_jw_{hj}\bigg)\\
 &=-b_h(1-b_h)\cdot x_i\bigg(\sum_{j=1}^lg_jw_{hj}\bigg)\\
@@ -118,3 +118,34 @@ $$
 $$
 
 至此我们已经完成单隐层神经网络BP算法的推导。
+
+## 如何支持其他激活函数
+
+我们发现，在前面求偏导的过程中，由于Sigmoid函数满足
+
+$$
+f'(x)=f(x)(1-f(x))
+$$
+
+的关系，因此$e$和$g$中都有明显的$x(1-x)$的项，类似的，对于$\tanh$函数：
+
+$$
+\tanh(x)=\dfrac{x^x-e^{-x}}{e^x+e^{-x}}
+$$
+
+其函数与导函数之间满足
+
+$$
+f'(x)=1-f(x)^2
+$$
+
+我们只需要对$g$和$e$修改成：
+
+$$
+\begin{aligned}
+g_j&=(1-\hat{y}_j^2)({y}_j-\hat{y}_j)\\
+e_h&=\bigg(\sum_{j=1}^lg_jw_{hj}\bigg)\cdot (1-b_h^2)
+\end{aligned}
+$$
+
+便可以让神经网络的激活函数变为$\tanh$。
