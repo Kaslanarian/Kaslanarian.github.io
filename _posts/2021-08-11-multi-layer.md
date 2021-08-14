@@ -2,7 +2,7 @@
 layout:     post
 title:      深度神经网络的反向传播
 subtitle:   数学推导
-date:       2021-08-11
+date:       2021-08-14
 author:     Welt Xing
 header-img: img/genshin.jpg
 catalog:    true
