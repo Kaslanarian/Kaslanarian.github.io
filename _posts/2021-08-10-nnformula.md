@@ -8,7 +8,6 @@ header-img: img/nn_header.svg
 catalog:    true
 tags:
     - 机器学习
-    - 数学
 ---
 
 ## 引言

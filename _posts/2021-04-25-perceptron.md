@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      统计学习方法（二）
-subtitle:   感知机
+title:      感知机算法
+subtitle:   理论与Python实现
 date:       2021-04-25
 author:     Welt Xing
 header-img: img/venti.png
