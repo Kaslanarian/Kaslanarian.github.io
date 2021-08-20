@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Java Notebook
+title:      Java手册
 subtitle:   学习记录
 date:       2021-03-03
 author:     Welt Xing

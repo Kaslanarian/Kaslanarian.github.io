@@ -7,7 +7,6 @@ author:     Welt Xing
 header-img: img/SB8NYc8sC.jpg
 catalog:    true
 tags:
-    - 操作系统
     - 编程技术
 ---
 

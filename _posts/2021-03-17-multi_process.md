@@ -7,7 +7,6 @@ author:     Welt Xing
 header-img: img/process_header.jpg
 catalog:    true
 tags:
-    - 操作系统
     - 编程技术
 ---
 

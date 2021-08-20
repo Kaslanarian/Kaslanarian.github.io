@@ -7,7 +7,7 @@ author:     Welt Xing
 header-img: img/genshin.jpg
 catalog:    true
 tags:
-    - 深度学习
+    - 机器学习
 ---
 
 ## <center>引言
