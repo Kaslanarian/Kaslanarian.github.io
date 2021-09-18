@@ -99,6 +99,27 @@ layout: default
             </section>
             {% endif %}
 
+            <!--search-->
+            <center>
+                <div id="search-container">
+                    <input type="text" id="search-input" placeholder="Search..." maxlength="100">
+                    <ul id="results-container"></ul>
+                </div>
+
+                <!-- Script pointing to search-script.js -->
+                <script src="/js/search-script.js" type="text/javascript"></script>
+
+                <!-- Configuration -->
+                <script>
+                    SimpleJekyllSearch({
+                        searchInput: document.getElementById('search-input'),
+                        resultsContainer: document.getElementById('results-container'),
+                        json: '/search.json'
+                    })
+                </script>
+            </center>
+
+
             <!-- Short About -->
             <section class="visible-md visible-lg">
                 <hr>
