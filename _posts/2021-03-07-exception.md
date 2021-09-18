@@ -7,7 +7,9 @@ author:     Welt Xing
 header-img: img/post-bg-desk.jpg
 catalog:    true
 tags:
-    - 编程技术
+    - Python
+    - C/C++
+    - Java
 ---
 
 ## 引言

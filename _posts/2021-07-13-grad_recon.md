@@ -5,6 +5,10 @@ subtitle:   在SVM中的应用
 date:       2021-07-13
 author:     Welt Xing
 header-img: img/genshin.jpg
+catalog:    true
+tags:
+    - 机器学习
+    - SVM
 ---
 
 ## <center>引言

@@ -7,7 +7,7 @@ author:     Welt Xing
 header-img: img/Java/reflection.jpg
 catalog:    true
 tags:
-    - 编程技术
+    - Java
 ---
 
 我们使用`matrix-java`中的自定义类来进行学习，在`main.java`进行程序测试，代码获取：<https://github.com/Kaslanarian/matrix-java>

@@ -7,7 +7,7 @@ author:     Welt Xing
 header-img: img/star_whale.jpg
 catalog:    true
 tags:
-    - 其它
+    - 生活
 ---
 
 # 2021南星计划相关

@@ -7,7 +7,7 @@ author:     Welt Xing
 header-img: img/diluc.jpg
 catalog:    true
 tags:
-    - 其它
+    - 生活
 ---
 
 ## 数据源

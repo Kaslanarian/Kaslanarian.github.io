@@ -8,6 +8,7 @@ header-img: img/genshin.jpg
 catalog:    true
 tags:
     - 机器学习
+    - 神经网络
 ---
 
 ## <center>引言
