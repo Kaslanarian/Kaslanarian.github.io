@@ -18,8 +18,29 @@ layout: default
     </div>
 </header>
 
+
 <!-- Main Content -->
 <div class="container">
+    <center>
+        <div id="search-container">
+            <input type="text" id="search-input" placeholder="搜索你感兴趣的topic" size="100" style="border-top-left-radius: 10px;border-top-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px">
+            <ul id="results-container"></ul>
+        </div>
+
+        <!-- Script pointing to search-script.js -->
+        <script src="/js/search-script.js" type="text/javascript"></script>
+
+        <!-- Configuration -->
+        <script>
+            SimpleJekyllSearch({
+                searchInput: document.getElementById('search-input'),
+                resultsContainer: document.getElementById('results-container'),
+                json: '/search.json'
+            })
+        </script>
+    </center>
     <div class="row">
         {% if site.sidebar == false %}
         <!-- NO SIDEBAR -->
@@ -32,7 +53,6 @@ layout: default
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 sidebar-container">
-
             <!-- Featured Tags -->
             {% if site.featured-tags %}
             <section>
@@ -98,27 +118,6 @@ layout: default
                 </div>
             </section>
             {% endif %}
-
-            <!--search-->
-            <center>
-                <div id="search-container">
-                    <input type="text" id="search-input" placeholder="Search..." maxlength="100">
-                    <ul id="results-container"></ul>
-                </div>
-
-                <!-- Script pointing to search-script.js -->
-                <script src="/js/search-script.js" type="text/javascript"></script>
-
-                <!-- Configuration -->
-                <script>
-                    SimpleJekyllSearch({
-                        searchInput: document.getElementById('search-input'),
-                        resultsContainer: document.getElementById('results-container'),
-                        json: '/search.json'
-                    })
-                </script>
-            </center>
-
 
             <!-- Short About -->
             <section class="visible-md visible-lg">
