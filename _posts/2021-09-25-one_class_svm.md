@@ -2,7 +2,7 @@
 layout:     post
 title:      异常检测SVM
 subtitle:   OneClassSVM的实现
-date:       2021-09-26
+date:       2021-09-25
 author:     Welt Xing
 header-img: img/genshin.jpg
 catalog:    true
