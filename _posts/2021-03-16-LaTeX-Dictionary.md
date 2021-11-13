@@ -46,3 +46,5 @@ tags:
 |   $\sqsubseteq$    |   \sqsubseteq    |
 |      $\perp$       |      \perp       |
 | $\leftrightarrows$ | \leftrightarrows |
+| $\vee$ | \vee |
+| $\wedge$ | \wedge |
