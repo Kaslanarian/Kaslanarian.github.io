@@ -2,7 +2,7 @@
 layout:     post
 title:      集中不等式(2)
 subtitle:   Concentration
-date:       2021-11-17
+date:       2021-11-22
 author:     Welt Xing
 header-img: img/genshin.jpg
 catalog:    true
