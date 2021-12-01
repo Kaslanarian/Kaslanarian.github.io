@@ -275,3 +275,54 @@ predict [options] test_file model_file output_file
 
 - -b probability_estimates: 选择是否输出预测概率, 0或1 (默认0)，现在只适用于逻辑回归（SVM不存在概率语义）；
 - -q : 静默模式，不输出任何内容.
+
+## 例子
+
+```bash
+./train data_file
+```
+
+训练L2-SVM；
+
+```bash
+./train -s 0 data_file
+```
+
+训练一个LR模型；
+
+```bash
+./train -v 5 -e 0.001 data_file
+```
+
+训练一个L2-SVM，五折交叉验证，收敛阈值设置为$0.001$；
+
+```bash
+./train -C data_file
+...
+Best C = 0.000488281  CV accuracy = 83.3333%
+./train -c 0.000488281 data_file
+```
+
+多次交叉验证训练L2-SVM模型，寻找最优参数$C$，然后使用这个$C$来训练模型；
+
+```bash
+./train -c 10 -w1 2 -w2 5 -w3 2 four_class_data_file
+```
+
+上面的命令会训练4个分类器（多分类采用一对多策略）：
+
+|  正类   |    负类     |  Cp  |  Cn  |
+| :-----: | :---------: | :--: | :--: |
+| class 1 | class 2,3,4 |  20  |  10  |
+| class 2 | class 1,3,4 |  50  |  10  |
+| class 3 | class 1,2,4 |  20  |  10  |
+| class 4 | class 1,2,3 |  10  |  10  |
+
+Cp是对正类样本的惩罚参数，Cn则是对负类的惩罚参数。惩罚越大，说明样本越重要，权重越大。这里的命令指定了样本的权重，实际上就是修改了正类样本的惩罚。
+
+```bash
+./predict -b 1 test_file data_file.model output_file
+```
+
+输出概率估计（只适用于逻辑回归模型）。
+
