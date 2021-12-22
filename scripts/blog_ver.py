@@ -83,13 +83,26 @@ for link in link_list:
         src_path[max(src_path.rfind('\\'), src_path.rfind('/')) + 1:],
     )
 
-# 处理公式现实问题：要在前一个"$$"前换行，在后一个"$$"后换行
+# 处理HTML格式的图片插入
+rex = r'\<img.*?\/\>'
+link_list = re.findall(rex, blog_text)
 
-# rex = r'\$\$\n.*?\n\$\$'
-# formula_list = re.findall(rex, blog_text)
-
-# for formula in formula_list:
-    # blog_text = blog_text.replace(formula, '\n' + formula + '\n')
+for link in link_list:
+    # eg : <img src="X.png" alt="X" style="zoom:50%;" />
+    start = link.find('\"')
+    end = link.find("\"", start + 1)
+    src_path = link[start + 1:end]
+    if "http" in src_path:
+        continue
+    os.system(
+        "cp %s %s" %
+        (src_path.replace('\\', '/').replace('C:', '/mnt/c'), target_path))
+    # 修改blog_text中的文件名
+    blog_text = blog_text.replace(
+        src_path,
+        target_path[1:] +
+        src_path[max(src_path.rfind('\\'), src_path.rfind('/')) + 1:],
+    )
 
 # 写新文件
 print(filename)
