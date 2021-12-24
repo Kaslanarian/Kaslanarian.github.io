@@ -48,3 +48,4 @@ tags:
 | $\leftrightarrows$ | \leftrightarrows |
 | $\vee$ | \vee |
 | $\wedge$ | \wedge |
+| $\circledast$ | \circledast |
