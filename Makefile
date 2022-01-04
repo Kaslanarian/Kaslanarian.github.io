@@ -21,4 +21,4 @@ update:
 
 .PHONY:
 clean:
-	@-rm -rf _site
+	@jekyll clean
