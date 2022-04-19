@@ -110,7 +110,7 @@ $$
 而如果用正态分布，我们会去查表计算累积密度：
 
 $$
-\Phi(\dfrac{k-\mu}{\sigma})=\int_{-\infty}^k\dfrac{1}{\sqrt{2\pi}\sigma}\exp(-\dfrac{(x-\mu)^2}{\sigma^2}) \mathrm dx
+\Phi(\dfrac{k-\mu}{\sigma})=\int_{-\infty}^k\dfrac{1}{\sqrt{2\pi}\sigma}\exp(-\dfrac{(x-\mu)^2}{2\sigma^2}) \mathrm dx
 $$
 
 问题出在这里，我们用图像来说明：
