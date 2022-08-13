@@ -7,7 +7,7 @@ author:     Welt Xing
 header-img: img/background.jpg
 catalog:    true
 tags:
-    - 日常
+    - 生活
 ---
 简单介绍流程：
 
