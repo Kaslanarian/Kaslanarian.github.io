@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      南京大学2022年开放日(夏令营)流程介绍与面试经验分享
-subtitle:   
+title:      南京大学人工智能学院2022年开放日(夏令营)
+subtitle:   流程介绍与面试经验分享
 date:       2022-08-12
 author:     Welt Xing
 header-img: img/background.jpg
