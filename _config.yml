@@ -2,7 +2,7 @@
 title: Vago Mundo
 SEOTitle: 邢存远的博客 | Welt Xing's Blog
 header-img: img/genshin.jpg
-email: 191300064@smail.nju.edu.cn
+email: xingcy@smail.nju.edu.cn
 description: "老访客请刷新获取最新内容"
 keyword: "邢存远的博客"
 url: "http://Kaslanarian.github.io" # your host, for absolute URL
@@ -11,7 +11,7 @@ github_repo: "https://github.com/Kaslanarian/Kaslanarian.github.io.git" # you co
 
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
-sidebar-about-description: "以殒天苍岩星，昭命理昏瞑者"
+sidebar-about-description: "甄心动惧，敏以敬慎"
 sidebar-avatar: /img/bough_keeper.png # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # SNS settings
